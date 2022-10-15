@@ -7,7 +7,7 @@ main{
 fieldset{
   margin-bottom: 1em;
 }
-.cancel-btn{
+.cancel-btn, .muted{
   background-color: #668fb2;
 }
 .list-container{
@@ -15,4 +15,13 @@ fieldset{
 }
 .thing-description{
   white-space: pre-line;
+}
+.thing-card_footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.thing-status{
+    align-self: end;
+    margin-bottom: 0.3em;
 }

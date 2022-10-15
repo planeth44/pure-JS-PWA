@@ -20,13 +20,13 @@ function thingCardTmpl(t) {
       <div>
         <span class="label warning">${t.category}</span>
       </div>
-      ${(t.peopleInvolved) ? `${peopleTmpl(t)}` : ''}
-    <footer>
+      ${(t.peopleInvolved == 'yes') ? `${consequenceTmpl(t)}` : ''}
+    <footer class="thing-card_footer">
       <a href="/edit/${t.id}" class="button">Edit</a>
-      <span class="label status-color">syncStatus</span>
+      <span class="label thing-status muted">${t.syncStatus} sync</span>
     </footer> `
 }
-function peopleTmpl(t) {
+function consequenceTmpl(t) {
   return `
   <div>
    People were involved, during ${t.numbreHoursDowntime} hours<br>
@@ -41,6 +41,7 @@ getFromStore('theModel', instanceId).then((instance) => {
   }
   instance.category = category.join(', ')
   const content = thingCardTmpl(instance)
+
   thingContainer.insertAdjacentHTML('afterbegin', content)
 })
 

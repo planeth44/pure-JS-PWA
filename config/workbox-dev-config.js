@@ -4,6 +4,9 @@ module.exports = {
     "**/*.{css,js,mjs,html,png,json}"
   ],
    "globIgnores": [
+    "js/vendor/workbox*/workbox-recipes.*",
+    "js/vendor/workbox*/workbox-window.dev.*",
+    "js/vendor/workbox*/workbox-background-sync.*",
     "js/vendor/workbox*/workbox-broadcast-update.*",
     "js/vendor/workbox*/workbox-offline-ga.*",
     "js/vendor/workbox*/workbox-cacheable-response.*",
