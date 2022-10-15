@@ -5,7 +5,7 @@ import notifyUser from '../js/libs/user-notification.js'
 // <!-- register your service Worker -->
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('sw.js')
+    navigator.serviceWorker.register('/sw.js')
       .then((reg) => {
         // registration worked
         console.log('Registration succeeded.');

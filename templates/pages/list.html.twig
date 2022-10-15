@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block componentScript %}
+  <script type="module" src="./js/list/listController.js"></script>
+{% endblock %}
+
+
+{% block body %}
+
+    <h3>List the things</h3>
+    <ol class="list-container" data-list-container>
+    </ol>
+
+{% endblock body %}

@@ -6,7 +6,7 @@ import changeHandlers from './changeHandlers.js'
 import {dbPromise} from '../db.js'
 
 const theModel = {
-        thingMeta: {
+        meta: {
             date: new Date(),
             place: ''
         },
@@ -22,24 +22,43 @@ const theModel = {
         numbreHoursDowntime: 0,
         computedValueFromNbrHours: 0,
         addedAt: new Date(),
-        updatedAt: null
+        updatedAt: null,
+        syncStatus: 'pending',
+        uuid: self.crypto.randomUUID()
     },
-    formEl = document.forms.editTheThingForm;
-let instanceId = null,
-    formControls = [];
+    formEl = document.forms.editTheThingForm
+;
+let formControls = [],
+instanceId =  null,
+create = true
+;
+if(!location.pathname.endsWith('edit')){
+    instanceId = Number(location.pathname.split('/').pop())
+    create = false
+}
+
 
 /*
  * Event listeners
  */
 
-document.addEventListener('DOMContentLoaded', updateControlsFromModel);
+document.addEventListener('DOMContentLoaded', init);
 
-formEl.addEventListener('submit', updateStore)
+formEl.addEventListener('submit', done)
 formEl.addEventListener('change', updateObject)
 
 /*
  * Functions
  */
+
+async function init(){
+    if (!create){
+        const instance = await getFromStore('theModel', instanceId)
+        Object.assign(theModel, instance)
+    }
+    updateControlsFromModel()
+}
+
 function updateControlsFromModel() {
 
     /*
@@ -75,7 +94,7 @@ async function updateObject(event) {
     let handler = event.target.getAttribute('data-change');
 
     if (handler && changeHandlers[handler]){
-        changeHandlers[handler](e, theModel);
+        changeHandlers[handler](event, theModel);
     }
     else {
         updateObjectFromControl(event)
@@ -109,6 +128,11 @@ function updateObjectFromControl(event) {
 
     setByPath(theModel, path, value)
     console.log(theModel)
+}
+
+async function done(event) {
+    await updateStore(event)
+    location.href = `${location.origin }/show/${instanceId}`
 }
 
 async function updateStore(event) {
@@ -162,5 +186,13 @@ async function putToStore(store, instance) {
     const db = await dbPromise
 
     return await db.put(store, instance);
+}
+
+async function getFromStore(store, key) {
+
+    const db = await dbPromise
+    const thing = await db.get(store, key)
+
+    return thing
 }
 

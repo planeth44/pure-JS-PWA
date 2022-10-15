@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block componentScript %}
-  <script type="module" src="./js/edit/modelController.js"></script>
+  <script type="module" src="/js/edit/modelController.js"></script>
 {% endblock %}
 
 
@@ -14,12 +14,12 @@
     <div class="flpwa-control">
       <label>
         The date
-        <input type="datetime-local" name="thingMeta[date]">
+        <input type="datetime-local" name="meta[date]">
       </label>
     </div>
     <div class="flpwa-control">
       <label>Where did the Thing took place
-        <select name="thingMeta[place]">
+        <select name="meta[place]">
           <option></option>
           <option>Paris</option>
           <option>London</option>

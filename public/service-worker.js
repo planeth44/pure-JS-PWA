@@ -38,6 +38,17 @@ self.addEventListener('activate', event => {
   event.waitUntil(clients.claim())
 })
 
+  new routing.registerRoute(new routing.NavigationRoute(
+      new precaching.createHandlerBoundToURL('/edit'), {
+          allowlist: [new RegExp('/edit/[0-9]+')]
+      }
+  ))
+  new routing.registerRoute(new routing.NavigationRoute(
+      new precaching.createHandlerBoundToURL('/show'), {
+          allowlist: [new RegExp('/show/[0-9]+')]
+      }
+  ))
+
 // new routing.registerRoute(
 //   ({url, request }) => {
 //     return (url.pathname === '/result');

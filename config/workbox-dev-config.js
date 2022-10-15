@@ -18,7 +18,15 @@ module.exports = {
       '../templates/base.html.twig',
     ],
     '/edit': [
-      '../templates/pages/objectForm.html.twig',
+      '../templates/pages/edit.html.twig',
+      '../templates/base.html.twig',
+    ],
+    '/list': [
+      '../templates/pages/list.html.twig',
+      '../templates/base.html.twig',
+    ],
+    '/show': [
+      '../templates/pages/show.html.twig',
       '../templates/base.html.twig',
     ],
   },

@@ -10,3 +10,9 @@ fieldset{
 .cancel-btn{
   background-color: #668fb2;
 }
+.list-container{
+  padding-left: 0;
+}
+.thing-description{
+  white-space: pre-line;
+}

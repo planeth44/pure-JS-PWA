@@ -72,7 +72,7 @@ class Kernel extends BaseKernel
                     ]
                 ]
             );
-        $routes->add('list', '/show')
+        $routes->add('show', '/show')
             ->controller(TemplateController::class)
             ->defaults(
                 [
