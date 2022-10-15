@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+
+  {% block componentScript %}{% endblock %}
+
+  <title> {{ title|default('Pure JS offline first PWA') }} </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" type="text/css" href="./css/picnic.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  
+  {% block componentStyle %}{% endblock %}
+</head>
+<body>
+  <nav class="demo">
+    <a href="#" class="brand">
+      <span>Pure JS offline first PWA</span>
+    </a>
+
+    <!-- responsive-->
+    <input id="bmenub" type="checkbox" class="show">
+    <label for="bmenub" class="burger pseudo button">menu</label>
+
+    <div class="menu">
+      <a href="/edit" class="pseudo button">Add “a Thing”</a>
+      <a href="/list" class="pseudo">List “the Things”</a>
+    </div>
+  </nav>
+  <main>
+
+    </div>  
+    {% block body %}{% endblock %}
+
+  </main>
+
+  <script type="module" src="./js/app.js"> </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

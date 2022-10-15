@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block componentScript %}
+  <script type="module" src="./js/edit/modelController.js"></script>
+{% endblock %}
+
+
+{% block body %}
+
+    <h3>Add a Thing</h3>
+
+<form method="POST" enctype="multipart/form-data" id="editTheThingForm" data-flpwa-components-form action="/">
+  <fieldset>
+    <div class="flpwa-control">
+      <label>
+        The date
+        <input type="datetime-local" name="thingMeta[date]">
+      </label>
+    </div>
+    <div class="flpwa-control">
+      <label>Where did the Thing took place
+        <select name="thingMeta[place]">
+          <option></option>
+          <option>Paris</option>
+          <option>London</option>
+          <option>Berlin</option>
+          <option>Stockholm</option>
+          <option>Madrid</option>
+        </select>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="flpwa-control">
+      <label>
+        Title
+        <input type="text" name="title" />
+      </label>
+    </div>
+    <div class="flpwa-control">
+      <label>
+        Description
+        <textarea name="description"></textarea>
+      </label>
+    </div>
+    <div class="flpwa-control">
+      <legend>Severity</legend>
+      <label class="stack">
+        <input type="checkbox" name="category[cat1]" value="Severe" />
+        <span class="checkable">Severe</span>
+      </label>
+      <label class="stack">
+        <input type="checkbox" name="category[cat2]" value="Important" />
+        <span class="checkable">Important</span>
+      </label>
+      <label class="stack">
+        <input type="checkbox" name="category[cat3]" value="Begnin" />
+        <span class="checkable">Begnin</span>
+      </label>
+      <label class="stack">
+        <input type="checkbox" name="category[cat4]" value="All good" />
+        <span class="checkable">All good</span>
+      </label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>People involved</legend>
+    <div class="flpwa-control">
+      <label>
+        <input type="radio" name="peopleInvolved" value="yes">
+        <span class="checkable">Yes</span>
+      </label>
+      <label>
+        <input type="radio" name="peopleInvolved" value="no">
+        <span class="checkable">No</span>
+      </label>
+    </div>
+    <div class="flpwa-control">
+      <label>
+        Number of hours of downtime
+        <input type="text" name="numbreHoursDowntime" data-change="computeDowntime" data-value-type="integer" inputmode="numeric" />
+      </label>
+    </div>
+  </fieldset>
+
+  <div data-flpwa-submit-area>
+    <button type="submit" title="send form">Done</button>
+    <button type="reset" title="Nah…" class="cancel-btn">Cancel</button>
+  </div>
+</form>
+{% endblock body %}

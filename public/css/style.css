@@ -1,0 +1,12 @@
+main{
+  padding-top: 4em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+fieldset{
+  margin-bottom: 1em;
+}
+.cancel-btn{
+  background-color: #668fb2;
+}
