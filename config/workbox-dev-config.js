@@ -16,39 +16,10 @@ module.exports = {
     '/': [
       '../templates/pages/index.html.twig',
       '../templates/base.html.twig',
-      '../templates/head.html.twig',
-      '../templates/footer.html.twig',
-      '../templates/nav.html.twig'
     ],
-    '/create': [
+    '/edit': [
       '../templates/pages/objectForm.html.twig',
       '../templates/base.html.twig',
-      '../templates/head.html.twig',
-      '../templates/footer.html.twig',
-      '../templates/nav.html.twig'
-    ],
-    '/add': [
-      '../templates/pages/objectAdd.html.twig',
-      '../templates/base.html.twig',
-      '../templates/head.html.twig',
-      '../templates/footer.html.twig',
-      '../templates/nav.html.twig'
-    ],
-    '/statusTmpl': [
-      '../templates/pages/statusTmpl.html.twig',
-      '../templates/base.html.twig',
-      '../templates/head.html.twig',
-      '../templates/footer.html.twig',
-      '../templates/nav.html.twig'
-    ],
-    '/head':[
-      '../templates/head.html.twig'
-    ],
-    '/footer':[
-      '../templates/footer.html.twig'
-    ],
-    '/nav':[
-      '../templates/nav.html.twig'
     ],
   },
   "globFollow": false,

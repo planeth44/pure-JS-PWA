@@ -13,7 +13,6 @@ if (workbox) {
 }
 
 const SW_VERSION = '0.0.1';
-const {queueObjects} = config
 let syncInProgress = false
 
 workbox.setConfig({
@@ -39,19 +38,19 @@ self.addEventListener('activate', event => {
   event.waitUntil(clients.claim())
 })
 
-new routing.registerRoute(
-  ({url, request }) => {
-    return (url.pathname === '/result');
-  },
-  resultHandler
-)
+// new routing.registerRoute(
+//   ({url, request }) => {
+//     return (url.pathname === '/result');
+//   },
+//   resultHandler
+// )
 
-new routing.registerRoute(
-  ({url, request }) => {
-    return (url.pathname === '/status');
-  },
-  queueStatusHandler
-)
+// new routing.registerRoute(
+//   ({url, request }) => {
+//     return (url.pathname === '/status');
+//   },
+//   queueStatusHandler
+// )
 
 self.addEventListener("message", o => {
   if(o.data && "SKIP_WAITING" === o.data.type){

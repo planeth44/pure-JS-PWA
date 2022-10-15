@@ -46,73 +46,43 @@ class Kernel extends BaseKernel
                 'private' => true,
                 ]
             );
-        $routes->add('create', '/create')
+        $routes->add('edit', '/edit')
             ->controller(TemplateController::class)
             ->defaults(
                 [
-                'template'  => 'pages/objectForm.html.twig',
+                'template'  => 'pages/edit.html.twig',
                 'maxAge'    => 86400,
                 'sharedAge' => 86400,
                 'private' => true,
                 'context' => [
-                    'title' => 'Object Form',
+                    'title' => 'Add “a Thing” to indexedDB or edit it',
                     ]
                 ]
             );
-        $routes->add('add', '/add')
+        $routes->add('list', '/list')
             ->controller(TemplateController::class)
             ->defaults(
                 [
-                'template'  => 'pages/objectAdd.html.twig',
+                'template'  => 'pages/list.html.twig',
                 'maxAge'    => 86400,
                 'sharedAge' => 86400,
                 'private' => true,
                 'context' => [
-                    'title' => 'Add Object to iDB',
+                    'title' => 'List “the Things” in indexedDB',
                     ]
                 ]
             );
-        $routes->add('status', '/statusTmpl')
+        $routes->add('list', '/show')
             ->controller(TemplateController::class)
             ->defaults(
                 [
-                'template'  => 'pages/statusTmpl.html.twig',
+                'template'  => 'pages/show.html.twig',
                 'maxAge'    => 86400,
                 'sharedAge' => 86400,
                 'private' => true,
                 'context' => [
-                    'title' => 'Queues Status',
+                    'title' => 'Display “a Things” from indexedDB',
                     ]
-                ]
-            );
-        $routes->add('head', '/head')
-            ->controller(TemplateController::class)
-            ->defaults(
-                [
-                'template'  => 'head.html.twig',
-                'maxAge'    => 86400,
-                'sharedAge' => 86400,
-                'private' => true,
-                ]
-            );
-        $routes->add('footer', '/footer')
-            ->controller(TemplateController::class)
-            ->defaults(
-                [
-                'template'  => 'footer.html.twig',
-                'maxAge'    => 86400,
-                'sharedAge' => 86400,
-                'private' => true,
-                ]
-            );
-        $routes->add('nav', '/nav')
-            ->controller(TemplateController::class)
-            ->defaults(
-                [
-                'template'  => 'nav.html.twig',
-                'maxAge'    => 86400,
-                'sharedAge' => 86400,
-                'private' => true,
                 ]
             );
         $routes->add('multi_files_check', '/api/multiFiles')->controller([$this, 'checkMultfiles']);
