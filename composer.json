@@ -1,0 +1,25 @@
+{
+    "name": "aleth/pure-js-pwa",
+    "description": "Pure JS CRUD offline first PWA",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Aleth\\PureJsPwa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ALeth Gueguen",
+            "email": "planeth@moemoea.fr"
+        }
+    ],
+    "require": {
+        "symfony/config": "^5.4",
+        "symfony/http-kernel": "^5.4",
+        "symfony/http-foundation": "^5.4",
+        "symfony/routing": "^5.4",
+        "symfony/dependency-injection": "^5.4",
+        "symfony/framework-bundle": "^5.4",
+        "symfony/twig-bundle": "^5.4"
+    }
+}

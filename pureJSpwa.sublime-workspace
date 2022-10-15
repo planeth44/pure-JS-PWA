@@ -1,0 +1,1917 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"re",
+				"return"
+			],
+			[
+				"ret",
+				"return〔keyword〕"
+			],
+			[
+				"teh",
+				"theObject"
+			],
+			[
+				"che",
+				"checkBox"
+			],
+			[
+				"con",
+				"console.log"
+			],
+			[
+				"fu",
+				"fun"
+			],
+			[
+				"val",
+				"value4"
+			],
+			[
+				"cons",
+				"const"
+			],
+			[
+				"the",
+				"theObject〔variable〕"
+			],
+			[
+				"for",
+				"formControls〔variable〕"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"fo",
+				"formdata"
+			],
+			[
+				"set",
+				"setByPath"
+			],
+			[
+				"u",
+				"updateObject"
+			],
+			[
+				"ob",
+				"objectId"
+			],
+			[
+				"ad",
+				"addedAt"
+			],
+			[
+				"imp",
+				"import〔keyword〕"
+			],
+			[
+				"th",
+				"theObject"
+			],
+			[
+				"new",
+				"newformdata〔variable〕"
+			],
+			[
+				"down",
+				"downLinkTmpl〔function〕"
+			],
+			[
+				"min",
+				"minDownLinkBlock"
+			],
+			[
+				"minD",
+				"minDownLink"
+			],
+			[
+				"dow",
+				"downLink〔variable〕"
+			],
+			[
+				"e",
+				"else"
+			],
+			[
+				"btn",
+				"btnDisabled"
+			],
+			[
+				"que",
+				"queueStatus〔argument〕"
+			],
+			[
+				"pend",
+				"pendingFiles"
+			],
+			[
+				"qu",
+				"queueObject"
+			],
+			[
+				"to",
+				"tooltipContainer"
+			],
+			[
+				"st",
+				"statusTmpl"
+			],
+			[
+				"stat",
+				"status〔variable〕"
+			],
+			[
+				"s",
+				"scripts"
+			],
+			[
+				"file",
+				"filesSizes"
+			],
+			[
+				"ti",
+				"timestamp"
+			],
+			[
+				"fil",
+				"filesSizes"
+			],
+			[
+				"queu",
+				"queueStatus〔variable〕"
+			],
+			[
+				"queue",
+				"queueStatus"
+			],
+			[
+				"req",
+				"req1"
+			],
+			[
+				"meta",
+				"metaReq〔variable〕"
+			],
+			[
+				"pos",
+				"postFormdata"
+			],
+			[
+				"pro",
+				"property"
+			],
+			[
+				"err",
+				"error"
+			],
+			[
+				"ht",
+				"htmlDoc"
+			],
+			[
+				"doc",
+				"document〔variable〕"
+			],
+			[
+				"fi",
+				"fieldContainer"
+			],
+			[
+				"clas",
+				"class=\"flpwa-field-error"
+			],
+			[
+				"erro",
+				"errors"
+			],
+			[
+				"ins",
+				"insertAdjacentHTML"
+			],
+			[
+				"er",
+				"errors"
+			],
+			[
+				"fie",
+				"fieldContainer〔variable〕"
+			],
+			[
+				"res",
+				"res.json"
+			],
+			[
+				"thro",
+				"throw〔keyword〕"
+			],
+			[
+				"t",
+				"then"
+			],
+			[
+				"respo",
+				"responses"
+			],
+			[
+				"resp",
+				"response"
+			],
+			[
+				"c",
+				"cache"
+			],
+			[
+				"no",
+				"notif"
+			],
+			[
+				"not",
+				"notifierTmpl.js"
+			],
+			[
+				"lo",
+				"$logger〔variable〕"
+			],
+			[
+				"l",
+				"$logger〔variable〕"
+			],
+			[
+				"a",
+				"await"
+			],
+			[
+				"requ",
+				"request"
+			],
+			[
+				"Re",
+				"Response"
+			],
+			[
+				"cn",
+				"console"
+			],
+			[
+				"respon",
+				"responses"
+			],
+			[
+				"Pro",
+				"Promise"
+			],
+			[
+				"RE",
+				"Response"
+			],
+			[
+				"main",
+				"mainNode"
+			],
+			[
+				"get",
+				"getn"
+			],
+			[
+				"use",
+				"userNotification〔variable〕"
+			],
+			[
+				"na",
+				"navNode"
+			],
+			[
+				"nav",
+				"navNode〔variable〕"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"mi",
+				"mixedBinData"
+			],
+			[
+				"em",
+				"embed\tembed"
+			],
+			[
+				"ar",
+				"$arguments〔variable〕"
+			],
+			[
+				"getC",
+				"getContainer〔function〕"
+			],
+			[
+				"w",
+				"watch-sw"
+			],
+			[
+				"he",
+				"header\tTag"
+			],
+			[
+				"co",
+				"componet-script"
+			],
+			[
+				"li",
+				"li\tTag"
+			],
+			[
+				"F",
+				"Form"
+			],
+			[
+				"ne",
+				"newformdata"
+			],
+			[
+				"For",
+				"FormData"
+			],
+			[
+				"ty",
+				"typeof"
+			],
+			[
+				"form",
+				"formdata"
+			],
+			[
+				"im",
+				"imgDiv"
+			],
+			[
+				"el",
+				"elt"
+			],
+			[
+				"forma",
+				"formData〔variable〕"
+			],
+			[
+				"cl",
+				"closest"
+			],
+			[
+				"add",
+				"addToPendingFiles"
+			],
+			[
+				"sho",
+				"showPhoto〔function〕"
+			],
+			[
+				"ac",
+				"action"
+			],
+			[
+				"phot",
+				"photoBlock〔variable〕"
+			],
+			[
+				"me",
+				"method"
+			],
+			[
+				"inp",
+				"input-photo-with-preview.js"
+			],
+			[
+				"pho",
+				"photoBlockTmpl"
+			],
+			[
+				"pre",
+				"preview"
+			],
+			[
+				"pr",
+				"preview"
+			],
+			[
+				"slo",
+				"slotInput"
+			],
+			[
+				"sl",
+				"slotInput"
+			],
+			[
+				"inpu",
+				"inputfile"
+			],
+			[
+				"app",
+				"application"
+			],
+			[
+				"ut",
+				"utilisateur"
+			],
+			[
+				"ser",
+				"serveur"
+			],
+			[
+				"comp",
+				"complète"
+			],
+			[
+				"rép",
+				"réponse"
+			],
+			[
+				"wor",
+				"worker"
+			],
+			[
+				"serv",
+				"service"
+			],
+			[
+				"était",
+				"étaient"
+			],
+			[
+				"fonct",
+				"fonctionnera"
+			],
+			[
+				"tecn",
+				"technologies"
+			],
+			[
+				"la",
+				"laquelle"
+			],
+			[
+				"esa",
+				"easy"
+			],
+			[
+				"frame",
+				"framework"
+			],
+			[
+				"fram",
+				"framework"
+			],
+			[
+				"dev",
+				"devices"
+			],
+			[
+				"ele",
+				"electronic"
+			],
+			[
+				"post",
+				"postLinks"
+			],
+			[
+				"ba",
+				"background\tproperty"
+			],
+			[
+				"inde",
+				"$indexRefresh〔variable〕"
+			],
+			[
+				"enc",
+				"$encoder〔variable〕"
+			],
+			[
+				"padd",
+				"padding\tproperty"
+			],
+			[
+				"cach",
+				"cacheStorage"
+			],
+			[
+				"str_re",
+				"str_replace〔function〕"
+			],
+			[
+				"tw",
+				"$twig〔variable〕"
+			],
+			[
+				"sp",
+				"span\tTag"
+			],
+			[
+				"class",
+				"classList"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 292.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"syor",
+				"Set Syntax: orgmode"
+			],
+			[
+				"syja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"jshin",
+				"JSHint"
+			],
+			[
+				"sy css",
+				"Set Syntax: CSS"
+			],
+			[
+				"sy h",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"sy ja",
+				"Set Syntax: JavaScript (Rails)"
+			],
+			[
+				"sy tw",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"sy cs",
+				"Set Syntax: CSS"
+			],
+			[
+				"sy ht",
+				"Set Syntax: HTML"
+			],
+			[
+				"floo",
+				"Floobits - Join Workspace"
+			],
+			[
+				"sy ya",
+				"Set Syntax: YAML"
+			],
+			[
+				"sy c",
+				"Set Syntax: CSS"
+			],
+			[
+				"sy p",
+				"Set Syntax: PHP"
+			],
+			[
+				"sy ph",
+				"Set Syntax: PHP"
+			],
+			[
+				"sy he",
+				"Set Syntax: HTML (Erlang)"
+			],
+			[
+				"sy php",
+				"Set Syntax: PHP"
+			],
+			[
+				"sy js",
+				"Set Syntax: JSON"
+			],
+			[
+				"sy xm",
+				"Set Syntax: XML"
+			],
+			[
+				"sy ba",
+				"Set Syntax: Bourne Again Shell (bash)"
+			],
+			[
+				"sy sq",
+				"Set Syntax: SQL"
+			],
+			[
+				"sy ma",
+				"Set Syntax: MultiMarkdown"
+			],
+			[
+				"sy mar",
+				"Set Syntax: Markdown"
+			],
+			[
+				"sy jas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sy j",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sy x",
+				"Set Syntax: XML"
+			],
+			[
+				"pacressv",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"sy m",
+				"Set Syntax: MultiMarkdown"
+			],
+			[
+				"pa",
+				"Package Control: List Packages"
+			],
+			[
+				"sy sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"sy s",
+				"Set Syntax: SQL"
+			],
+			[
+				"sy .e",
+				"Plugin Development: Convert Syntax to .sublime-syntax"
+			],
+			[
+				"or",
+				"Set Syntax: orgmode"
+			],
+			[
+				"orgmode",
+				"Preferences: orgmode Settings – Default"
+			],
+			[
+				"org",
+				"Set Syntax: orgmode"
+			],
+			[
+				"pacontr",
+				"Package Control: Install Package"
+			],
+			[
+				"jsh",
+				"Build With: JSHint"
+			],
+			[
+				"j",
+				"Build With: JSHint"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"lint",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"sy sh",
+				"Set Syntax: Haskell"
+			],
+			[
+				"sy curl",
+				"Plugin Development: Convert Syntax to .sublime-syntax"
+			],
+			[
+				"sy q",
+				"Set Syntax: SQL"
+			],
+			[
+				"sy b",
+				"Set Syntax: Bourne Again Shell (bash)"
+			],
+			[
+				"sy md",
+				"Set Syntax: Markdown"
+			],
+			[
+				"SY SQ",
+				"Set Syntax: SQL"
+			],
+			[
+				"sy twi",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"sy",
+				"Set Syntax: Stylus"
+			],
+			[
+				"sy y",
+				"Set Syntax: YAML"
+			],
+			[
+				"sy sty",
+				"Set Syntax: Stylus"
+			],
+			[
+				"sy dot",
+				"Set Syntax: Graphviz (DOT)"
+			],
+			[
+				"sy xml",
+				"Set Syntax: XML"
+			],
+			[
+				"export",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"lang",
+				"LanguageTool: Check Text"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"la",
+				"LanguageTool: Clear Problems"
+			],
+			[
+				"sy st",
+				"Set Syntax: Stylus"
+			],
+			[
+				"sy jad",
+				"Set Syntax: JavaDoc"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"subcod",
+				"SublimeLinter: Choose Lint Mode"
+			],
+			[
+				"",
+				"42 headers: settings"
+			],
+			[
+				"sy HT",
+				"Set Syntax: HTML"
+			],
+			[
+				"sy t",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"sy ",
+				"Set Syntax: Stylus"
+			],
+			[
+				"package",
+				"Package Control: Discover Packages"
+			],
+			[
+				"syht",
+				"Set Syntax: HTML"
+			],
+			[
+				"syst",
+				"Set Syntax: Stylus"
+			],
+			[
+				"syj",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sysq",
+				"Set Syntax: SQL"
+			],
+			[
+				"sycs",
+				"Set Syntax: CSS"
+			],
+			[
+				"syph",
+				"Set Syntax: PHP"
+			],
+			[
+				"syphp",
+				"Set Syntax: PHP"
+			],
+			[
+				"syp",
+				"Set Syntax: PHP"
+			],
+			[
+				"paccon",
+				"Package Control: Remove Package"
+			],
+			[
+				"pli",
+				"Package Control: Disable Package"
+			],
+			[
+				"sys",
+				"Set Syntax: Stylus"
+			],
+			[
+				"syba",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"syh",
+				"SublimeLinter: Choose Mark Style"
+			],
+			[
+				"sypy",
+				"Set Syntax: Python"
+			],
+			[
+				"pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"syc",
+				"Set Syntax: CSS"
+			],
+			[
+				"sytext",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"syjs",
+				"Set Syntax: JSON"
+			],
+			[
+				"syt",
+				"Set Syntax: Textile"
+			],
+			[
+				"systy",
+				"Set Syntax: Stylus"
+			],
+			[
+				"syhtml",
+				"Set Syntax: HTML"
+			],
+			[
+				"sycss",
+				"Set Syntax: CSS"
+			],
+			[
+				"ma",
+				"Set Syntax: Makefile"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"js",
+				"Set Syntax: JSON"
+			],
+			[
+				"tex",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"jso",
+				"Set Syntax: JSON"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"add",
+				"Package Control: Add Repository"
+			],
+			[
+				"pa li",
+				"Package Control: List Packages"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"sy rc",
+				"Set Syntax: R Console"
+			],
+			[
+				"pa in",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: List Packages"
+			],
+			[
+				"in pa",
+				"Package Control: Install Package"
+			],
+			[
+				"install pac",
+				"Package Control: Install Package"
+			],
+			[
+				"syn ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set",
+				"Set Syntax: PHP"
+			]
+		],
+		"width": 396.0
+	},
+	"console":
+	{
+		"height": 349.0,
+		"history":
+		[
+			"Floobits - Complete Sign Up",
+			"2592000 * 6",
+			"60 * 60 * 24 * 30",
+			"86400 / 360",
+			"86400 / 60",
+			"view.settings().get(\"color_scheme\")",
+			"1800/60",
+			"900/60",
+			"300000 / 1000 / 60",
+			" 2^24",
+			"5 * 60",
+			"1586425458 - 1586425124",
+			"1586423407 - 1586423407",
+			"1024 * 3/4",
+			"1024 * *3/4",
+			"2048*2*2*2",
+			"2048*2*2",
+			"2048*2",
+			"32/24",
+			"142*8",
+			"896/8",
+			"384/8",
+			"142*8",
+			"2048/8",
+			"320*8",
+			"68*8",
+			"68*3",
+			"1288/20",
+			"2048*2",
+			"251894578669/60/60/24",
+			"251894578669/60/60",
+			"251894578669/60",
+			"100/9",
+			"168/7",
+			"168/7/4.5",
+			"168/8/5",
+			"24 / 4",
+			"168 / 7",
+			"536 - 368",
+			"536 368",
+			"60*60*24*30",
+			"536 - 295",
+			"536 - 255",
+			"640 * 80 /100",
+			"122/2",
+			"507 - 385 ",
+			"640*5",
+			"640*4",
+			"0.78571 * 3.5",
+			"0.78571 * 3",
+			"0.78571 * 2",
+			"536 - 281",
+			"15/1.33",
+			"1.33*4",
+			"1.33*3",
+			"1.33*5",
+			"1.33*4",
+			"67*8",
+			"20000/300",
+			"16/9",
+			"960/600",
+			"1.3571 * 13",
+			"1.3571 * 14",
+			"53/14",
+			"106/2",
+			"106/14",
+			"51+55",
+			"23/14",
+			"47*8",
+			"8*48",
+			"3+1+.5+1+1.5",
+			"diff -u /home/aleth/WebDev/ESTY/setup/galery_setup.php /DATA/Aa-WebDev/ESTY/setup/galery_setup.php",
+			"diff -u /home/aleth/Bureau/postmaster_v1.php /home/aleth/Bureau/postmaster_v2.php",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/aleth/WebDev/pureJsPWA"
+	],
+	"file_history":
+	[
+		"/home/aleth/WebDev/components/public/libs/localISODateTime.js",
+		"/home/aleth/WebDev/components/public/libs/formsPost/postFormData.js",
+		"/home/aleth/WebDev/components/public/libs/formsPost/getFormEl.js",
+		"/home/aleth/WebDev/components/public/libs/formsPost/updateObject.js",
+		"/home/aleth/.config/sublime-text-3/Packages/orgmode/messages/install.org",
+		"/home/aleth/WebDev/components/templates/pages/objectAdd.html.twig",
+		"/home/aleth/WebDev/components/public/js/db.js",
+		"/home/aleth/WebDev/components/public/libs/formsPost/formDataToObject.js",
+		"/home/aleth/WebDev/AppNavJournal/navjournal/public/assets/js/journal/postController.js",
+		"/home/aleth/WebDev/components/.gitignore",
+		"/home/aleth/WebDev/AppNavJournal/navjournal/public/assets/js/journal/localISODateTime.js",
+		"/home/aleth/WebDev/components/templates/pages/objectForm.html.twig",
+		"/home/aleth/WebDev/components/formDataToObject/js/formDataToObject.js",
+		"/home/aleth/WebDev/components/public/pwa-components/input-files-multiple/script.js",
+		"/home/aleth/WebDev/components/public/sw/uploadController.js",
+		"/home/aleth/WebDev/components/public/css/style.css",
+		"/home/aleth/WebDev/components/api/multiFiles.php",
+		"/home/aleth/WebDev/components/public/service-worker.js",
+		"/home/aleth/WebDev/components/config/workbox-dev-config.js",
+		"/home/aleth/WebDev/components/public/index.php",
+		"/home/aleth/WebDev/AppAtes/public/sw/db.js",
+		"/home/aleth/WebDev/components/templates/nav.html.twig",
+		"/home/aleth/WebDev/AppAtes/public/assets/js/db.js",
+		"/home/aleth/WebDev/components/public/js/app.js",
+		"/home/aleth/WebDev/components/Makefile",
+		"/home/aleth/WebDev/AppAtes/Makefile",
+		"/home/aleth/WebDev/components/composer.json",
+		"/home/aleth/WebDev/components/public/.jshintrc",
+		"/home/aleth/WebDev/components/.jshintrc",
+		"/home/aleth/WebDev/components/public/pwa-components/user-notification/script.js",
+		"/home/aleth/WebDev/components/public/pwa-components/user-notification/readme.md",
+		"/home/aleth/WebDev/components/templates/base.html.twig",
+		"/home/aleth/WebDev/components/public/libs/documentMessage.js",
+		"/home/aleth/WebDev/components/public/sw.js",
+		"/home/aleth/WebDev/components/templates/pages/statusTmpl.html.twig",
+		"/home/aleth/WebDev/components/public/libs/query.js",
+		"/home/aleth/WebDev/components/public/pwa-components/user-notification/notifierTmpl.js",
+		"/home/aleth/WebDev/components/public/libs/config.js",
+		"/home/aleth/WebDev/components/public/sw/queueStatusController.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-background-sync.dev.js",
+		"/home/aleth/WebDev/components/public/sw/resultController.js",
+		"/home/aleth/WebDev/components/templates/footer.html.twig",
+		"/home/aleth/WebDev/components/public/sw/storeManager.js",
+		"/home/aleth/WebDev/components/.git/COMMIT_EDITMSG",
+		"/home/aleth/WebDev/components/templates/pages/status-footer.html",
+		"/home/aleth/WebDev/components/public/libs/dexie/dexie.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-window.dev.umd.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-window.dev.mjs",
+		"/home/aleth/WebDev/components/public/.htaccess",
+		"/home/aleth/WebDev/components/public/libs/formsPost/formErrorsUI.js",
+		"/home/aleth/WebDev/components/public/sw/readme.md",
+		"/home/aleth/WebDev/components/public/libs/formsPost/postData.js",
+		"/home/aleth/WebDev/AppAtes/public/service-worker.js",
+		"/home/aleth/WebDev/components/public/libs/formsPost/readme.md",
+		"/home/aleth/WebDev/components/templates/head.html.twig",
+		"/home/aleth/WebDev/components/templates/pages/status.html.twig",
+		"/home/aleth/WebDev/components/public/libs/input-accept-mime-type.md",
+		"/home/aleth/WebDev/components/node_modules/async/constant.js",
+		"/home/aleth/WebDev/components/public/libs/utils.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-strategies.dev.js",
+		"/home/aleth/WebDev/AppSmarttLeads/public/service-worker.js",
+		"/home/aleth/WebDev/components/templates/pages/postComplete.html.twig",
+		"/home/aleth/WebDev/components/package.json",
+		"/home/aleth/floobits/welcome.md",
+		"/home/aleth/WebDev/components/vendor/symfony/http-foundation/RedirectResponse.php",
+		"/home/aleth/WebDev/components/vendor/psr/log/Psr/Log/LoggerInterface.php",
+		"/home/aleth/WebDev/components/vendor/psr/log/Psr/Log/LogLevel.php",
+		"/home/aleth/WebDev/components/vendor/symfony/http-kernel/Log/Logger.php",
+		"/home/aleth/WebDev/components/z-discontinued-input-photo/input-photo-with-preview.js",
+		"/home/aleth/WebDev/components/readme.md",
+		"/home/aleth/WebDev/components/public/libs/constants.js",
+		"/home/aleth/WebDev/components/public/pwa-components/user-notification/notifier.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-sw.js",
+		"/home/aleth/.config/sublime-text-3/Packages/JSHint/Base File.sublime-settings",
+		"/home/aleth/WebDev/AppNavJournal/navjournal/public/service-worker-journal.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-expiration.prod.js",
+		"/home/aleth/WebDev/components/public/libs/getFormEl.js",
+		"/home/aleth/WebDev/components/public/sw/utils.js",
+		"/home/aleth/twitter-thread/twitter-threading/thread.yaml",
+		"/home/aleth/twitter-thread/twitter-threading/template.yaml",
+		"/home/aleth/Documents/SHIFTERS/archives-gazette-layout.html",
+		"/home/aleth/WebDev/components/node_modules/lit-html/lib/default-template-processor.js",
+		"/home/aleth/WebDev/components/vendor/symfony/framework-bundle/Controller/TemplateController.php",
+		"/home/aleth/WebDev/components/vendor/symfony/http-kernel/HttpKernel.php",
+		"/home/aleth/WebDev/components/vendor/symfony/http-kernel/Event/ControllerArgumentsEvent.php",
+		"/home/aleth/WebDev/components/vendor/symfony/http-kernel/Controller/ArgumentResolver.php",
+		"/home/aleth/WebDev/components/vendor/symfony/twig-bundle/composer.json",
+		"/home/aleth/WebDev/components/vendor/twig/twig/composer.json",
+		"/home/aleth/WebDev/components/vendor/symfony/dependency-injection/Container.php",
+		"/home/aleth/WebDev/components/vendor/symfony/http-kernel/Kernel.php",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-core.dev.js",
+		"/home/aleth/WebDev/components/public/pwa-components/input-photo-preview/script.js",
+		"/home/aleth/WebDev/components/public/libs/workbox/workbox-v5.1.3/workbox-broadcast-update.dev.js",
+		"/home/aleth/WebDev/components/index.php",
+		"/home/aleth/WebDev/components/sw.js",
+		"/home/aleth/WebDev/components/templates/pages/index.html.twig",
+		"/home/aleth/WebDev/components/css/style.css",
+		"/home/aleth/WebDev/components/public/index.html",
+		"/home/aleth/WebDev/components/vendor/symfony/routing/Loader/Configurator/RoutingConfigurator.php",
+		"/home/aleth/WebDev/components/vendor/symfony/routing/RouteCollection.php",
+		"/home/aleth/WebDev/components/vendor/symfony/routing/Loader/Configurator/Traits/RouteTrait.php",
+		"/home/aleth/WebDev/components/vendor/symfony/routing/Matcher/UrlMatcher.php",
+		"/home/aleth/WebDev/components/public/pwa-components/input-files-multiple/readme.md",
+		"/home/aleth/WebDev/components/public/libs/assertFormElAttributes.js",
+		"/home/aleth/WebDev/components/vendor/symfony/http-foundation/Request.php",
+		"/home/aleth/WebDev/components/public/workbox-c692813c.js.map",
+		"/home/aleth/WebDev/components/public/workbox-c692813c.js",
+		"/home/aleth/WebDev/components/config/workbox-config-dist.js",
+		"/home/aleth/WebDev/components/workbox-config-dist.js",
+		"/home/aleth/WebDev/components/workbox-config.js",
+		"/home/aleth/WebDev/components/public/sw.js.map",
+		"/home/aleth/WebDev/components/input-photo-preview/index.html",
+		"/home/aleth/WebDev/components/input-files-multiple/index.html",
+		"/home/aleth/WebDev/components/input-photo-preview/script.js",
+		"/home/aleth/WebDev/components/libs/query.js",
+		"/home/aleth/WebDev/components/libs/testFormEl.js",
+		"/home/aleth/WebDev/components/libs/getFormEl.js",
+		"/home/aleth/WebDev/components/input-files-multiple/multiFiles.php",
+		"/home/aleth/WebDev/AppAtes/composer.json",
+		"/home/aleth/WebDev/components/TO DO.md",
+		"/home/aleth/WebDev/components/vendor/squizlabs/php_codesniffer/README.md",
+		"/home/aleth/WebDev/components/vendor/friendsofphp/php-cs-fixer/README.md",
+		"/home/aleth/WebDev/components/input-photo-preview/input-photo-with-preview.js",
+		"/home/aleth/WebDev/components/.php_cs.dist",
+		"/home/aleth/WebDev/components/.php_cs.cache",
+		"/home/aleth/WebDev/components/tools/php-cs-fixer",
+		"/home/aleth/WebDev/components/input-photo-preview/style.css",
+		"/home/aleth/WebDev/components/input-photo/input-photo-with-preview.js"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 232.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 71.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 118.0
+	},
+	"output.exec":
+	{
+		"height": 292.0
+	},
+	"output.find_results":
+	{
+		"height": 118.0
+	},
+	"output.languagetool":
+	{
+		"height": 118.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 126.0
+	},
+	"output.xdebug":
+	{
+		"height": 91.0
+	},
+	"pinned_build_system": "",
+	"project": "pureJSpwa.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"gitign",
+				".gitignore"
+			],
+			[
+				"formpotoobj",
+				"public/libs/formsPost/formDataToObject.js"
+			],
+			[
+				"fortoob",
+				"formDataToObject/js/formDataToObject.js"
+			],
+			[
+				"dbjs",
+				"public/js/db.js"
+			],
+			[
+				"inphp",
+				"public/index.php"
+			],
+			[
+				"worcon",
+				"config/workbox-dev-config.js"
+			],
+			[
+				"serwo",
+				"public/service-worker.js"
+			],
+			[
+				"worconfi",
+				"config/workbox-dev-config.js"
+			],
+			[
+				"mak",
+				"Makefile"
+			],
+			[
+				"ser",
+				"public/service-worker.js"
+			],
+			[
+				"serwor",
+				"public/service-worker.js"
+			],
+			[
+				"apimulfi",
+				"api/multiFiles.php"
+			],
+			[
+				"worconf",
+				"config/workbox-dev-config.js"
+			],
+			[
+				"makefi",
+				"Makefile"
+			],
+			[
+				"compo",
+				"composer.json"
+			],
+			[
+				"obfortw",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"jsappj",
+				"public/js/app.js"
+			],
+			[
+				"",
+				"public/css/style.css"
+			],
+			[
+				"multiplescrijs",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"formdatoobj",
+				"formDataToObject/js/formDataToObject.js"
+			],
+			[
+				"documentMessage",
+				"public/libs/documentMessage.js"
+			],
+			[
+				"usernotsc",
+				"public/pwa-components/user-notification/script.js"
+			],
+			[
+				"base",
+				"templates/base.html.twig"
+			],
+			[
+				"serworke",
+				"public/service-worker.js"
+			],
+			[
+				"compon user no",
+				"public/pwa-components/user-notification/script.js"
+			],
+			[
+				"compo notij",
+				"public/pwa-components/user-notification/notifierTmpl.js"
+			],
+			[
+				"result",
+				"public/sw/resultController.js"
+			],
+			[
+				"bas",
+				"templates/base.html.twig"
+			],
+			[
+				"storma",
+				"public/sw/storeManager.js"
+			],
+			[
+				"styecss",
+				"public/css/style.css"
+			],
+			[
+				"inde",
+				"public/index.php"
+			],
+			[
+				"foo",
+				"templates/footer.html.twig"
+			],
+			[
+				"footer",
+				"templates/footer.html.twig"
+			],
+			[
+				"baseht",
+				"templates/base.html.twig"
+			],
+			[
+				"confi",
+				"public/libs/config.js"
+			],
+			[
+				"todo",
+				"TO DO.md"
+			],
+			[
+				"app",
+				"public/js/app.js"
+			],
+			[
+				"worwindevjs",
+				"public/libs/workbox/workbox-v5.1.3/workbox-window.dev.umd.js"
+			],
+			[
+				"worbwind",
+				"public/libs/workbox/workbox-v5.1.3/workbox-window.dev.mjs"
+			],
+			[
+				"objecfo",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"uplcon",
+				"public/sw/uploadController.js"
+			],
+			[
+				"obfor",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"resco",
+				"public/sw/resultController.js"
+			],
+			[
+				"objefo",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"multiscriptjs",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"postdata",
+				"public/libs/formsPost/postFormData.js"
+			],
+			[
+				"posfoda",
+				"public/libs/formsPost/postFormData.js"
+			],
+			[
+				"forerui",
+				"public/libs/formsPost/formErrorsUI.js"
+			],
+			[
+				"rescon",
+				"public/sw/resultController.js"
+			],
+			[
+				"statu",
+				"templates/pages/status.html.twig"
+			],
+			[
+				"objfor",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"sty",
+				"public/css/style.css"
+			],
+			[
+				"hea",
+				"templates/head.html.twig"
+			],
+			[
+				"status",
+				"templates/pages/status.html.twig"
+			],
+			[
+				"query",
+				"public/libs/query.js"
+			],
+			[
+				"conf",
+				"public/libs/config.js"
+			],
+			[
+				"uploa",
+				"public/sw/uploadController.js"
+			],
+			[
+				"licons",
+				"public/libs/constants.js"
+			],
+			[
+				"const",
+				"node_modules/async/constant.js"
+			],
+			[
+				"que",
+				"public/libs/query.js"
+			],
+			[
+				"objecFo",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				".git",
+				".gitignore"
+			],
+			[
+				"notif templjs",
+				"public/pwa-components/user-notification/notifierTmpl.js"
+			],
+			[
+				"notiftm",
+				"public/pwa-components/user-notification/notifierTmpl.js"
+			],
+			[
+				"postcom",
+				"templates/pages/postComplete.html.twig"
+			],
+			[
+				"make",
+				"Makefile"
+			],
+			[
+				"poscomp",
+				"templates/pages/postComplete.html.twig"
+			],
+			[
+				"stat",
+				"templates/pages/status.html.twig"
+			],
+			[
+				"notit",
+				"public/pwa-components/user-notification/notifierTmpl.js"
+			],
+			[
+				"sw re",
+				"public/sw/readme.md"
+			],
+			[
+				"uti",
+				"public/libs/utils.js"
+			],
+			[
+				"indphp",
+				"public/index.php"
+			],
+			[
+				"logginterf",
+				"vendor/psr/log/Psr/Log/LoggerInterface.php"
+			],
+			[
+				"log",
+				"vendor/symfony/http-kernel/Log/Logger.php"
+			],
+			[
+				"logg",
+				"vendor/symfony/http-kernel/Log/Logger.php"
+			],
+			[
+				"inpuscr",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"notifscr",
+				"public/pwa-components/user-notification/script.js"
+			],
+			[
+				"readm",
+				"readme.md"
+			],
+			[
+				"cons",
+				"public/libs/constants.js"
+			],
+			[
+				"indephp",
+				"public/index.php"
+			],
+			[
+				"workbox-sw",
+				"public/libs/workbox/workbox-v5.1.3/workbox-sw.js"
+			],
+			[
+				"wocon",
+				"config/workbox-dev-config.js"
+			],
+			[
+				"con",
+				"public/libs/constants.js"
+			],
+			[
+				"head",
+				"templates/head.html.twig"
+			],
+			[
+				"objfo",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"ba",
+				"templates/base.html.twig"
+			],
+			[
+				"objefor",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"quer",
+				"public/libs/query.js"
+			],
+			[
+				"nav",
+				"templates/nav.html.twig"
+			],
+			[
+				"inpmultsc",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"infilescrip",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"getforel",
+				"public/libs/getFormEl.js"
+			],
+			[
+				"obfo",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"pagsta",
+				"templates/pages/status.html.twig"
+			],
+			[
+				"files scrjs",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"mutpscjs",
+				"node_modules/lit-html/lib/default-template-processor.js"
+			],
+			[
+				"compos",
+				"composer.json"
+			],
+			[
+				"twigtwigcompo",
+				"vendor/twig/twig/composer.json"
+			],
+			[
+				"twigbundlecompo",
+				"vendor/symfony/twig-bundle/composer.json"
+			],
+			[
+				"comp",
+				"composer.json"
+			],
+			[
+				"heatw",
+				"templates/head.html.twig"
+			],
+			[
+				"bastw",
+				"templates/base.html.twig"
+			],
+			[
+				"tempcontr",
+				"vendor/symfony/framework-bundle/Controller/TemplateController.php"
+			],
+			[
+				"obforh",
+				"templates/pages/objectForm.html.twig"
+			],
+			[
+				"photscjs",
+				"public/pwa-components/input-photo-preview/script.js"
+			],
+			[
+				"mut scrjs",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"broacu",
+				"public/libs/workbox/workbox-v5.1.3/workbox-broadcast-update.dev.js"
+			],
+			[
+				"condevjs",
+				"config/workbox-dev-config.js"
+			],
+			[
+				"ind",
+				"public/index.php"
+			],
+			[
+				"heatwi",
+				"templates/head.html.twig"
+			],
+			[
+				"pusw",
+				"public/sw.js"
+			],
+			[
+				"sw",
+				"sw.js"
+			],
+			[
+				"conwo",
+				"config/workbox-dev-config.js"
+			],
+			[
+				"indph",
+				"index.php"
+			],
+			[
+				"csstycss",
+				"css/style.css"
+			],
+			[
+				".gi",
+				".gitignore"
+			],
+			[
+				"apimulfil",
+				"api/multiFiles.php"
+			],
+			[
+				"routinconfi",
+				"vendor/symfony/routing/Loader/Configurator/RoutingConfigurator.php"
+			],
+			[
+				"componmul",
+				"public/pwa-components/input-files-multiple/script.js"
+			],
+			[
+				"stcss",
+				"css/style.css"
+			],
+			[
+				"tesfoel",
+				"libs/testFormEl.js"
+			],
+			[
+				"querjs",
+				"libs/query.js"
+			],
+			[
+				"mulmuphp",
+				"input-files-multiple/multiFiles.php"
+			],
+			[
+				"muphp",
+				"api/multiFiles.php"
+			],
+			[
+				"index",
+				"input-photo-preview/index.html"
+			],
+			[
+				"to",
+				"TO DO.md"
+			],
+			[
+				"com",
+				"composer.json"
+			],
+			[
+				"phpfixeremd",
+				"vendor/friendsofphp/php-cs-fixer/README.md"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"navj",
+				"~/WebDev/AppNavJournal/navJournal.sublime-project"
+			],
+			[
+				"ates",
+				"~/WebDev/AppAtes/AppAtes.sublime-project"
+			],
+			[
+				"conv",
+				"~/WebDev/AppConversens/appConversens.sublime-project"
+			],
+			[
+				"draf",
+				"~/Documents/DRAFTS/drafts.sublime-project"
+			],
+			[
+				"dra",
+				"~/Documents/DRAFTS/drafts.sublime-project"
+			],
+			[
+				"astr",
+				"~/WebDev/astro-blieux.fr/astro-blieux.sublime-project"
+			],
+			[
+				"draft",
+				"~/Documents/DRAFTS/drafts.sublime-project"
+			],
+			[
+				"nav",
+				"~/WebDev/AppNavJournal/navJournal.sublime-project"
+			],
+			[
+				"con",
+				"~/WebDev/AppConversens/appConversens.sublime-project"
+			],
+			[
+				"sci",
+				"~/WebDev/SciterApp/SciterApp.sublime-project"
+			],
+			[
+				"prez",
+				"~/BizDocs/PREZ/prezs.sublime-project"
+			],
+			[
+				"",
+				"~/WebDev/AppSmarttLeads/appSmarttLeads.sublime-project"
+			],
+			[
+				"appsma",
+				"~/WebDev/AppSmarttLeads/appSmarttLeads.sublime-project"
+			],
+			[
+				"ple",
+				"~/BizDocs/PREZ/Plenière_BFN_projet_tech_pas_tech/pleniere.sublime-workspace"
+			],
+			[
+				"smart",
+				"~/WebDev/smarttleads/smarttleads.sublime-project"
+			],
+			[
+				"snb",
+				"~/WebDev/SNBPEv2/snbpe.sublime-project"
+			],
+			[
+				"co",
+				"~/WebDev/AppConversens/appConversens.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 339.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 3
+	}
+}

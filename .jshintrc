@@ -1,0 +1,6 @@
+{
+  "browser" : true,
+  // "undef": true,
+  // "unused": true,
+  "asi": true
+}
