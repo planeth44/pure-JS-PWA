@@ -1,10 +1,7 @@
 /*jshint esversion: 8 */
 /* jshint undef: false */
 importScripts('js/vendor/workbox-v6.5.1/workbox-sw.js');
-// importScripts('sw/uploadController.js')
-// importScripts('sw/resultController.js')
-// importScripts('sw/queueStatusController.js')
-// importScripts('libs/config.js')
+importScripts('sw/syncController.js')
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
@@ -38,16 +35,67 @@ self.addEventListener('activate', event => {
   event.waitUntil(clients.claim())
 })
 
-  new routing.registerRoute(new routing.NavigationRoute(
-      new precaching.createHandlerBoundToURL('/edit'), {
-          allowlist: [new RegExp('/edit/[0-9]+')]
-      }
-  ))
-  new routing.registerRoute(new routing.NavigationRoute(
-      new precaching.createHandlerBoundToURL('/show'), {
-          allowlist: [new RegExp('/show/[0-9]+')]
-      }
-  ))
+new routing.registerRoute(new routing.NavigationRoute(
+  new precaching.createHandlerBoundToURL('/edit'), {
+    allowlist: [new RegExp('/edit/[a-z0-9-]+')]
+  }
+))
+new routing.registerRoute(new routing.NavigationRoute(
+  new precaching.createHandlerBoundToURL('/show'), {
+    allowlist: [new RegExp('/show/[a-z0-9-]+')]
+  }
+))
+
+
+self.addEventListener('message', async (event) => {
+
+  console.log(event.data)
+  const handler = event.data.type
+
+  if (handler === 'GET_VERSION') {
+    event.ports[0].postMessage(SW_VERSION);
+    return
+  }
+  if (handler === 'IS_SYNC_IN_PROGRESS') {
+    event.ports[0].postMessage(self.syncInProgress)
+    return
+  }
+  if (handler === 'DO_SYNC') {
+    try{
+      self.syncInProgress = true
+      event.waitUntil(startSync())
+      return
+    } catch (syncError){
+      postMessage({
+        type: 'user.notify',
+        text: syncError.toString()
+      })
+    }
+  }
+
+  if (!handler || !syncHandlers[handler]) {
+    console.error(`no ${handler} or no syncHandlers[${handler}]`)
+    return;
+  }
+  try {
+    event.waitUntil(syncHandlers[handler]())
+  } catch (error) {
+    postMessage({
+      type: 'user.notify',
+      text: error.toString()
+    })
+  }
+
+});
+
+function postMessage(message)
+{
+    return self.clients.matchAll().then(function (clients) {
+        clients.forEach(function (client) {
+            client.postMessage(message)
+        });
+    });
+}
 
 // new routing.registerRoute(
 //   ({url, request }) => {
@@ -62,20 +110,3 @@ self.addEventListener('activate', event => {
 //   },
 //   queueStatusHandler
 // )
-
-self.addEventListener("message", o => {
-  if(o.data && "SKIP_WAITING" === o.data.type){
-    self.skipWaiting()
-  }
-  else{
-    console.log(o.data)
-  }
-})
-
-function postMsg(message) {
-  return self.clients.matchAll().then(function(clients) {
-    clients.forEach(function(client) {
-      client.postMessage(message)
-    });
-  });
-}
