@@ -43,10 +43,12 @@ async function processFile(event) {
         photos can come from file input or share target
          event.target => <input ... /> in case of file input / ServiceWorkerContainer in case of share target
      */
-    if (event.data === undefined) { // undefined in case of file input
+    if (event.data.hasOwnProperty('photos')) { // undefined in case of file input
+        fileList = [...event.data.photos]
+    } else if (event.target.files !== undefined){
         fileList = [...event.target.files]
     } else {
-        fileList = [...event.data.photos]
+        return
     }
 
     fileInput.disabled = true
