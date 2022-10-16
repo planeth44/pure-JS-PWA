@@ -1,4 +1,5 @@
 /*jshint esversion: 9 */
+import _d from './query.js'
 
 function removePhotoBtnTmpl(uuid)
 {
