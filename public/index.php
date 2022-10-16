@@ -85,16 +85,32 @@ class Kernel extends BaseKernel
                     ]
                 ]
             );
-        $routes->add('multi_files_check', '/api/multiFiles')->controller([$this, 'checkMultfiles']);
+        $routes->add('new_models', '/api/models')
+            ->controller([$this, 'newModel'])
+            ->methods(['POST']);
 
+        $routes->add('new_file', '/api/file')
+            ->controller([$this, 'newFile'])
+            ->methods(['PUT']);
+
+        $routes->add('multi_files_check', '/api/multiFiles')->controller([$this, 'checkMultfiles']);
         $routes->add('random_number', '/random/{limit}')->controller([$this, 'randomNumber']);
     }
 
-    // public function createObject(): Response
-    // {
-    //     $response = $this->getContainer()->get('twig')->render('pages/objectForm.html.twig');
-    //     return new Response($response);
-    // }
+    public function newModel(Request $request): Response
+    {
+        
+        return new JsonResponse(array_column(
+                json_decode($request->getContent(), true), 
+                'uuid'
+        ), 201);
+    }
+
+    public function newFile(): Response
+    {
+        dd($request->getContent());
+        return new Response();
+    }
 
     public function checkMultfiles(Request $request)
     {
