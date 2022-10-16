@@ -3,4 +3,7 @@
 - [ ] ModelController. Cancel button should remove the instance ? If yes remove associated docs
 - [ ] ModelController. Done button should trigger validation. And stop to ask to change if need
 - [ ] Better UI for /show
-- [ ] Sync w/ distant server 
+- [ ] implement file caching after upload/sync to distant server see syncController@cachePhoto
+
+~ DONE
+- [X] Sync w/ distant server 
