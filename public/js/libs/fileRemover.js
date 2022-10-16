@@ -1,34 +1,4 @@
 /*jshint esversion: 9 */
-import _d from './query.js'
-import {dbPromise} from '../db.js'
-// import {putToStore, deleteFromStore} from './db.js'
-
-const fileInput = _d.qs('input[name^=documents')
-
-const eventHandlers = {
-    removeFile: async function (evt) {
-        const btn = evt.target,
-            uuid = btn.dataset.fileUuid;
-
-        btn.parentElement.remove()
-
-        await deleteDocument(uuid)
-
-        fileInput.disabled = false
-    }
-};
-
-document.addEventListener('click', function (evt) {
-
-    let handler = evt.target.getAttribute('data-click');
-
-    if (!handler || !eventHandlers[handler]) {
-        return;
-    }
-
-    eventHandlers[handler](evt);
-
-});
 
 function removePhotoBtnTmpl(uuid)
 {
@@ -54,10 +24,5 @@ function addRemoveFileBtns()
     })
 }
 
-async function deleteDocument(uuid) {
-    const db = await dbPromise
-
-    return await db.delete('document', uuid);
-}
 
 export {addRemoveFileBtns}
