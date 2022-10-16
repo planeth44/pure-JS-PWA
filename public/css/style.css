@@ -1,11 +1,15 @@
 main{
-  padding-top: 4em;
+  padding-top: 3em;
   margin-left: 1em;
   margin-right: 1em;
 }
 
 fieldset{
   margin-bottom: 1em;
+}
+.dropimage{
+  width: 36%;
+  padding-bottom: 16%;
 }
 .cancel-btn, .muted{
   background-color: #668fb2;
