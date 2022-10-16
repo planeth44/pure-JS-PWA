@@ -58,6 +58,10 @@ const updateControl = {
     // console.log(JSON.stringify(getByPath(model, element.name)))
     element.value = getByPath(model, element.name)
   },
+  file: function setFile(element, model) {
+    // this is managed by fileController
+    return
+  },
 
 }
 

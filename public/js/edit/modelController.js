@@ -95,6 +95,10 @@ function updateControlsFromModel() {
 
 async function updateObject(event) {
 
+    if (event.target.name == 'documents') {
+        return // change event has bubbled upthere. Do nothing, handled in fileController.js
+    }
+
     let handler = event.target.getAttribute('data-change');
 
     if (handler && changeHandlers[handler]){
@@ -108,6 +112,8 @@ async function updateObject(event) {
 }
 
 function updateObjectFromControl(event) {
+    event.preventDefault()
+
     const formdata = new FormData(formEl)
     const path = event.target.name
     let value = null
