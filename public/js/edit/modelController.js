@@ -28,11 +28,11 @@ const theModel = {
     formEl = document.forms.editTheThingForm
 ;
 let formControls = [],
-instanceId =  null,
+instanceUuid =  null,
 create = true
 ;
 if(!location.pathname.endsWith('edit')){
-    instanceId = Number(location.pathname.split('/').pop())
+    instanceUuid = location.pathname.split('/').pop()
     create = false
 }
 
@@ -52,13 +52,24 @@ formEl.addEventListener('change', updateObject)
 
 async function init(){
     if (!create){
-        const instance = await getFromStore('theModel', instanceId)
+        const instance = await getFromStore('theModel', instanceUuid)
         Object.assign(theModel, instance)
         Object.assign(APP, {
             theModel: {
                 uuid: instance.uuid
             }
         })
+    } else {
+        // case of adding document at the same time as creating the Thing 
+
+        instanceUuid = APP.uuid
+        
+        Object.assign(APP, {
+            theModel: {
+                uuid: APP.uuid
+            }
+        })
+
     }
     updateControlsFromModel()
 }
@@ -142,31 +153,16 @@ function updateObjectFromControl(event) {
 
 async function done(event) {
     await updateStore(event)
-    location.href = `${location.origin }/show/${instanceId}`
+
+    wb.messageSW({
+        type: 'DO_SYNC'
+    });
+
+    location.href = `${location.origin }/show/${instanceUuid}`
 }
 
 async function updateStore(event) {
     event.preventDefault()
-
-    /*
-    @CONSEQUENCE
-    Dropping formData to update theModel :
-    there is no way without jumping through hoops 
-    to know if a value for a key should be an array or a string
-    You get either an array for any key when calling formData.getAll(key)
-    or a succession of string when calling formData.get(key)
-    when cycling through formdata.entries()
-
-
-        const formdata = new FormData(formEl)
-
-        for(const [key, value] of formdata.entries()){
-            console.log(key, value)
-        }
-        const formObj = formDataToObject(formdata)
-
-        Object.assign(theModel, formObj.data)
-    */
 
     /*
         @CONSEQUENCE

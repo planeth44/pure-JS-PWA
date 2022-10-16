@@ -7,15 +7,15 @@ const listContainer = document.querySelector('[data-list-container]')
 /*
 * Templates
  */
-function thingCardTmpl(thing) {
+function thingCardTmpl(m) {
   return `<li class="card">
-        <header>${thing.title}</header>
+        <header>${m.title}</header>
         <div>
-          Added the : <span>${thing.date}</span>
+          Added the : <span>${m.date}</span>
         </div>
         <footer>
-          <a href="/edit/${thing.id}" class="button">Edit the thing</a>
-          <a href="/show/${thing.id}" class="button">Show the thing</a>
+          <a href="/edit/${m.uuid}" class="button">Edit the thing</a>
+          <a href="/show/${m.uuid}" class="button">Show the thing</a>
         </footer>
       </li> `
 }
@@ -23,11 +23,11 @@ function thingCardTmpl(thing) {
 getAllThings().then((list) => {
     console.log(list)
   const cards = []
-  list.forEach((thing) => {
+  list.forEach((instance) => {
     const m = {}
-    m.id = thing.id
-    m.title = thing.title
-    m.date = thing.meta.date.toLocaleString()
+    m.uuid = instance.uuid
+    m.title = instance.title
+    m.date = instance.meta.date.toLocaleString()
     const card = thingCardTmpl(m)
     cards.push(card)
   })

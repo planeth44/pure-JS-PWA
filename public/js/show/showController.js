@@ -3,7 +3,7 @@
 import {dbPromise} from '../db.js'
 
 const thingContainer = document.querySelector('[data-thing-container]')
-const instanceId = Number(location.pathname.split('/').pop())
+const instanceUuid = location.pathname.split('/').pop()
 
 /*
 * Templates
@@ -26,7 +26,7 @@ async function thingCardTmpl(t, docs) {
       ${(t.peopleInvolved) ? `${consequenceTmpl(t)}` : ''}
       <div class="files-wrapper">${docs}</div>
     <footer class="thing-card_footer">
-      <a href="/edit/${t.id}" class="button">Edit</a>
+      <a href="/edit/${t.uuid}" class="button">Edit</a>
       <span class="label thing-status muted">${t.syncStatus} sync</span>
     </footer> `
 }
@@ -38,7 +38,7 @@ function consequenceTmpl(t) {
   </div> `
 }
 
-getTheModel(instanceId).then(async(instance) => {
+getTheModel(instanceUuid).then(async(instance) => {
 
   const docs = await addDocuments(instance.uuid)
   const content = await thingCardTmpl(instance, docs)
