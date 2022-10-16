@@ -119,7 +119,7 @@ async function storeCurrentFile(theFile, fileUuid, parentUuid) {
     const currentFile = {
         uuid: fileUuid, // primaryKey
         parentUuid: parentUuid, // theModel uuid
-        timestamp: new Date().getTime() / 1000,
+        timestamp: Math.floor(new Date().getTime() / 1000),
         mime: theFile.type,
         name: theFile.name,
         syncStatus: 'pending'
