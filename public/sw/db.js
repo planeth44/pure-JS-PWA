@@ -14,19 +14,19 @@ const dbPromise = (async() => {
     return db;
 })();
 
-async function getAllNotes() {
-  const db = await dbPromise;
-  return await db.getAll('post')
+async function getAllPendingModels() {
+  const db = await dbPromise
+  return await db.getAllFromIndex('theModel', 'syncIdx', 'pending')
 }
 
-async function getPendingPhoto() {
+async function getPendingFile() {
   const db = await dbPromise;
-  return await db.getFromIndex('photo', 'photoStatus', 'transmission_pending')
+  return await db.getFromIndex('document', 'syncIdx', 'pending')
 }
 
-async function getFailedPhoto() {
+async function getFailedFile() {
   const db = await dbPromise;
-  return await db.getFromIndex('photo', 'photoStatus', 'transmission_failed')
+  return await db.getFromIndex('document', 'syncIdx', 'failed')
 }
 
 async function deleteFromStore(store, key) {
@@ -37,7 +37,6 @@ async function deleteFromStore(store, key) {
 async function updateObjectStatus(store, key, status, error=null)
 {
     const db = await dbPromise;
-console.log(key)
     const range  = IDBKeyRange.only(key)
     const cursor = await db
         .transaction(store, 'readwrite')
@@ -46,7 +45,7 @@ console.log(key)
 
     const object  = cursor.value
     object.syncStatus = status
-console.log(object)
+
     if(error){
         object.error = error
     }
@@ -61,10 +60,3 @@ async function putToStore(store, record, key=null)
     if (key) args.push(key)
     return await db.put(...args);
 }
-
-async function getAllPendingModels() {
-  const db = await dbPromise
-  return await db.getAllFromIndex('theModel', 'syncIdx', 'pending')
-}
-
-

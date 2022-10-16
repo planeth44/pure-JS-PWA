@@ -5,14 +5,16 @@ importScripts('sw/db.js')
 const syncHandlers = {
 
   transmitText: async function() {
+ 
     const models = await getAllPendingModels()
-    console.log(models)
+
+    if (models.length < 1) {
+      return syncHandlers.transmitFile()
+    }
+ 
     const result = await postModels(models)
     
-    console.log(result)
-    if (undefined === result) {
-      return // bad response is reaching this block
-    }
+    if (undefined === result) return // bad response is reaching this block
     
     const update = await Promise.allSettled(
           result.map(async uuid => {
@@ -26,102 +28,46 @@ const syncHandlers = {
       type: 'user.notify',
       text: 'Texts upload done',
     })
+
+    syncHandlers.transmitFile()
   },
 
-  transmitPhoto: async function() {
+  transmitFile: async function() {
 
-    self.syncInProgress = true
-    const photo = await getPendingPhoto()
-    if (undefined == photo) { // no more photo to transmit
-      return transmitHandlers.transmitFailedPhoto()
+    const file = await getPendingFile()
+
+    if (undefined == file) { // no more file to transmit
+      return syncHandlers.transmitFailedFile()
     }
 
-    return fetch('/journal/photo', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': photo.mime,
-          'X-filename': photo.name,
-        },
-        body: photo.image
-      })
-      .then(async response => {
-        let contentType = response.headers.get('content-type')
+    const json = await postFile(file)
+    
+    if (undefined === json) return // bad response is reaching this block
 
-        if (response.ok && contentType.includes('application/json')) {
+    const update = await handleFileUploaded(json)
 
-          return await handlePhotoUploaded(response)
-        } else if (!response.ok && contentType.includes('text/html')) {
-
-          return await handleFailedPhotoUpload(response, photo.name)
-        } else if (response.ok && contentType.includes('text/html')) {
-          const html = await response.text()
-          postMessage({
-            type: 'user.notify',
-            text: `Trying to upload photos<br>
-                    But, there was an error:<br>
-                    Response was : ${html}`
-          })
-        } else {
-
-          postMessage({
-            type: 'user.notify',
-            text: `Trying to upload photos<br>
-                    But, there was an error:<br>
-                    Response was : ${response.statusText}<br>
-                    content-type was ${contentType}`
-          })
-        }
-      })
-      .catch(error => {
-        console.error(error)
-        postMessage({
-          type: 'user.notify',
-          text: 'We’re offline, sailor ⛵',
-        })
-      })
+    return await syncHandlers.transmitFile()
   },
-  transmitFailedPhoto: async function() {
-    const photo = await getFailedPhoto()
-    if (undefined == photo) { // no more photo to transmit
+ 
+  transmitFailedFile: async function() {
+    const file = await getFailedFile()
+
+    if (undefined == file) { // no more file to transmit
       postMessage({
         type: 'user.notify',
-        text: `No more photo to upload`
+        text: `No more file to upload`
       })
       self.syncInProgress = false
       return
     }
 
-    return fetch('/journal/photo', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': photo.mime,
-          'X-filename': photo.name,
-        },
-        body: photo.image
-      })
-      .then(async response => {
-        let contentType = response.headers.get('content-type')
+    const json = await postFile(file)
+    
+    if (undefined === json){// bad response is reaching this block
+      return
+    }
 
-        if (response.ok && contentType.includes('application/json')) {
-
-          return await handlePhotoUploadedAndStop(response)
-        } else if (!response.ok && contentType.includes('text/html')) {
-
-          return await handleFailedPhotoUpload(response, photo.name)
-        } else {
-
-          postMessage({
-            type: 'user.notify',
-            text: `Trying to upload photos<br>
-                    But, there was an error:<br>
-                    Response was : ${response.statusText}<br>
-                    content-type was ${contentType}`
-          })
-        }
-      })
-      .catch(error => {
-        throw new Error('We’re offline, sailor ⛵')
-      })
+    const update = await handleFileUploaded(json)
 
   }
 }
@@ -152,7 +98,6 @@ async function postModels(models) {
                           But, there was an error:<br>
                           ${html}`
         })
-        return
       })
     } else {
 
@@ -175,54 +120,78 @@ async function postModels(models) {
   })
 }
 
+async function postFile(file) {
+    return fetch('/api/file', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': file.mime,
+          'X-filename': file.name,
+          'X-fileuuid': file.uuid,
+          'X-fileparentuuid': file.parentUuid,
+          'X-filename': file.name,
+        },
+        body: file.blob
+      })
+      .then(async response => {
+        let contentType = response.headers.get('content-type')
 
+        if (response.ok
+         && response.status == 201 && contentType.includes('application/json')) {
 
+          return response.json() 
+        } else if (!response.ok && contentType.includes('text/html')) {
 
-async function handlePhotoUploaded(response) {
-  response.json().then(async res => {
+          return await handleFailedFileUpload(response, file.uuid)
+        } else {
 
-    await cachePhoto(res) // name, filename
-
-    await deleteFromStore('photo', res.name)
-
-    postMessage({
-      type: 'update.photo.queue',
-      photoName: res.name
-    })
-    // queue viewer will message SW for new transitPhoto cycle
-    // return await transmitHandlers.transmitPhoto()
-  })
+          postMessage({
+            type: 'user.notify',
+            text: `Trying to upload file<br>
+                    But, there was an error:<br>
+                    Response was : ${response.statusText}<br>
+                    content-type was ${contentType}`
+          })
+          return
+        }
+      })
+      .catch((fetchError) => {
+        console.error(fetchError)
+        postMessage({
+          type: 'user.notify',
+          text: 'We’re offline, sailor ⛵' + fetchError.toString()
+        })
+      })
 }
 
-async function handlePhotoUploadedAndStop(response) {
-  response.json().then(async res => {
 
-    await cachePhoto(res) // name, filename
+async function handleFileUploaded(json) {
 
-    postMessage({
-      type: 'update.photo.queue',
-      photoName: res.name
-    })
+  await updateObjectStatus('document', json.uuid, 'done')
+  return
 
-    await deleteFromStore('photo', res.name)
-    return 
-
-  })
+  // await cachePhoto(res) // name, filename
+  // await deleteFromStore('document', res.uuid)
+  // postMessage({
+  //   type: 'update.photo.queue',
+  //   photoName: res.name
+  // })
+  // queue viewer will message SW for new transitPhoto cycle
 }
 
-async function handleFailedPhotoUpload(response, photoName) {
+async function handleFailedFileUpload(response, fileUuid) {
   response.text().then(async html => {
     postMessage({
       type: 'user.notify',
       text: `Trying to upload photos<br>
             But, there was an error:<br>
-            <a href="/journal/queueFailed">View errors</a>`
+            <a href="/document/failed">View errors</a>`
     })
-    await updateObjectStatus('photo', photoName, 'transmission_failed', html)
+    await updateObjectStatus('document', fileUuid, 'failed', html)
     return 
   })
 }
 
+/*
 async function cachePhoto(res) {
 
   const db = await dbPromise
@@ -247,9 +216,4 @@ async function cachePhoto(res) {
 
   await cacheStorage.put(request, response)
   return 
-}
-
-async function getPhoto(uuid) {
-}
-
-
+}*/
