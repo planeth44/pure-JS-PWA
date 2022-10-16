@@ -1,9 +1,10 @@
 /* jshint esversion: 8 */
-import {getByPath, setByPath} from '../libs/objectByPath.js'
 import localISODateTime from '../libs/localISODateTime.js'
 import updateControl from './updateFormControl.js'
+import {getByPath, setByPath} from '../libs/objectByPath.js'
 import changeHandlers from './changeHandlers.js'
 import {dbPromise} from '../db.js'
+import {APP} from '../app.js'
 
 const theModel = {
         meta: {
@@ -17,10 +18,12 @@ const theModel = {
         peopleInvolved: false,
         numbreHoursDowntime: 0,
         computedValueFromNbrHours: 0,
+        documents: [],
         addedAt: new Date(),
         updatedAt: null,
         syncStatus: 'pending',
-        uuid: self.crypto.randomUUID()
+        updatedTs: Math.floor(new Date().getTime() / 1000),
+        uuid: APP.uuid
     },
     formEl = document.forms.editTheThingForm
 ;
@@ -51,6 +54,11 @@ async function init(){
     if (!create){
         const instance = await getFromStore('theModel', instanceId)
         Object.assign(theModel, instance)
+        Object.assign(APP, {
+            theModel: {
+                uuid: instance.uuid
+            }
+        })
     }
     updateControlsFromModel()
 }
@@ -159,8 +167,9 @@ async function updateStore(event) {
      Other experience of storing formadata directly failed:
      DataCloneError: Failed to execute 'put' on 'IDBObjectStore': FormData object could not be cloned
      */
-
-    theModel.updatedAt = new Date()
+    const now = new Date()
+    theModel.updatedAt = now
+    theModel.updatedTs = Math.floor(now.getTime() / 1000) 
 
     try {
         instanceId = await putToStore('theModel', theModel)

@@ -2,7 +2,7 @@
 import {openDB } from '../../js/vendor/idb/index.js';
 
 let _db;
-const DB_VERSION = 1;
+const DB_VERSION = 3;
 console.log('APP.DB_VERSION : ', DB_VERSION)
 
 // _db will cache an open IndexedDB connection.
@@ -25,6 +25,31 @@ export const dbPromise = (async () => {
                     autoIncrement: true,
                 })
                 theModel.createIndex('objectAddedAt', 'addedAt')
+            }
+            if (!v1Db.objectStoreNames.contains('document')) {
+                const documentStore = v1Db.createObjectStore('document', {
+                    keyPath: 'uuid',
+                    unique: true,
+                })
+                documentStore.createIndex('statuIdx', 'syncStatus')
+            } else{
+                const documentStore = transaction.objectStore('document')
+                if(!documentStore.indexNames.contains('parentUuidIdx')){
+                    documentStore.createIndex('parentUuidIdx', 'parentUuid')
+                }
+
+            }
+            if (v1Db.objectStoreNames.contains('theModel')) {
+                const theModelStore = transaction.objectStore('theModel')
+                if(!theModelStore.indexNames.contains('updateTsIdx')){
+                    theModelStore.createIndex('statuIdx', 'syncStatus')
+                }
+                if(!theModelStore.indexNames.contains('uuidIdx')){
+                    theModelStore.createIndex('uuidIdx', 'uuid')
+                }
+                if(!theModelStore.indexNames.contains('updateTsIdx')){
+                    theModelStore.createIndex('updateTsIdx', 'updatedTs')
+                }
             }
 
         },
