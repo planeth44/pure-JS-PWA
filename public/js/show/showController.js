@@ -19,8 +19,11 @@ function thingCardTmpl(t) {
       </div>
       <div>
         <span class="label warning">${t.category}</span>
+        ${t['multiChoice[]']
+          .map((choice) => `<span class="label">${choice}</span>`)
+          .join('\n ')}
       </div>
-      ${(t.peopleInvolved == 'yes') ? `${consequenceTmpl(t)}` : ''}
+      ${(t.peopleInvolved) ? `${consequenceTmpl(t)}` : ''}
     <footer class="thing-card_footer">
       <a href="/edit/${t.id}" class="button">Edit</a>
       <span class="label thing-status muted">${t.syncStatus} sync</span>
@@ -35,11 +38,7 @@ function consequenceTmpl(t) {
 }
 
 getFromStore('theModel', instanceId).then((instance) => {
-  let category = []
-  for (const cat in instance.category){
-    if (instance.category[cat]) category.push(instance.category[cat])
-  }
-  instance.category = category.join(', ')
+
   const content = thingCardTmpl(instance)
 
   thingContainer.insertAdjacentHTML('afterbegin', content)
