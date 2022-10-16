@@ -32,6 +32,6 @@ export default function notifyUser(message) {
 
   const notifier = userNotifTmpl(message)
 
-  UiElement.mainNode.insertBefore(notifier, UiElement.siblingNode)
+  UiElement.mainNode.insertAdjacentHTML('afterbegin', notifier)
 }
 
