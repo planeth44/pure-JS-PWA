@@ -1,4 +1,5 @@
 /*jshint esversion: 8 */
+import {Workbox} from './vendor/workbox-v6.5.1/workbox-window.prod.mjs';
 import notifyUser from '../js/libs/user-notification.js'
 
 if (!('randomUUID' in crypto)) {
@@ -14,7 +15,7 @@ if (!('randomUUID' in crypto)) {
     }
 };
 
-export var APP = {
+var APP = {
   uuid : crypto.randomUUID(),
 
   /*
@@ -24,18 +25,16 @@ export var APP = {
   acceptedFileTypes: []
 }
 
+var wb;
+
 // <!-- register your service Worker -->
+
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js')
-      .then((reg) => {
-        // registration worked
-        console.log('Registration succeeded.');
-      }).catch((error) => {
-        // registration failed
-        console.log('Registration failed with ' + error);
-      });
+
+  wb = new Workbox('/sw.js', {
+    scope: '/'
   });
+  wb.register();
 }
 
 navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
@@ -70,3 +69,5 @@ document.addEventListener('click', (event) => {
 function dismiss(elt) {
   elt.parentElement.remove()
 }
+
+export {APP, wb}
