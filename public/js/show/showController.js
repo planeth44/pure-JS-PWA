@@ -38,7 +38,7 @@ function consequenceTmpl(t) {
   </div> `
 }
 
-getFromStore('theModel', instanceId).then(async(instance) => {
+getTheModel(instanceId).then(async(instance) => {
 
   const docs = await addDocuments(instance.uuid)
   const content = await thingCardTmpl(instance, docs)
@@ -90,10 +90,10 @@ function makeImgUrl(doc)
     return urlCreator.createObjectURL(blob);
 }
 
-async function getFromStore(store, key) {
+async function getTheModel(key) {
 
     const db = await dbPromise
-    const thing = await db.get(store, key)
+    const instance = await db.get('theModel', key)
 
-    return thing
+    return instance
 }
