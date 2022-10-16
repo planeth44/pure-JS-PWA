@@ -2,6 +2,7 @@
 
 {% block componentScript %}
   <script type="module" src="/js/edit/modelController.js"></script>
+  <script type="module" src="/js/edit/fileController.js"></script>
 {% endblock %}
 
 
@@ -101,11 +102,12 @@
       </div>
     </div>
   </fieldset>
+  <div data-file-wrapper class="files-wrapper"></div>
   <fieldset>
-    <legend>Add documents</legend>
+    <legend>Add files or photos</legend>
     <div class="flpwa-control">
       <label class="dropimage">
-        <input title="Drop image or click me" type="file">
+        <input title="Drop image or click me" type="file" name="documents" multiple capture="environment">
       </label>
     </div>
   </fieldset>
