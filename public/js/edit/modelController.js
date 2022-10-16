@@ -4,7 +4,7 @@ import updateControl from './updateFormControl.js'
 import {getByPath, setByPath} from '../libs/objectByPath.js'
 import changeHandlers from './changeHandlers.js'
 import {dbPromise} from '../db.js'
-import {APP} from '../app.js'
+import {APP, wb} from '../app.js'
 
 const theModel = {
         meta: {
@@ -157,7 +157,6 @@ function updateObjectFromControl(event) {
         value = formdata.getAll(path) // will always retuen an array
 
     } else if (expected instanceof Date) {
-        // console.log(formdata.get(path))
 
         let date = formdata.get(path)
         date = new Date(date).getTime() / 1000
@@ -196,11 +195,7 @@ async function updateStore(event) {
     theModel.updatedTs = Math.floor(now.getTime() / 1000) 
 
     try {
-        instanceId = await putToStore('theModel', theModel)
-
-        if (!theModel.hasOwnProperty('id')) {
-            theModel.id = instanceId
-        }
+        await putToStore('theModel', theModel)
 
     } catch (err) {
         console.log(err)
