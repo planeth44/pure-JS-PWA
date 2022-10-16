@@ -97,7 +97,7 @@ class Kernel extends BaseKernel
         $routes->add('random_number', '/random/{limit}')->controller([$this, 'randomNumber']);
     }
 
-    public function newModel(Request $request): Response
+    public function newModel(Request $request): JsonResponse
     {
         
         return new JsonResponse(array_column(
@@ -106,10 +106,12 @@ class Kernel extends BaseKernel
         ), 201);
     }
 
-    public function newFile(): Response
+    public function newFile(Request $request): JsonResponse
     {
-        dd($request->getContent());
-        return new Response();
+        // dd($request->headers->all());
+        return new JsonResponse(
+            ['uuid' => $request->headers->get('x-fileuuid')]
+        , 201);
     }
 
     public function checkMultfiles(Request $request)
