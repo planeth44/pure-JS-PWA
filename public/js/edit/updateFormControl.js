@@ -29,7 +29,13 @@ const updateControl = {
   },
   checkbox: function setCheckbox(element, model) {
     // console.log(element.name, getByPath(model, element.name))
-    if (getByPath(model, element.name) != '') {
+    const storedValue = getByPath(model, element.name)
+
+    if (Array.isArray(storedValue)) {
+      if(storedValue.includes(element.value)) {
+        element.checked = true
+      }
+    } else if (storedValue) {
         element.checked = true
     }
   },

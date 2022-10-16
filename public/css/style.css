@@ -25,3 +25,19 @@ fieldset{
     align-self: end;
     margin-bottom: 0.3em;
 }
+/*
+* Grid utilities
+*/
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.fluid-items>*{
+  flex: 1;
+}
+.flex-2{
+  flex: 2;
+}
+

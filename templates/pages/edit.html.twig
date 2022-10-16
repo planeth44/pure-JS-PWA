@@ -43,37 +43,62 @@
         <textarea name="description"></textarea>
       </label>
     </div>
-    <div class="flpwa-control">
-      <legend>Severity</legend>
-      <label class="stack">
-        <input type="checkbox" name="category[cat1]" value="Severe" />
-        <span class="checkable">Severe</span>
-      </label>
-      <label class="stack">
-        <input type="checkbox" name="category[cat2]" value="Important" />
-        <span class="checkable">Important</span>
-      </label>
-      <label class="stack">
-        <input type="checkbox" name="category[cat3]" value="Begnin" />
-        <span class="checkable">Begnin</span>
-      </label>
-      <label class="stack">
-        <input type="checkbox" name="category[cat4]" value="All good" />
-        <span class="checkable">All good</span>
-      </label>
+    <div class="flex-row fluid-items">
+      <div class="flpwa-control">
+        <legend>Severity</legend>
+        <label class="stack">
+          <input type="radio" name="category" value="Severe" />
+          <span class="checkable">Severe</span>
+        </label>
+        <label class="stack">
+          <input type="radio" name="category" value="Important" />
+          <span class="checkable">Important</span>
+        </label>
+        <label class="stack">
+          <input type="radio" name="category" value="Begnin" />
+          <span class="checkable">Begnin</span>
+        </label>
+        <label class="stack">
+          <input type="radio" name="category" value="All good" />
+          <span class="checkable">All good</span>
+        </label>
+    </div>
+      <div class="flpwa-control">
+        <legend>Other multi choice cat</legend>
+        <label class="stack">
+          <input type="checkbox" name="multiChoice[]" value="Blue" />
+          <span class="checkable">Blue</span>
+        </label>
+        <label class="stack">
+          <input type="checkbox" name="multiChoice[]" value="Red" />
+          <span class="checkable">Red</span>
+        </label>
+        <label class="stack">
+          <input type="checkbox" name="multiChoice[]" value="Green" />
+          <span class="checkable">Green</span>
+        </label>
+        <label class="stack">
+          <input type="checkbox" name="multiChoice[]" value="Yellow" />
+          <span class="checkable">Yellow</span>
+        </label>
+    </div>
     </div>
   </fieldset>
   <fieldset>
-    <legend>People involved</legend>
-    <div class="flpwa-control">
-      <label>
-        <input type="radio" name="peopleInvolved" value="yes">
-        <span class="checkable">Yes</span>
-      </label>
-      <label>
-        <input type="radio" name="peopleInvolved" value="no">
-        <span class="checkable">No</span>
-      </label>
+    <legend>Consequences</legend>
+    <div class="flex-row fluid-items">
+      <div class="flpwa-control">
+        <label>
+          <input type="checkbox" name="peopleInvolved" value="1">
+          <span class="checkable">People involved?</span>
+        </label>
+      </div>
+      <div class="flpwa-control">
+        <label>
+          Downtime duration
+          <input type="text" name="numbreHoursDowntime" data-change="computeDowntime" data-value-type="integer" inputmode="numeric" placeholder="in hours" />
+        </label>
+      </div>
     </div>
     <div class="flpwa-control">
       <label>
