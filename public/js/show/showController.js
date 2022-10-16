@@ -8,7 +8,7 @@ const instanceId = Number(location.pathname.split('/').pop())
 /*
 * Templates
  */
-function thingCardTmpl(t) {
+async function thingCardTmpl(t, docs) {
   return `
     <header>
       <h3>${t.title}</h3>
@@ -24,6 +24,7 @@ function thingCardTmpl(t) {
           .join('\n ')}
       </div>
       ${(t.peopleInvolved) ? `${consequenceTmpl(t)}` : ''}
+      <div class="files-wrapper">${docs}</div>
     <footer class="thing-card_footer">
       <a href="/edit/${t.id}" class="button">Edit</a>
       <span class="label thing-status muted">${t.syncStatus} sync</span>
@@ -37,12 +38,57 @@ function consequenceTmpl(t) {
   </div> `
 }
 
-getFromStore('theModel', instanceId).then((instance) => {
+getFromStore('theModel', instanceId).then(async(instance) => {
 
-  const content = thingCardTmpl(instance)
+  const docs = await addDocuments(instance.uuid)
+  const content = await thingCardTmpl(instance, docs)
 
   thingContainer.insertAdjacentHTML('afterbegin', content)
 })
+
+async function addDocuments(uuid) {
+  return getDocsFromModel(uuid).then((docs) => {
+    if (docs.length > 0) {
+        return docs.map(doc => {
+            if (doc.mime.startsWith('image')
+              && doc.hasOwnProperty('blob')) {
+                return `<div class="result-img"> <img src="${makeImgUrl(doc)}" /></div> `
+            } else {
+              return `<p class="result-img">${doc.name || 'no name'}, ${doc.mime}</p>`
+            }
+        }).join('\n ')
+    } else {
+      return ''
+    }
+
+  })
+}
+
+async function getDocsFromModel(uuid){
+
+    const db = await dbPromise;
+    const tx = db.transaction('document');
+    const range = IDBKeyRange.only(uuid)
+
+    let cursor = await tx.store.index('parentUuidIdx').openCursor(range);
+    let docs = []
+
+    while (cursor) {
+        docs.push(cursor.value)
+        cursor = await cursor.continue();
+    }
+    await tx.done
+
+    return docs
+}
+
+function makeImgUrl(doc)
+{
+    const blob = new Blob([doc.blob], {type: doc.mime})
+  // console.log(blob)
+    const urlCreator = window.URL || window.webkitURL;
+    return urlCreator.createObjectURL(blob);
+}
 
 async function getFromStore(store, key) {
 
