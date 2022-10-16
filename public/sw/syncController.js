@@ -72,10 +72,6 @@ const syncHandlers = {
   }
 }
 
-async function startSync() {
-  return await syncHandlers.transmitText()
-}
-
 async function postModels(models) {
   return fetch('/api/models', {
     method: 'POST',

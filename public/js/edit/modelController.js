@@ -176,7 +176,7 @@ async function done(event) {
     await updateStore(event)
 
     wb.messageSW({
-        type: 'DO_SYNC'
+        type: 'transmitText'
     });
 
     location.href = `${location.origin }/show/${instanceUuid}`

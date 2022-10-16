@@ -60,18 +60,6 @@ self.addEventListener('message', async (event) => {
     event.ports[0].postMessage(self.syncInProgress)
     return
   }
-  if (handler === 'DO_SYNC') {
-    try{
-      self.syncInProgress = true
-      event.waitUntil(startSync())
-      return
-    } catch (syncError){
-      postMessage({
-        type: 'user.notify',
-        text: syncError.toString()
-      })
-    }
-  }
 
   if (!handler || !syncHandlers[handler]) {
     console.error(`no ${handler} or no syncHandlers[${handler}]`)
