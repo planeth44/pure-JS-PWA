@@ -120,7 +120,13 @@ class Kernel extends BaseKernel
     }
 
     public function newFile(Request $request): JsonResponse
+    // public function newFile(Request $request): Response
     {
+        /*
+        return new Response('<p>some gibberish</p>', 400);
+        return new JsonResponse([], 400);
+        return new JsonResponse([], 500);
+        */
         // dd($request->headers->all());
         return new JsonResponse(
             ['uuid' => $request->headers->get('x-fileuuid')]
