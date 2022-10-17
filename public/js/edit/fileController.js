@@ -5,7 +5,15 @@ import {readableFileSize } from '../libs/readableFileSize.js'
 import {dbPromise } from '../db.js'
 import {APP} from '../app.js'
 
-const fileInput = _d.qs('input[name^=documents'),
+const fileModel = {
+        uuid: null, // primaryKey
+        parentUuid: null, // theModel uuid
+        timestamp: Math.floor(new Date().getTime() / 1000),
+        mime: '',
+        name: '',
+        syncStatus: 'pending'
+    },
+    fileInput = _d.qs('input[name^=documents'),
     filesWrapper = _d.qs('[data-file-wrapper]'),
     eventHandlers = {
         removeFile: async function(evt) {
@@ -37,16 +45,17 @@ fileInput.addEventListener('change', processFile, true)
 
 async function processFile(event) {
     event.preventDefault()
+    console.log(event)
     let fileList
 
     /*
         photos can come from file input or share target
          event.target => <input ... /> in case of file input / ServiceWorkerContainer in case of share target
      */
-    if (event.data.hasOwnProperty('photos')) { // undefined in case of file input
-        fileList = [...event.data.photos]
-    } else if (event.target.files !== undefined){
+    if (event.target.files !== undefined) { // undefined in case of file input
         fileList = [...event.target.files]
+    } else if (event.data.hasOwnProperty('photos')){
+        fileList = [...event.data.photos]
     } else {
         return
     }
@@ -116,21 +125,18 @@ async function displayFile(file, filesWrapper) {
 }
 
 async function storeCurrentFile(theFile, fileUuid, parentUuid) {
-    const currentFile = {
-        uuid: fileUuid, // primaryKey
-        parentUuid: parentUuid, // theModel uuid
-        timestamp: Math.floor(new Date().getTime() / 1000),
-        mime: theFile.type,
-        name: theFile.name,
-        syncStatus: 'pending'
-    }
+
+    fileModel.uuid = fileUuid
+    fileModel.parentUuid = parentUuid
+    fileModel.mime = theFile.type
+    fileModel.name = theFile.name
 
     return readtheFile('readAsArrayBuffer', theFile).then(async arrayBuffer => {
-        currentFile.blob = arrayBuffer
-        currentFile.byteLength = arrayBuffer.byteLength
-        currentFile.size = readableFileSize(arrayBuffer.byteLength)
+        fileModel.blob = arrayBuffer
+        fileModel.byteLength = arrayBuffer.byteLength
+        fileModel.size = readableFileSize(arrayBuffer.byteLength)
 
-        return await putToDocumentStore(currentFile) // will return fileUuid
+        return await putToDocumentStore(fileModel) // will return fileUuid
 
     })
 }
