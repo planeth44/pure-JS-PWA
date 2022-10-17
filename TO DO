@@ -9,7 +9,7 @@
 - [ ] explore making a Model class with method getFromPath, setFRomPath, toFormData 
 - [ ] add a lastRefreshTs mechanism to throttle call to sync
 - [ ] Add a mechanism to sync without being in edit page + trigger a 'done'
-- [ ] explore syncing / update of theModel
+- [ ] explore syncing / update of theModel [/]
   - [ ] add a version in theModel
   - [ ] call to sync should send uuid + version 
   - [ ] response to sync should send diff on uuid+version
@@ -20,9 +20,14 @@
   - URL could be in the form of images/<parentUuid>/<uuid>
 
 ~ BEHAVIOUR
-- [ ] ModelController. Cancel button should remove the instance ? If yes remove associated docs
 - [ ] ModelController. Done button should trigger validation. And stop to ask to change if need
 - [ ] Home page -> add method to check for pending instances
+- [ ] ModelController. 
+  - Cancel button should remove the instance ? If yes remove associated docs
+  - For now reset clear all the fields but the model is not cleared. 
+    Should ask the user if want to clear the model
+- [ ] test offline mode when trying to sync
+- [ ] add an option to clear user-notification after timeout
 
 ~ UI
 - [ ] Add files & photos in /edit/<uuid>
@@ -37,3 +42,5 @@
 ~ DONE
 - [X] Sync w/ distant server 
 - [X] fileController should have the fileModel at the top
+- [X] style user.notification / should be less present
+- [X] remove all flpwa- classes
