@@ -10,15 +10,15 @@
 
     <h3>Add a Thing</h3>
 
-<form method="POST" enctype="multipart/form-data" id="editTheThingForm" data-flpwa-components-form action="/">
+<form method="POST" enctype="multipart/form-data" id="editTheThingForm" action="/">
   <fieldset>
-    <div class="flpwa-control">
+    <div >
       <label>
         The date
         <input type="datetime-local" name="meta[date]">
       </label>
     </div>
-    <div class="flpwa-control">
+    <div >
       <label>Where did the Thing took place
         <select name="meta[place]">
           <option></option>
@@ -32,20 +32,20 @@
     </div>
   </fieldset>
   <fieldset>
-    <div class="flpwa-control">
+    <div >
       <label>
         Title
         <input type="text" name="title" />
       </label>
     </div>
-    <div class="flpwa-control">
+    <div >
       <label>
         Description
         <textarea name="description"></textarea>
       </label>
     </div>
     <div class="flex-row fluid-items">
-      <div class="flpwa-control">
+      <div >
         <legend>Severity</legend>
         <label class="stack">
           <input type="radio" name="category" value="Severe" />
@@ -64,7 +64,7 @@
           <span class="checkable">All good</span>
         </label>
     </div>
-      <div class="flpwa-control">
+      <div >
         <legend>Other multi choice cat</legend>
         <label class="stack">
           <input type="checkbox" name="multiChoice[]" value="Blue" />
@@ -88,13 +88,13 @@
   <fieldset>
     <legend>Consequences</legend>
     <div class="flex-row fluid-items">
-      <div class="flpwa-control">
+      <div >
         <label>
           <input type="checkbox" name="peopleInvolved" value="1">
           <span class="checkable">People involved?</span>
         </label>
       </div>
-      <div class="flpwa-control">
+      <div >
         <label>
           Downtime duration
           <input type="text" name="numbreHoursDowntime" data-change="computeDowntime" data-value-type="integer" inputmode="numeric" placeholder="in hours" />
@@ -105,14 +105,14 @@
   <div data-file-wrapper class="files-wrapper"></div>
   <fieldset>
     <legend>Add files or photos</legend>
-    <div class="flpwa-control">
+    <div >
       <label class="dropimage">
         <input title="Drop image or click me" type="file" name="documents" multiple capture="environment">
       </label>
     </div>
   </fieldset>
 
-  <div data-flpwa-submit-area>
+  <div>
     <button type="submit" title="send form">Done</button>
     <button type="reset" title="Remove this Thing" class="cancel-btn">Reset</button>
   </div>
