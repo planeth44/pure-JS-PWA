@@ -88,12 +88,9 @@ function updateControlsFromModel() {
     // makes sense to use name attribute since it’s mapping to theModel 
     formControls = formEl.querySelectorAll('[name]')
     formControls.forEach(element => {
-        let type = element.type
-        if (type.includes('-')) { // datetime-local | select-one | select-multiple
-            type = type.split('-') 
-            type[1] = `${type[1].charAt(0).toUpperCase()}${type[1].slice(1)}`
-            type = type.join('')
-        }
+
+        const type = camelCaseFormat(element.type)
+
         try {
             updateControl[type](element, theModel)
         } catch (e) {
@@ -180,6 +177,16 @@ async function done(event) {
     });
 
     location.href = `${location.origin }/show/${instanceUuid}`
+}
+
+function camelCaseFormat(type) {
+    if (type.includes('-')) { // datetime-local | select-one | select-multiple
+        type = type.split('-') 
+        type[1] = `${type[1].charAt(0).toUpperCase()}${type[1].slice(1)}`
+        type = type.join('')
+    }
+
+    return type
 }
 
 async function updateStore(event) {
