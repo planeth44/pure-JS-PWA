@@ -3,7 +3,9 @@
 ~ REFACTOR
 - [ ] refactor syncStatus values as const in ???
 - [ ] refactor syncController. Extract call to fetch to its own method
-- [ ] syncController transmitText should update w/ syncStatus = 'failed' if response.code >= 400
+   Catch a 401 [[https://github.com/github/fetch/issues/201#issuecomment-308213104]]
+   [[https://web.dev/fetch-api-error-handling/]]
+   [[https://medium.com/trabe/fetch-api-errors-and-the-principle-of-least-surprise-66bbba3e4cc2]]
 
 ~ DESIGN
 - [ ] explore making a Model class with method getFromPath, setFRomPath, toFormData 
@@ -20,14 +22,14 @@
   - URL could be in the form of images/<parentUuid>/<uuid>
 
 ~ BEHAVIOUR
-- [ ] ModelController. Done button should trigger validation. And stop to ask to change if need
-- [ ] Home page -> add method to check for pending instances
 - [ ] ModelController. 
   - Cancel button should remove the instance ? If yes remove associated docs
   - For now reset clear all the fields but the model is not cleared. 
     Should ask the user if want to clear the model
-- [ ] test offline mode when trying to sync
+- [ ] ModelController. Done button should trigger validation. And stop to ask to change if need
+- [ ] Home page -> add method to check for pending instances
 - [ ] add an option to clear user-notification after timeout
+- [ ] add manifest for installability
 
 ~ UI
 - [ ] Add files & photos in /edit/<uuid>
@@ -44,3 +46,9 @@
 - [X] fileController should have the fileModel at the top
 - [X] style user.notification / should be less present
 - [X] remove all flpwa- classes
+- [X] extract fc to camelCase updateFormControls@method
+- [X] add a /ops route w/ JS only to test & do stuff
+- [X] test offline mode when trying to sync [3/3]
+  - [X] test server off
+  - [X] test server respond with 500
+  - [X] test server respond with 400
