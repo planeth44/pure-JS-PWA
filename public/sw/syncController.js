@@ -84,12 +84,13 @@ async function postModels(models) {
   }).then((response) => {
     let contentType = response.headers.get('content-type')
 
-    if (response.ok && response.status == 201 && contentType.includes('application/json')) {
+    if (response.ok 
+      && response.status == 201 && contentType.includes('application/json')) {
 
       return response.json()
     } else if (!response.ok && contentType.includes('text/html')) {
 
-      return response.text().then((html) => {
+      return response.text().then(async (html) => {
         postMessage({
           type: 'user.notify',
           text: `Trying to upload texts<br>
@@ -97,12 +98,14 @@ async function postModels(models) {
                           ${html}`,
           class: 'failure'                          
         })
+        // not updating w/ failed as we don’t know which part/model failed
+        // should be decided w/ back-end response
       })
     } else {
 
       postMessage({
         type: 'user.notify',
-        text: `Trying to upload texts<br>
+        text: `Trying to upload models<br>
                   But, there was an error:<br>
                   Response was : ${response.statusText}<br>
                   content-type was ${contentType}`,
@@ -129,7 +132,6 @@ async function postFile(file) {
           'X-filename': file.name,
           'X-fileuuid': file.uuid,
           'X-fileparentuuid': file.parentUuid,
-          'X-filename': file.name,
         },
         body: file.blob
       })
@@ -142,7 +144,16 @@ async function postFile(file) {
           return response.json() 
         } else if (!response.ok && contentType.includes('text/html')) {
 
-          return await handleFailedFileUpload(response, file.uuid)
+          return response.text().then(async (html) => {
+            postMessage({
+              type: 'user.notify',
+              text: `Trying to upload files ${file.name}<br>
+                    But, there was an error:<br>
+                    ${html}`,
+              class: 'failure'
+            })
+            return await updateObjectStatus('document', file.uuid, 'failed', html)
+          })
         } else {
 
           postMessage({
@@ -156,11 +167,11 @@ async function postFile(file) {
           return
         }
       })
-      .catch((fetchError) => {
-        console.error(fetchError)
+      .catch((networkError) => {
+        console.error(networkError)
         postMessage({
           type: 'user.notify',
-          text: 'We’re offline, sailor ⛵' + fetchError.toString(),
+          text: 'We’re offline, sailor ⛵' + networkError.toString(),
           class: 'info'
         })
       })
@@ -179,20 +190,6 @@ async function handleFileUploaded(json) {
   //   photoName: res.name
   // })
   // queue viewer will message SW for new transitPhoto cycle
-}
-
-async function handleFailedFileUpload(response, fileUuid) {
-  response.text().then(async html => {
-    postMessage({
-      type: 'user.notify',
-      text: `Trying to upload photos<br>
-            But, there was an error:<br>
-            <a href="/document/failed">View errors</a>`,
-      class: 'info'
-    })
-    await updateObjectStatus('document', fileUuid, 'failed', html)
-    return 
-  })
 }
 
 /*
