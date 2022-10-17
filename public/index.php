@@ -85,6 +85,19 @@ class Kernel extends BaseKernel
                     ]
                 ]
             );
+        $routes->add('ops', '/ops')
+            ->controller(TemplateController::class)
+            ->defaults(
+                [
+                'template'  => 'pages/ops.html.twig',
+                'maxAge'    => 86400,
+                'sharedAge' => 86400,
+                'private' => true,
+                'context' => [
+                    'title' => 'only for dev',
+                    ]
+                ]
+            );
         $routes->add('new_models', '/api/models')
             ->controller([$this, 'newModel'])
             ->methods(['POST']);

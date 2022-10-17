@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block componentScript %}
+  <script type="module" src="js/ops.js"></script>
+{% endblock %}
+
+{% block body %}
+
+<article class="card">
+  <header>
+    <h3>Operations for devs</h3>
+    <button data-trigger-thing>Do Sync</button>
+  </header>
+  <footer>
+    <a class="button" href="/edit">Create “a Thing”</a>
+  </footer>
+</article>
+
+
+{% endblock body %}
+
