@@ -1,9 +1,39 @@
 --- 2022-10-16 ---
 
+~ REFACTOR
+- [ ] refactor syncStatus values as const in ???
+- [ ] refactor syncController. Extract call to fetch to its own method
+- [ ] syncController transmitText should update w/ syncStatus = 'failed' if response.code >= 400
+
+~ DESIGN
+- [ ] explore making a Model class with method getFromPath, setFRomPath, toFormData 
+- [ ] add a lastRefreshTs mechanism to throttle call to sync
+- [ ] Add a mechanism to sync without being in edit page + trigger a 'done'
+- [ ] explore syncing / update of theModel
+  - [ ] add a version in theModel
+  - [ ] call to sync should send uuid + version 
+  - [ ] response to sync should send diff on uuid+version
+  - [ ] call update on response
+  - [ ] modelController should set syncStatus=update whe necessary
+- [ ] explore implementing images caching after upload/sync to distant server
+  - see syncController@cachePhoto
+  - URL could be in the form of images/<parentUuid>/<uuid>
+
+~ BEHAVIOUR
 - [ ] ModelController. Cancel button should remove the instance ? If yes remove associated docs
 - [ ] ModelController. Done button should trigger validation. And stop to ask to change if need
+- [ ] Home page -> add method to check for pending instances
+
+~ UI
+- [ ] Add files & photos in /edit/<uuid>
 - [ ] Better UI for /show
-- [ ] implement file caching after upload/sync to distant server see syncController@cachePhoto
+- [ ] implement /document/failed view + controller
+
+~ README
+- [ ] Locality of behavior (one controller for the page)
+
+
 
 ~ DONE
 - [X] Sync w/ distant server 
+- [X] fileController should have the fileModel at the top
