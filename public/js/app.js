@@ -60,14 +60,4 @@ document.addEventListener('message', (event) => {
   }
 })
 
-document.addEventListener('click', (event) => {
-  if (event.target.closest('.flpwa-notification-close')) {
-    dismiss(event.target.closest('.flpwa-notification-close'))
-  }
-})
-
-function dismiss(elt) {
-  elt.parentElement.remove()
-}
-
 export {APP, wb}

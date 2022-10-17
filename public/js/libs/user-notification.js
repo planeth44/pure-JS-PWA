@@ -3,29 +3,32 @@
 const UiElement = {}
 
 /*
-* Templates 
-*/
+ * Templates 
+ */
 function userNotifTmpl(message) {
   return `
-    <div class="flpwa-notification ${message.class}">
-      <p class="flpwa-notification-content">${message.text}</p>
-      <button class="flpwa-notification-close" title="dismiss notification">×</button>
+    <div class="user-notification ${message.class}">
+      <p class="content">${message.text}</p>
+      <button class="close" title="close notification" data-close-notification>×</button>
     </div>`
 }
 
 /*
-* Event listeners
-*/
+ * Event listeners
+ */
+document.addEventListener('click', (event) => {
+  if (event.target.closest('[data-close-notification]')) {
+    dismiss(event.target.closest('[data-close-notification]'))
+  }
+})
 
 document.addEventListener('DOMContentLoaded', init);
 /*
-* Functions
-*/
+ * Functions
+ */
 
-function init()
-{
-    UiElement.mainNode    = document.querySelector('main')
-    UiElement.siblingNode = UiElement.mainNode.firstElementChild
+function init() {
+  UiElement.mainNode = document.querySelector('main')
 }
 
 export default function notifyUser(message) {
@@ -35,3 +38,6 @@ export default function notifyUser(message) {
   UiElement.mainNode.insertAdjacentHTML('afterbegin', notifier)
 }
 
+function dismiss(elt) {
+  elt.parentElement.remove()
+}

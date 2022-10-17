@@ -27,6 +27,7 @@ const syncHandlers = {
     postMessage({
       type: 'user.notify',
       text: 'Texts upload done',
+      class: 'info'
     })
 
     syncHandlers.transmitFile()
@@ -55,7 +56,8 @@ const syncHandlers = {
     if (undefined == file) { // no more file to transmit
       postMessage({
         type: 'user.notify',
-        text: `No more file to upload`
+        text: `No more file to upload`,
+        class: 'success'
       })
       self.syncInProgress = false
       return
@@ -92,7 +94,8 @@ async function postModels(models) {
           type: 'user.notify',
           text: `Trying to upload texts<br>
                           But, there was an error:<br>
-                          ${html}`
+                          ${html}`,
+          class: 'failure'                          
         })
       })
     } else {
@@ -103,6 +106,7 @@ async function postModels(models) {
                   But, there was an error:<br>
                   Response was : ${response.statusText}<br>
                   content-type was ${contentType}`,
+        class: 'failure'                          
       })
 
       return
@@ -112,6 +116,7 @@ async function postModels(models) {
       postMessage({
         type: 'user.notify',
         text: 'We’re offline, sailor ⛵' + fetchError.toString(),
+        class: 'info'                          
       })
   })
 }
@@ -145,7 +150,8 @@ async function postFile(file) {
             text: `Trying to upload file<br>
                     But, there was an error:<br>
                     Response was : ${response.statusText}<br>
-                    content-type was ${contentType}`
+                    content-type was ${contentType}`,
+            class: 'failure'                          
           })
           return
         }
@@ -154,7 +160,8 @@ async function postFile(file) {
         console.error(fetchError)
         postMessage({
           type: 'user.notify',
-          text: 'We’re offline, sailor ⛵' + fetchError.toString()
+          text: 'We’re offline, sailor ⛵' + fetchError.toString(),
+          class: 'info'
         })
       })
 }
@@ -180,7 +187,8 @@ async function handleFailedFileUpload(response, fileUuid) {
       type: 'user.notify',
       text: `Trying to upload photos<br>
             But, there was an error:<br>
-            <a href="/document/failed">View errors</a>`
+            <a href="/document/failed">View errors</a>`,
+      class: 'info'
     })
     await updateObjectStatus('document', fileUuid, 'failed', html)
     return 
