@@ -118,7 +118,7 @@ async function updateObject(event) {
         updateObjectFromControl(event)
     }
 
-    await updateStore(event)
+    await updateStore()
 }
 
 function updateObjectFromControl(event) {
@@ -191,14 +191,14 @@ function camelCaseFormat(type) {
     return type
 }
 
-async function updateStore(event) {
-    event.preventDefault()
-
+async function updateStore() {
     /*
         @CONSEQUENCE
-     Other experience of storing formadata directly failed:
-     DataCloneError: Failed to execute 'put' on 'IDBObjectStore': FormData object could not be cloned
+         Other experience of storing formadata directly failed:
+         DataCloneError: Failed to execute 'put' on 'IDBObjectStore': 
+         FormData object could not be cloned
      */
+
     const now = new Date()
     theModel.updatedAt = now
     theModel.updatedTs = Math.floor(now.getTime() / 1000) 
@@ -210,8 +210,6 @@ async function updateStore(event) {
         console.log(err)
         throw new Error(err) // rethrowing to be caught at higher level
     }
-
-
 }
 
 async function putToStore(store, instance) {
