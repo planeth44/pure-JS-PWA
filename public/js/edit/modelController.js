@@ -6,9 +6,11 @@ import changeHandlers from './changeHandlers.js'
 import {dbPromise} from '../db.js'
 import {APP, wb} from '../app.js'
 
+const now = new Date()
+
 const theModel = {
         meta: {
-            date: new Date(),
+            date: now,
             place: ''
         },
         title: '',
@@ -19,10 +21,10 @@ const theModel = {
         numbreHoursDowntime: 0,
         computedValueFromNbrHours: 0,
         documents: [],
-        addedAt: new Date(),
+        addedAt: now,
         updatedAt: null,
-        syncStatus: 'pending',
-        updatedTs: Math.floor(new Date().getTime() / 1000),
+        syncStatus: 'pending', //@TODO should be 'empty'
+        updatedTs: Math.floor(now.getTime() / 1000),
         uuid: APP.uuid
     },
     formEl = document.forms.editTheThingForm
