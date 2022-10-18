@@ -27,7 +27,10 @@ const theModel = {
         updatedTs: Math.floor(now.getTime() / 1000),
         uuid: APP.uuid
     },
-    formEl = document.forms.editTheThingForm
+    formEl = document.forms.editTheThingForm,
+    confirmResetForm = document.getElementById('confirmReset'),
+    // caching a bare model to use when reset is triggered
+    baredModel = structuredClone(theModel)
 ;
 let formControls = [],
 instanceUuid =  null,
@@ -45,8 +48,9 @@ if(!location.pathname.endsWith('edit')){
 
 document.addEventListener('DOMContentLoaded', init);
 
-formEl.addEventListener('submit', done)
 formEl.addEventListener('change', updateObject)
+formEl.addEventListener('submit', done)
+formEl.addEventListener('reset', resetModel)
 
 /*
  * Functions
@@ -181,6 +185,42 @@ async function done(event) {
     location.href = `${location.origin }/show/${instanceUuid}`
 }
 
+function resetModel(event) {
+
+    /*
+        As we’re using a confirm dialog, we can’t event.preventDefault
+        because a call to formEl.reset() in the case of confirm
+        will not work
+     */
+
+    confirmResetForm.showModal()
+
+    confirmResetForm.addEventListener('close', async (event) => {
+
+        if (confirmResetForm.returnValue == 'yes') {
+
+            // formEl.reset() wont’t work
+
+            // caching uuid if updating old instance
+            const modelUuid = theModel.uuid
+
+            // resetting all the values
+            Object.assign(theModel, baredModel)
+            theModel.uuid = modelUuid
+
+            await updateStore()
+        }
+        else {
+            /*
+            Since we've just reset the form, we need to revert ^^
+             */
+            updateControlsFromModel()
+        }
+    }, {once: true })
+
+
+}
+
 function camelCaseFormat(type) {
     if (type.includes('-')) { // datetime-local | select-one | select-multiple
         type = type.split('-') 
@@ -226,4 +266,3 @@ async function getFromStore(store, key) {
 
     return thing
 }
-

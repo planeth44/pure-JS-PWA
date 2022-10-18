@@ -117,4 +117,13 @@
     <button type="reset" title="Remove this Thing" class="cancel-btn">Reset</button>
   </div>
 </form>
+
+<dialog id="confirmReset">
+  <p>Deleting all the values of the Thing as well as the files?</p>
+  <form method="dialog">
+    <button value="yes" >Proceed</button>
+    <button value="no">No</button>
+  </form>
+</dialog>
+
 {% endblock body %}
