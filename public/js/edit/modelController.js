@@ -1,6 +1,6 @@
 /* jshint esversion: 8 */
 import localISODateTime from '../libs/localISODateTime.js'
-import updateControl from './updateFormControl.js'
+import updateControl from './formControlUpdater.js'
 import {getByPath, setByPath} from '../libs/objectByPath.js'
 import changeHandlers from './changeHandlers.js'
 import {dbPromise} from '../db.js'
