@@ -43,6 +43,10 @@ document.addEventListener('click', function (evt) {
 
 fileInput.addEventListener('change', processFile, true)
 
+filesWrapper.addEventListener('remove.files.display', (event) => {
+    event.currentTarget.innerHTML = ''
+})
+
 async function processFile(event) {
     event.preventDefault()
     console.log(event)

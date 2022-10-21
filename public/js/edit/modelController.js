@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 formEl.addEventListener('change', updateObject)
 formEl.addEventListener('submit', done)
-formEl.addEventListener('reset', resetModel)
+formEl.addEventListener('reset', removeModel)
 
 /*
  * Functions
@@ -185,7 +185,7 @@ async function done(event) {
     location.href = `${location.origin }/show/${instanceUuid}`
 }
 
-function resetModel(event) {
+function removeModel(event) {
 
     /*
         As we’re using a confirm dialog, we can’t event.preventDefault
@@ -199,25 +199,30 @@ function resetModel(event) {
 
         if (confirmResetForm.returnValue == 'yes') {
 
-            // formEl.reset() wont’t work
+            // formEl.reset() wont’t work (will prevent dialog to close)
 
-            // caching uuid if updating old instance
             const modelUuid = theModel.uuid
 
-            // resetting all the values
-            Object.assign(theModel, baredModel)
-            theModel.uuid = modelUuid
+            const db = await dbPromise
 
-            await updateStore()
-        }
-        else {
+            const docUuids = await db.getAllKeysFromIndex('document', 'parentUuidIdx', modelUuid)
+
+            Promise.allSettled(docUuids.map(async (fileUuid) => {
+                await db.delete('document', fileUuid)
+            }))
+            await db.delete('theModel', modelUuid);
+
+            document
+                .querySelector('[data-file-wrapper]')
+                .dispatchEvent(
+                    new Event('remove.files.display'))
+        } else {
             /*
             Since we've just reset the form, we need to revert ^^
              */
             updateControlsFromModel()
         }
     }, {once: true })
-
 
 }
 
@@ -266,3 +271,4 @@ async function getFromStore(store, key) {
 
     return thing
 }
+
