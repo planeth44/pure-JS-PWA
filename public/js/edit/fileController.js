@@ -7,10 +7,13 @@ import {APP} from '../app.js'
 
 const fileModel = {
         uuid: null, // primaryKey
-        parentUuid: null, // theModel uuid
+        parentUuid: '', // theModel uuid
         timestamp: Math.floor(new Date().getTime() / 1000),
         mime: '',
         name: '',
+        blob: null,
+        byteLength: 0,
+        size: '',
         syncStatus: 'pending'
     },
     fileInput = _d.qs('input[name^=documents'),
@@ -30,6 +33,8 @@ const fileModel = {
 
 navigator.serviceWorker.addEventListener('message', processFile); // incoming share target
 
+document.addEventListener('DOMContentLoaded', displayAttachedFiles);
+
 document.addEventListener('click', function (evt) {
 
     let handler = evt.target.getAttribute('data-click');
@@ -46,6 +51,35 @@ fileInput.addEventListener('change', processFile, true)
 filesWrapper.addEventListener('remove.files.display', (event) => {
     event.currentTarget.innerHTML = ''
 })
+
+async function displayAttachedFiles() {
+
+    if (location.pathname.endsWith('edit')) return
+
+    const parentUuid = location.pathname.split('/').pop()
+    const files = await findFilesByModelUuid(parentUuid)
+
+    Promise.allSettled(files.map(async (file) => {
+        const div = document.createElement('div')
+        div.classList.add('result-img')
+
+        if (file.mime.startsWith('image/')) {
+            const blob = new Blob([file.blob], {
+                type: file.mime
+            })
+            await showImage(blob, file.uuid, div)
+        } else {
+            div.insertAdjacentHTML(
+                'afterbegin', `
+                        <p data-uuid="${file.uuid}">${file.name}</p> `
+            )
+
+            filesWrapper.insertAdjacentElement('beforeend', div)
+        }
+
+    })).then(() => addRemoveFileBtns())
+}
+
 
 async function processFile(event) {
     event.preventDefault()
@@ -68,8 +102,8 @@ async function processFile(event) {
 
     Promise.allSettled(fileList.map(async file => {
 
-        return displayFile(file, filesWrapper).then(uuid => {
-            return storeCurrentFile(file, uuid, APP.theModel.uuid)
+        return displayFile(file).then(uuid => {
+            return storeCurrentFile(file, uuid)
         }).then(uuid => {
             addRemoveFileBtns()
         })
@@ -92,7 +126,7 @@ async function processFile(event) {
     })
 }
 
-async function displayFile(file, filesWrapper) {
+async function displayFile(file) {
 
     const
         div = document.createElement('div'),
@@ -100,17 +134,7 @@ async function displayFile(file, filesWrapper) {
     div.classList.add('result-img')
 
     if (file && file.type.match('image.*')) {
-        const image = new Image()
-        image.dataset.uuid = fileUuid
-        div.appendChild(image)
-
-        return readtheFile('readAsDataURL', file).then(result => {
-            image.src = result
-            filesWrapper.insertAdjacentElement('beforeend', div)
-
-            return fileUuid
-        })
-
+        return showImage(file, fileUuid, div)
     } else {
         /*
           Or We could filter out photos only
@@ -128,19 +152,35 @@ async function displayFile(file, filesWrapper) {
     }
 }
 
-async function storeCurrentFile(theFile, fileUuid, parentUuid) {
+function showImage(file, fileUuid, div) {
+    const image = new Image()
+    image.dataset.uuid = fileUuid
+    div.appendChild(image)
 
-    fileModel.uuid = fileUuid
-    fileModel.parentUuid = parentUuid
-    fileModel.mime = theFile.type
-    fileModel.name = theFile.name
+    return readtheFile('readAsDataURL', file).then(result => {
+        image.src = result
+        filesWrapper.insertAdjacentElement('beforeend', div)
+
+        return fileUuid
+    })
+}
+
+
+async function storeCurrentFile(theFile, fileUuid) {
+
+    const currentFile = Object.assign({}, fileModel, {
+        parentUuid: APP.theModel.uuid,
+        uuid: fileUuid, // primaryKey
+        mime: theFile.type,
+        name: theFile.name,
+    })
 
     return readtheFile('readAsArrayBuffer', theFile).then(async arrayBuffer => {
-        fileModel.blob = arrayBuffer
-        fileModel.byteLength = arrayBuffer.byteLength
-        fileModel.size = readableFileSize(arrayBuffer.byteLength)
+        currentFile.blob = arrayBuffer
+        currentFile.byteLength = arrayBuffer.byteLength
+        currentFile.size = readableFileSize(arrayBuffer.byteLength)
 
-        return await putToDocumentStore(fileModel) // will return fileUuid
+        return await putToDocumentStore(currentFile) // will return fileUuid
 
     })
 }
@@ -171,3 +211,20 @@ async function deleteDocument(uuid) {
     return await db.delete('document', uuid);
 }
 
+async function findFilesByModelUuid(parentUuid) {
+    const files = []
+
+    const db = await dbPromise;
+    const tx = db.transaction('document');
+    const range = IDBKeyRange.only(parentUuid)
+
+    let cursor = await tx.store.index('parentUuidIdx').openCursor(range);
+
+    while (cursor) {
+        files.push(cursor.value)
+        cursor = await cursor.continue();
+    }
+    await tx.done
+
+    return files
+}
