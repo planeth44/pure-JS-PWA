@@ -178,9 +178,15 @@ function updateObjectFromControl(event) {
 async function done(event) {
     await updateStore(event)
 
-    wb.messageSW({
-        type: 'transmitText'
-    });
+    let isValid = true
+    validateRequiredFields()
+
+    if(! isValid){
+
+      // enableSubmitBtn(subBtn)
+
+      return // not transmitting
+    }
 
     location.href = `${location.origin }/show/${instanceUuid}`
 }
@@ -234,6 +240,16 @@ function camelCaseFormat(type) {
     }
 
     return type
+}
+
+function validateRequiredFields()
+{
+  document.querySelectorAll('[required]').forEach(element => {
+    if (!element.checkValidity()){
+      isValid = false
+      element.reportValidity()
+    }
+  })
 }
 
 async function updateStore() {
