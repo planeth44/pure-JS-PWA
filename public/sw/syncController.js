@@ -1,6 +1,7 @@
 /*jshint esversion: 8 */
 // "use strict";
 importScripts('sw/db.js')
+importScripts('../js/Constants.js')
 
 const syncHandlers = {
 
@@ -18,7 +19,7 @@ const syncHandlers = {
     
     const update = await Promise.allSettled(
           result.map(async uuid => {
-            return await updateObjectStatus('theModel', uuid, 'done')
+            return await updateObjectStatus('theModel', uuid, SYNC_STATUS.DONE)
           })
         )
       
@@ -152,7 +153,7 @@ async function postFile(file) {
                     ${html}`,
               class: 'failure'
             })
-            return await updateObjectStatus('document', file.uuid, 'failed', html)
+            return await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
           })
         } else {
 
@@ -180,16 +181,9 @@ async function postFile(file) {
 
 async function handleFileUploaded(json) {
 
-  await updateObjectStatus('document', json.uuid, 'done')
-  return
+  await updateObjectStatus('document', json.uuid, SYNC_STATUS.DONE)
 
-  // await cachePhoto(res) // name, filename
-  // await deleteFromStore('document', res.uuid)
-  // postMessage({
-  //   type: 'update.photo.queue',
-  //   photoName: res.name
-  // })
-  // queue viewer will message SW for new transitPhoto cycle
+  return
 }
 
 /*

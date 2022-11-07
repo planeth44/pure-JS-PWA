@@ -14,7 +14,7 @@ const fileModel = {
         blob: null,
         byteLength: 0,
         size: '',
-        syncStatus: 'pending'
+        syncStatus: SYNC_STATUS.PENDING
     },
     fileInput = _d.qs('input[name^=documents'),
     filesWrapper = _d.qs('[data-file-wrapper]'),
@@ -35,15 +35,15 @@ navigator.serviceWorker.addEventListener('message', processFile); // incoming sh
 
 document.addEventListener('DOMContentLoaded', displayAttachedFiles);
 
-document.addEventListener('click', function (evt) {
+document.addEventListener('click', function (event) {
 
-    let handler = evt.target.getAttribute('data-click');
+    let handler = event.target.getAttribute('data-click');
 
     if (!handler || !eventHandlers[handler]) {
         return;
     }
 
-    eventHandlers[handler](evt);
+    eventHandlers[handler](event);
 });
 
 fileInput.addEventListener('change', processFile, true)
@@ -71,7 +71,7 @@ async function displayAttachedFiles() {
         } else {
             div.insertAdjacentHTML(
                 'afterbegin', `
-                        <p data-uuid="${file.uuid}">${file.name}</p> `
+                <p data-uuid="${file.uuid}">${file.name}</p> `
             )
 
             filesWrapper.insertAdjacentElement('beforeend', div)

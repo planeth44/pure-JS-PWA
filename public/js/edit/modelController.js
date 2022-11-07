@@ -23,7 +23,7 @@ const theModel = {
         documents: [],
         addedAt: now,
         updatedAt: null,
-        syncStatus: 'pending', //@TODO should be 'empty'
+        syncStatus: SYNC_STATUS.PENDING , //@TODO should be 'empty'
         updatedTs: Math.floor(now.getTime() / 1000),
         uuid: APP.uuid
     },
