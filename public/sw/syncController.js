@@ -86,7 +86,8 @@ async function postModels(models) {
     let contentType = response.headers.get('content-type')
 
     if (response.ok 
-      && response.status == 201 && contentType.includes('application/json')) {
+      && response.status == 201 
+      && contentType.includes('application/json')) {
 
       return response.json()
     } else if (!response.ok && contentType.includes('text/html')) {
@@ -95,8 +96,8 @@ async function postModels(models) {
         postMessage({
           type: 'user.notify',
           text: `Trying to upload texts<br>
-                          But, there was an error:<br>
-                          ${html}`,
+                But, there was an error:<br>
+                ${html}`,
           class: 'failure'                          
         })
         // not updating w/ failed as we don’t know which part/model failed
@@ -107,9 +108,9 @@ async function postModels(models) {
       postMessage({
         type: 'user.notify',
         text: `Trying to upload models<br>
-                  But, there was an error:<br>
-                  Response was : ${response.statusText}<br>
-                  content-type was ${contentType}`,
+                But, there was an error:<br>
+                Response was : ${response.statusText}<br>
+                content-type was ${contentType}`,
         class: 'failure'                          
       })
 
@@ -139,10 +140,11 @@ async function postFile(file) {
       .then(async response => {
         let contentType = response.headers.get('content-type')
 
-        if (response.ok
-         && response.status == 201 && contentType.includes('application/json')) {
+        if (response.ok &&
+          response.status == 201 &&
+          contentType.includes('application/json')) {
 
-          return response.json() 
+          return response.json()
         } else if (!response.ok && contentType.includes('text/html')) {
 
           return response.text().then(async (html) => {
@@ -153,7 +155,10 @@ async function postFile(file) {
                     ${html}`,
               class: 'failure'
             })
-            return await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
+
+            await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
+
+            return
           })
         } else {
 
@@ -163,7 +168,7 @@ async function postFile(file) {
                     But, there was an error:<br>
                     Response was : ${response.statusText}<br>
                     content-type was ${contentType}`,
-            class: 'failure'                          
+            class: 'failure'
           })
           return
         }

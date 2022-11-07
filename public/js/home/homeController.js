@@ -5,6 +5,7 @@ import {registerSyncEvent } from '../app.js'
 const modelsContainer = document.querySelector('[data-models-container]'),
   eventHandlers = {
     sync: function(event) {
+      event.target.innerHTML= 'Syncing in progress.<br>You can go on with your life'
       registerSyncEvent('sync-data', 'transmitText')
     }
   }

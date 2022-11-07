@@ -69,7 +69,7 @@ function registerSyncEvent(tag, backupSwMsg) {
 
         const uts = Math.floor(new Date().getTime() / 1000)
 
-        await registration.sync.register(`${tag}:${uts}`);
+        await registration.sync.register(`${tag}:${uts}`)
 
       } catch (syncError) {
 

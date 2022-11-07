@@ -65,6 +65,7 @@ self.addEventListener('message', async (event) => {
     console.error(`no ${handler} or no syncHandlers[${handler}]`)
     return;
   }
+
   try {
     event.waitUntil(syncHandlers[handler]())
   } catch (error) {
@@ -73,7 +74,6 @@ self.addEventListener('message', async (event) => {
       text: error.toString()
     })
   }
-
 });
 
 if ('sync' in self.registration) {
@@ -82,12 +82,23 @@ if ('sync' in self.registration) {
 
     if (event.tag.startsWith('sync-data')) { // tag form sync-data-<uts>
 
-      event.waitUntil(syncHandlers.transmitText());
+      try {
+
+        event.waitUntil(syncHandlers.transmitText())
+
+      } catch (error) {
+        postMessage({
+          type: 'user.notify',
+          text: error.toString()
+        })
+      }
+
     }
   })
 } else {
 
   syncHandlers.transmitText()
+
 }
 
 function postMessage(message)

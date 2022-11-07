@@ -34,7 +34,7 @@ async function deleteFromStore(store, key) {
   return await db.delete(store, key)
 }
 
-async function updateObjectStatus(store, key, status, error=null)
+async function updateObjectStatus(store, key, status, htmlError=null)
 {
     const db = await dbPromise;
     const range  = IDBKeyRange.only(key)
@@ -46,8 +46,8 @@ async function updateObjectStatus(store, key, status, error=null)
     const object  = cursor.value
     object.syncStatus = status
 
-    if(error){
-        object.error = error
+    if(htmlError){
+        object.htmlError = htmlError
     }
 
     return await cursor.update(object) // otherwise iOS may finish the transaction
