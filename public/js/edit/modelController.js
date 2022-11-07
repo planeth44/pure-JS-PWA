@@ -4,7 +4,7 @@ import updateControl from './formControlUpdater.js'
 import {getByPath, setByPath} from '../libs/objectByPath.js'
 import changeHandlers from './changeHandlers.js'
 import {dbPromise} from '../db.js'
-import {APP, wb} from '../app.js'
+import {APP, wb, registerSyncEvent} from '../app.js'
 
 const now = new Date()
 
@@ -187,6 +187,8 @@ async function done(event) {
 
       return // not transmitting
     }
+
+    registerSyncEvent('sync-data', 'transmitText')
 
     location.href = `${location.origin }/show/${instanceUuid}`
 }

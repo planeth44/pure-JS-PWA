@@ -76,6 +76,20 @@ self.addEventListener('message', async (event) => {
 
 });
 
+if ('sync' in self.registration) {
+  self.addEventListener('sync', event => {
+    console.log(`sync event was received. Event : ${event.tag}`)
+
+    if (event.tag.startsWith('sync-data')) { // tag form sync-data-<uts>
+
+      event.waitUntil(syncHandlers.transmitText());
+    }
+  })
+} else {
+
+  syncHandlers.transmitText()
+}
+
 function postMessage(message)
 {
     return self.clients.matchAll().then(function (clients) {

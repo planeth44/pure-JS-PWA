@@ -60,4 +60,32 @@ document.addEventListener('message', (event) => {
   }
 })
 
-export {APP, wb}
+function registerSyncEvent(tag, backupSwMsg) {
+  navigator.serviceWorker.getRegistration().then(async registration => {
+
+    if ('sync' in registration) {
+
+      try {
+
+        const uts = Math.floor(new Date().getTime() / 1000)
+
+        await registration.sync.register(`${tag}:${uts}`);
+
+      } catch (syncError) {
+
+        wb.messageSW({
+          type: backupSwMsg
+        });
+      }
+    } else {
+
+      // iOS case
+      wb.messageSW({
+        type: backupSwMsg
+      });
+    }
+  })
+}
+
+
+export {APP, wb, registerSyncEvent}
