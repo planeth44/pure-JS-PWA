@@ -1,18 +1,15 @@
 --- 2022-10-16 ---
 
 ~ BEHAVIOUR
-- [ ] Add an action to sync without being in edit page + trigger a 'done'
-- [ ] Home page -> add method to check for pending instances
+- [ ] Generate list page after done in edit
 - [ ] add an option to clear user-notification after timeout
 - [ ] add manifest for installability
-- [ ] Generate list page after done in edit
 
 ~ UI
 - [ ] Better UI for /show
 - [ ] implement /document/failed view + controller
 
 ~ REFACTOR
-- [ ] refactor syncStatus values as const in ???
 - [ ] refactor syncController. Extract call to fetch to its own method
    Catch a 401 [[https://github.com/github/fetch/issues/201#issuecomment-308213104]]
    [[https://web.dev/fetch-api-error-handling/]]
@@ -32,7 +29,7 @@
 - [ ] explore making a Model class with method getFromPath, setFRomPath, toFormData 
 
 ~ README
-- [ ] non negociable : performance. Speed of page
+- [ ] non negociable : performance. Minimum amont of LoC. Snappy page
 - [ ] Closest as possible to web API
 - [ ] make use of every native API : service worker, module, 
 - [ ] Go for the least amount of code and the least amout of abstraction
@@ -41,6 +38,9 @@
 
 
 ~ DONE
+- [X] Home page -> add method to check for pending instances
+- [X] Add an action to sync without being in edit page + trigger a 'done'
+- [X] refactor syncStatus values as const in ???
 - [X] Implement background-sync
 - [X] ModelController. Done button should trigger validation. And stop to ask to change if need
 - [X] Display files & photos in /edit/<uuid>
