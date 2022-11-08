@@ -36,6 +36,8 @@ export default function notifyUser(message) {
   const notifier = userNotifTmpl(message)
 
   UiElement.mainNode.insertAdjacentHTML('afterbegin', notifier)
+
+  window.scrollTo(0, 0)
 }
 
 function dismiss(elt) {

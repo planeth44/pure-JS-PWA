@@ -176,21 +176,31 @@ function updateObjectFromControl(event) {
 }
 
 async function done(event) {
-    await updateStore(event)
+
+    event.preventDefault()
+
+    await updateStore()
 
     let isValid = true
     validateRequiredFields()
 
-    if(! isValid){
+    if (!isValid) {
 
-      // enableSubmitBtn(subBtn)
-
-      return // not transmitting
+        // enableSubmitBtn(subBtn)
+        return // not transmitting
     }
 
     registerSyncEvent('sync-data', 'transmitText')
 
-    location.href = `${location.origin }/show/${instanceUuid}`
+    document.dispatchEvent(new CustomEvent('message', {
+        detail: {
+            type: 'user.notify',
+            text: `Thing stored and ready to sync<br>
+            <a href="${location.origin }/show/${instanceUuid}">Go to page</a>`,
+            class: 'info'
+        }
+    }))
+
 }
 
 function removeModel(event) {
