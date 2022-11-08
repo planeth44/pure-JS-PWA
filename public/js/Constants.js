@@ -4,4 +4,10 @@ const SYNC_STATUS = {
   UPDATE: 'update',
   DONE: 'done',
   FAILED: 'failed'
-} 
+}
+
+const API_URL = {
+  MODELS: '/api/models',
+  FILE: '/api/file',
+  CHECK: '/check'
+}

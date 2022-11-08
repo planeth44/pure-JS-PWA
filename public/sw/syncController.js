@@ -79,7 +79,7 @@ const syncHandlers = {
 }
 
 async function postModels(models) {
-  return fetch('/api/models', {
+  return fetch(API_URL.MODELS, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ async function postModels(models) {
 }
 
 async function postFile(file) {
-  return fetch('/api/file', {
+  return fetch(API_URL.FILE, {
       method: 'PUT',
       headers: {
         'Content-Type': file.mime,
