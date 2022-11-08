@@ -1,6 +1,7 @@
 /*jshint esversion: 8 */
 import {Workbox} from './vendor/workbox-v6.5.1/workbox-window.prod.mjs';
 import notifyUser from '../js/libs/user-notification.js'
+import isOnline from '../js/libs/isOnline.js'
 
 if (!('randomUUID' in crypto)) {
   // https://stackoverflow.com/a/2117523/2800218
@@ -83,6 +84,20 @@ function registerSyncEvent(tag, backupSwMsg) {
         type: backupSwMsg
       });
     }
+  })
+
+  // Let the user know what’s happening
+  isOnline().catch((offline) => {
+
+    if (!tag.includes('sync-data')) return
+
+    notifyUser({
+      text: `
+        We’re offline, sailor ⛵<br>
+        Sync will be taken care of <br>
+        when we get back online`,
+      class: 'info'
+    })
   })
 }
 

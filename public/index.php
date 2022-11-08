@@ -98,6 +98,8 @@ class Kernel extends BaseKernel
                     ]
                 ]
             );
+        $routes->add('check', '/check')
+            ->controller([$this, 'check']);
         $routes->add('new_models', '/api/models')
             ->controller([$this, 'newModel'])
             ->methods(['POST']);
@@ -108,6 +110,11 @@ class Kernel extends BaseKernel
 
         $routes->add('multi_files_check', '/api/multiFiles')->controller([$this, 'checkMultfiles']);
         $routes->add('random_number', '/random/{limit}')->controller([$this, 'randomNumber']);
+    }
+
+    public function check(): Response
+    {
+        return new Response();
     }
 
     public function newModel(Request $request): JsonResponse
