@@ -82,17 +82,34 @@ if ('sync' in self.registration) {
 
     if (event.tag.startsWith('sync-data')) { // tag form sync-data-<uts>
 
-      try {
-
-        event.waitUntil(syncHandlers.transmitText())
-
-      } catch (error) {
-        postMessage({
-          type: 'user.notify',
-          text: error.toString()
+      event.waitUntil(
+        syncHandlers.transmitText()
+        .then(() => {
+            postMessage({
+              type: 'model.container.update',
+              text: `Sync completed`,
+              class: 'success'
+            })
         })
-      }
+        .catch((syncError) => {
+          if (event.lastChance) {
+            postMessage({
+              type: 'user.notify',
+              text: `Sync failed`,
+              class: 'failure'
+            })
 
+          } else {
+            postMessage({
+              type: 'user.notify',
+              text: `${syncError.toString()}<br>
+                We’ll try a sync later`,
+              class: 'info'
+            })
+          }
+
+        })
+      )
     }
   })
 } else {

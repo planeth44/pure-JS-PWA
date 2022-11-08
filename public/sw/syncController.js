@@ -177,7 +177,20 @@ async function postFile(file) {
                     content-type was ${contentType}`,
           class: 'failure'
         })
+        return
+      }
+    })
+    /*
+    OBSOLETE as we’re using background-sync in case of offline
+    .catch((networkError) => {
+      console.error(networkError)
+      postMessage({
+        type: 'user.notify',
+        text: 'We’re offline, sailor ⛵' + networkError.toString(),
+        class: 'info'
       })
+    })
+     */
 }
 
 
