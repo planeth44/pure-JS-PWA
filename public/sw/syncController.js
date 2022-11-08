@@ -62,7 +62,7 @@ const syncHandlers = {
         text: `No more file to upload`,
         class: 'info'
       })
-      self.syncInProgress = false
+      // self.syncInProgress = false
       return
     }
 
@@ -134,58 +134,48 @@ async function postModels(models) {
 }
 
 async function postFile(file) {
-    return fetch('/api/file', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': file.mime,
-          'X-filename': file.name,
-          'X-fileuuid': file.uuid,
-          'X-fileparentuuid': file.parentUuid,
-        },
-        body: file.blob
-      })
-      .then(async response => {
-        let contentType = response.headers.get('content-type')
+  return fetch('/api/file', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': file.mime,
+        'X-filename': file.name,
+        'X-fileuuid': file.uuid,
+        'X-fileparentuuid': file.parentUuid,
+      },
+      body: file.blob
+    })
+    .then(async response => {
+      let contentType = response.headers.get('content-type')
 
-        if (response.ok &&
-          response.status == 201 &&
-          contentType.includes('application/json')) {
+      if (response.ok &&
+        response.status == 201 &&
+        contentType.includes('application/json')) {
 
-          return response.json()
-        } else if (!response.ok && contentType.includes('text/html')) {
+        return response.json()
+      } else if (!response.ok && contentType.includes('text/html')) {
 
-          return response.text().then(async (html) => {
-            postMessage({
-              type: 'user.notify',
-              text: `Trying to upload files ${file.name}<br>
-                    But, there was an error:<br>
-                    ${html}`,
-              class: 'failure'
-            })
-
-            await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
-
-            return
-          })
-        } else {
-
+        return response.text().then(async (html) => {
           postMessage({
             type: 'user.notify',
-            text: `Trying to upload file<br>
+            text: `Trying to upload files ${file.name}<br>
+                    But, there was an error:<br>
+                    ${html}`,
+            class: 'failure'
+          })
+
+          await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
+
+          return
+        })
+      } else {
+
+        postMessage({
+          type: 'user.notify',
+          text: `Trying to upload file<br>
                     But, there was an error:<br>
                     Response was : ${response.statusText}<br>
                     content-type was ${contentType}`,
-            class: 'failure'
-          })
-          return
-        }
-      })
-      .catch((networkError) => {
-        console.error(networkError)
-        postMessage({
-          type: 'user.notify',
-          text: 'We’re offline, sailor ⛵' + networkError.toString(),
-          class: 'info'
+          class: 'failure'
         })
       })
 }
