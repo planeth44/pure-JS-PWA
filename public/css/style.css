@@ -42,11 +42,24 @@ fieldset{
     height: 35px;
 }
 
-.cancel-btn, .muted{
+.-cancel, .-muted{
   background-color: #668fb2;
+}
+.button.-link{
+  font-size: 74%;
+  background: cornflowerblue;
 }
 .list-container{
   padding-left: 0;
+}
+.list-card_status{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.list-footer{
+  display: flex;
+  justify-content: space-between;
 }
 .thing-description{
   white-space: pre-line;
@@ -55,10 +68,6 @@ fieldset{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-.thing-status{
-    align-self: end;
-    margin-bottom: 0.3em;
 }
 /*
 user notification
@@ -72,13 +81,17 @@ user notification
   /*border: 1px solid grey;*/
   border-radius: .5em;
 }
-.user-notification.info {
+.user-notification.info,
+.label.-status.pending,
+.label.-status.update {
   background-color: #c3d9e5;
 }
-.user-notification.success {
+.user-notification.success,
+.label.-status.done {
   background-color: #a4d5bd;
 }
-.user-notification.failure {
+.user-notification.failure,
+.label.-status.failed {
   background-color: #efc3d4;
 }
 .user-notification .content {

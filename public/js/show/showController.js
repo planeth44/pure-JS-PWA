@@ -12,7 +12,7 @@ async function thingCardTmpl(t, docs) {
   return `
     <header>
       <h3>${t.title}</h3>
-      <h4>${t.meta.date.toLocaleString()} at ${t.meta.place}</h4>
+      <h5>${t.meta.date.toLocaleString()} at ${t.meta.place}</h5>
     </header>
       <div class="thing-description">
         ${t.description}
@@ -27,7 +27,6 @@ async function thingCardTmpl(t, docs) {
       <div class="files-wrapper">${docs}</div>
     <footer class="thing-card_footer">
       <a href="/edit/${t.uuid}" class="button">Edit</a>
-      <span class="label thing-status muted">${t.syncStatus} sync</span>
     </footer> `
 }
 function consequenceTmpl(t) {

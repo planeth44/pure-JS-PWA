@@ -10,12 +10,15 @@ const listContainer = document.querySelector('[data-list-container]')
 function thingCardTmpl(m) {
   return `<li class="card">
         <header>${m.title}</header>
-        <div>
+        <section>
           Added the : <span>${m.date}</span>
-        </div>
-        <footer>
-          <a href="/edit/${m.uuid}" class="button">Edit the thing</a>
-          <a href="/show/${m.uuid}" class="button">Show the thing</a>
+        </section>
+        <section class="list-card_status">
+          <span class="label -status ${m.syncStatus}">${m.syncStatus}</span>
+        </section>
+        <footer class="list-footer">
+          <a href="/edit/${m.uuid}" class="button -link">Edit the thing</a>
+          <a href="/show/${m.uuid}" class="button -link">Show the thing</a>
         </footer>
       </li> `
 }
@@ -28,6 +31,7 @@ getAllThings().then((list) => {
     m.uuid = instance.uuid
     m.title = instance.title
     m.date = instance.meta.date.toLocaleString()
+    m.syncStatus = instance.syncStatus
     const card = thingCardTmpl(m)
     cards.push(card)
   })
