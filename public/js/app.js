@@ -45,14 +45,13 @@ navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
 /*
   User notification
 */
-
-navigator.serviceWorker.onmessage = function(evt) {
-  const message = evt.data
+navigator.serviceWorker.addEventListener('message', (event) => {
+  const message = event.data
 
   if (message.type === 'user.notify') {
     notifyUser(message)
   }
-}
+})
 
 document.addEventListener('message', (event) => {
   if (event.detail.type === 'user.notify') {

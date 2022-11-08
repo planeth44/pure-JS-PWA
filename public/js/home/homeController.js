@@ -24,6 +24,17 @@ modelsContainer.addEventListener('click', (event) => {
   eventHandlers[handler](event);
 })
 
+navigator.serviceWorker.addEventListener('message', (event) => {
+  const message = event.data
+
+  if (message.type === 'model.container.update') {
+    modelsContainer.innerHTML = `
+    <p class="user-notification ${message.class}">
+      ${message.text}
+    </p>`
+  }
+})
+
 /*
  * Functions
  */
