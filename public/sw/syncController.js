@@ -60,7 +60,7 @@ const syncHandlers = {
       postMessage({
         type: 'user.notify',
         text: `No more file to upload`,
-        class: 'success'
+        class: 'info'
       })
       self.syncInProgress = false
       return
@@ -119,14 +119,18 @@ async function postModels(models) {
 
       return
     }
-  }).catch((fetchError) => {
-      console.error(fetchError)
+  })
+  /*
+  OBSOLETE as we’re using background-sync in case of offline
+  .catch((networkError) => {
+      console.error(networkError)
       postMessage({
         type: 'user.notify',
-        text: 'We’re offline, sailor ⛵' + fetchError.toString(),
+        text: 'We’re offline, sailor ⛵' + networkError.toString(),
         class: 'info'                          
       })
   })
+   */
 }
 
 async function postFile(file) {
