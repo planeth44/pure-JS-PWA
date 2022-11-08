@@ -31,7 +31,8 @@ const syncHandlers = {
       class: 'info'
     })
 
-    syncHandlers.transmitFile()
+    await syncHandlers.transmitFile()
+    // return 
   },
 
   transmitFile: async function() {
@@ -39,7 +40,7 @@ const syncHandlers = {
     const file = await getPendingFile()
 
     if (undefined == file) { // no more file to transmit
-      return syncHandlers.transmitFailedFile()
+      await syncHandlers.transmitFailedFile()
     }
 
     const json = await postFile(file)
@@ -48,7 +49,8 @@ const syncHandlers = {
 
     const update = await handleFileUploaded(json)
 
-    return await syncHandlers.transmitFile()
+    await syncHandlers.transmitFile()
+    // return 
   },
  
   transmitFailedFile: async function() {
@@ -72,6 +74,7 @@ const syncHandlers = {
 
     const update = await handleFileUploaded(json)
 
+    return
   }
 }
 
