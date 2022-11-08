@@ -95,6 +95,12 @@ async function postModels(models) {
       return response.json()
     } else if (!response.ok && contentType.includes('text/html')) {
 
+      /*
+      @TO CONSIDER 
+      response.status could be 400 or 409 because of bad data
+      We could test for response status and store the returned HTML 
+      with information about malformed data and offer to edit and resubmit the Thing
+       */
       return response.text().then(async (html) => {
         postMessage({
           type: 'user.notify',
@@ -165,7 +171,7 @@ async function postFile(file) {
 
           await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
 
-          return
+          throw new fetchError()
         })
       } else {
 
@@ -180,6 +186,7 @@ async function postFile(file) {
         return
       }
     })
+
     /*
     OBSOLETE as we’re using background-sync in case of offline
     .catch((networkError) => {
@@ -200,6 +207,12 @@ async function handleFileUploaded(json) {
 
   return
 }
+
+/*
+@TO DO make a meaningful error
+ */
+class fetchError extends Error {}
+
 
 /*
 async function cachePhoto(res) {
