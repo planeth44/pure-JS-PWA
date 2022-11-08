@@ -50,7 +50,8 @@ async function updateObjectStatus(store, key, status, htmlError=null)
         object.htmlError = htmlError
     }
 
-    return await cursor.update(object) // otherwise iOS may finish the transaction
+    await cursor.update(object) // otherwise iOS may finish the transaction
+    return 
 }
 
 async function putToStore(store, record, key=null)
