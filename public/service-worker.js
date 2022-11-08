@@ -92,16 +92,26 @@ if ('sync' in self.registration) {
             })
         })
         .catch((syncError) => {
+          // @TODO consider using Web Notification as the app may be in background
           if (event.lastChance) {
             postMessage({
               type: 'user.notify',
-              text: `Sync failed`,
+              text: `Sync failed<br>
+                Try later`,
               class: 'failure'
             })
 
+          } else if (syncError.message == "Failed to fetch") { // server is unreachable
+            postMessage({
+              type: 'model.container.update',
+              text: `${syncError.toString()}<br>
+                Sync failed<br>
+                Give it a try later`,
+              class: 'info'
+            })
           } else {
             postMessage({
-              type: 'user.notify',
+              type: 'model.container.update',
               text: `${syncError.toString()}<br>
                 We’ll try a sync later`,
               class: 'info'
@@ -122,6 +132,11 @@ function postMessage(message)
 {
     return self.clients.matchAll().then(function (clients) {
         clients.forEach(function (client) {
+            if(client.url.endsWith('/')){
+              message.type = 'model.container.update'
+            }else{
+              message.type = 'user.notify'
+            }
             client.postMessage(message)
         });
     });

@@ -86,11 +86,16 @@ function registerSyncEvent(tag, backupSwMsg) {
     }
   })
 
-  // Let the user know what’s happening
-  isOnline().catch((offline) => {
+  /*
+    Using navigator.onLine in this case
+    Background-sync event will not fire if offline
+    Let the user know what’s happening.
 
-    if (!tag.includes('sync-data')) return
-
+    If using isOnline helper (checking if server is reachable)
+    background-sync event will be dispatched & will fail
+    and no retry will be attempted
+   */
+  if (!navigator.onLine && tag.includes('sync-data')){
     notifyUser({
       text: `
         We’re offline, sailor ⛵<br>
@@ -98,7 +103,7 @@ function registerSyncEvent(tag, backupSwMsg) {
         when we get back online`,
       class: 'info'
     })
-  })
+  }
 }
 
 
