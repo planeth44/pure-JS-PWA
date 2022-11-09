@@ -11,16 +11,19 @@
 
     <h3>Add a Thing</h3>
 
-<form method="POST" enctype="multipart/form-data" id="editTheThingForm" action="/">
+<form method="POST" enctype="multipart/form-data" id="editTheThingForm" action="/" novalidate>
+  <ol data-form-errors></ol>
   <fieldset>
     <div >
       <label>
-        The date
-        <input type="datetime-local" name="meta[date]">
+        <span class="label-text">The date</span>
+        <input type="datetime-local" name="meta[date]" required>
+        <span class="error" aria-live="polite"></span>
       </label>
     </div>
     <div >
-      <label>Where did the Thing took place
+      <label>
+        <span class="label-text">Where did the Thing took place</span>
         <select name="meta[place]" required>
           <option></option>
           <option>Paris</option>
@@ -29,27 +32,31 @@
           <option>Stockholm</option>
           <option>Madrid</option>
         </select>
+        <span class="error" aria-live="polite"></span>
       </label>
     </div>
   </fieldset>
   <fieldset>
     <div >
       <label>
-        Title
+        <span class="label-text">Title</span>
         <input type="text" name="title" required />
+        <span class="error" aria-live="polite"></span>
       </label>
     </div>
     <div >
       <label>
-        Description
-        <textarea name="description"></textarea>
+        <span class="label-text">Description</span>
+        <textarea name="description" required></textarea>
+        <span class="error" aria-live="polite"></span>
       </label>
     </div>
     <div class="flex-row fluid-items">
       <div >
-        <legend>Severity</legend>
+        <legend class="label-text">Severity</legend>
+        <span class="error" aria-live="polite"></span>
         <label class="stack">
-          <input type="radio" name="category" value="Severe" />
+          <input type="radio" name="category" value="Severe" required />
           <span class="checkable">Severe</span>
         </label>
         <label class="stack">
@@ -93,12 +100,14 @@
         <label>
           <input type="checkbox" name="peopleInvolved" value="1">
           <span class="checkable">People involved?</span>
+          <span class="error" aria-live="polite"></span>
         </label>
       </div>
       <div >
         <label>
           Downtime duration
           <input type="text" name="numbreHoursDowntime" data-change="computeDowntime" data-value-type="integer" inputmode="numeric" placeholder="in hours" />
+          <span class="error" aria-live="polite"></span>
         </label>
       </div>
     </div>

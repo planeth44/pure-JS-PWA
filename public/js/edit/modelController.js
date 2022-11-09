@@ -29,11 +29,14 @@ const theModel = {
     },
     formEl = document.forms.editTheThingForm,
     confirmResetForm = document.getElementById('confirmReset'),
+    formErrors = document.querySelector('[data-form-errors]'),
     // caching a bare model to use when reset is triggered
     baredModel = structuredClone(theModel)
 ;
 let formControls = [],
+formControlsErrors = new Map(),
 instanceUuid =  null,
+isValid = true,
 create = true
 ;
 if(!location.pathname.endsWith('edit')){
@@ -113,6 +116,16 @@ async function updateObject(event) {
         return // change event has bubbled upthere. Do nothing, handled in fileController.js
     }
 
+    let errorSpan = event.target.nextElementSibling
+
+    if(errorSpan && !errorSpan.classList.contains('error')){
+        errorSpan = event.target.parentElement.parentElement.querySelector('legend+.error')
+    }
+    if(errorSpan){
+        errorSpan.textContent = ''
+        errorSpan.classList.remove('active')
+    }
+
     let handler = event.target.getAttribute('data-change');
 
     if (handler && changeHandlers[handler]){
@@ -181,12 +194,18 @@ async function done(event) {
 
     await updateStore()
 
-    let isValid = true
-    validateRequiredFields()
+    validateFields()
 
     if (!isValid) {
+        formErrors.innerHTML = ''
+        formErrors.insertAdjacentHTML(
+            'afterBegin', `
+            Some data is missing or is incorrect
+            ${Array.from(formControlsErrors.entries()).map(entry => `<li>${entry[0]}: ${entry[1]}`).join('')} `
+        )
 
-        // enableSubmitBtn(subBtn)
+        window.scrollTo(0, 0)
+
         return // not transmitting
     }
 
@@ -254,14 +273,47 @@ function camelCaseFormat(type) {
     return type
 }
 
-function validateRequiredFields()
-{
-  document.querySelectorAll('[required]').forEach(element => {
-    if (!element.checkValidity()){
-      isValid = false
-      element.reportValidity()
+function validateFields() {
+
+    formControlsErrors.clear()
+
+    formControls.forEach(element => {
+
+        const errorSpan = findErrorSpan(element)
+
+        if (!element.checkValidity()) {
+
+            isValid = false
+
+            errorSpan.textContent = element.validationMessage
+            errorSpan.classList.add('active')
+
+            const labelText = findLabelText(element)
+
+            formControlsErrors.set(labelText.innerText, element.validationMessage)
+
+        } else if (errorSpan) {
+            errorSpan.textContent = ''
+            errorSpan.classList.remove('active')
+        }
+    })
+}
+
+function findErrorSpan(element) {
+    let errorSpan = element.nextElementSibling
+
+    if (errorSpan && !errorSpan.classList.contains('error')) {
+        errorSpan = element.parentElement.parentElement.querySelector('legend+.error')
     }
-  })
+    return errorSpan
+}
+
+function findLabelText(element) {
+    let labelText = element.closest('label').querySelector('.label-text')
+    if (!labelText) {
+        labelText = element.parentElement.parentElement.querySelector('legend.label-text')
+    }
+    return labelText
 }
 
 async function updateStore() {
