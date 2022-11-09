@@ -17,8 +17,8 @@ function thingCardTmpl(m) {
           <span class="label -status ${m.syncStatus}">${m.syncStatus}</span>
         </section>
         <footer class="list-footer">
-          <a href="/edit/${m.uuid}" class="button -link">Edit the thing</a>
-          <a href="/show/${m.uuid}" class="button -link">Show the thing</a>
+          <a href="${ROUTES.EDIT}/${m.uuid}" class="button -link">Edit the thing</a>
+          <a href="${ROUTES.SHOW}/${m.uuid}" class="button -link">Show the thing</a>
         </footer>
       </li> `
 }

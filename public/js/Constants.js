@@ -13,5 +13,7 @@ const API_URL = {
 }
 
 const ROUTES = {
+  EDIT: '/edit',
+  SHOW: '/show',
   FAILED: '/failed'
 }
