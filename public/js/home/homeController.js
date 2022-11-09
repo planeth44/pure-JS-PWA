@@ -68,7 +68,7 @@ Promise.allSettled([
   }
   if (hasFailed){
     modelsContainer.insertAdjacentHTML('beforeend', `
-      <a class"button" href="${ROUTES.FAILED}">See failed</a>`)
+      <a class="button -link" href="${ROUTES.FAILED}">See failed</a>`)
   }
 })
 
