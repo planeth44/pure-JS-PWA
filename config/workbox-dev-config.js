@@ -28,6 +28,10 @@ module.exports = {
       '../templates/pages/list.html.twig',
       '../templates/base.html.twig',
     ],
+    '/failed': [
+      '../templates/pages/failed.html.twig',
+      '../templates/base.html.twig',
+    ],
     '/show': [
       '../templates/pages/show.html.twig',
       '../templates/base.html.twig',

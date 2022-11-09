@@ -72,6 +72,19 @@ class Kernel extends BaseKernel
                     ]
                 ]
             );
+        $routes->add('list', '/failed')
+            ->controller(TemplateController::class)
+            ->defaults(
+                [
+                'template'  => 'pages/failed.html.twig',
+                'maxAge'    => 86400,
+                'sharedAge' => 86400,
+                'private' => true,
+                'context' => [
+                    'title' => 'List the failed “Things” in indexedDB',
+                    ]
+                ]
+            );
         $routes->add('show', '/show')
             ->controller(TemplateController::class)
             ->defaults(
