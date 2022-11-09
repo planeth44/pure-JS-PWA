@@ -42,20 +42,33 @@ document.addEventListener('message', (event) => {
 
 Promise.allSettled([
   getAllPendingFromStore('theModel', 'syncIdx'),
-  getAllPendingFromStore('document', 'syncIdx')
+  getAllPendingFromStore('document', 'syncIdx'),
+  getAllFailedFromStore('theModel', 'syncIdx'),
+  getAllFailedFromStore('document', 'syncIdx')
 ]).then((values) => {
 
   let shouldSync = false
+  let hasFailed = false
 
   values.forEach((value) => {
     if (value.status == 'fulfilled') {
+
+      if(value.value.includes('failed')){
+        hasFailed = true
+      }
+
       modelsContainer.insertAdjacentHTML('afterbegin', `<p>${value.value}</p>`)
       shouldSync = true
     }
+
   })
   if (shouldSync) {
     modelsContainer.insertAdjacentHTML('beforeend', `
       <button data-click="sync">Sync</button>`)
+  }
+  if (hasFailed){
+    modelsContainer.insertAdjacentHTML('beforeend', `
+      <a class"button" href="${ROUTES.FAILED}">See failed</a>`)
   }
 })
 
@@ -70,4 +83,15 @@ async function getAllPendingFromStore(store, syncIdx) {
   }
 
   return `${count} object pending from ${store}`
+}
+
+async function getAllFailedFromStore(store, syncIdx) {
+  const db = await dbPromise
+  const count = await db.countFromIndex(store, syncIdx, SYNC_STATUS.FAILED)
+
+  if (count == 0) {
+    throw new Error(count)
+  }
+
+  return `${count} object failed from ${store}`
 }
