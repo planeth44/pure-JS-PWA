@@ -66,34 +66,39 @@ self.addEventListener('message', async (event) => {
     return;
   }
 
-  event.waitUntil(
-    syncHandlers[handler]()
-    .then(() => {
-      postMessage({
-        event: 'sync.completed',
-        text: `Sync completed`,
-        class: 'success'
+  if (handler == 'transmitText'){
+    event.waitUntil(
+      syncHandlers[handler]()
+      .then(() => {
+        postMessage({
+          event: 'sync.completed',
+          text: `Sync completed`,
+          class: 'success'
+        })
       })
-    })
-    .catch((syncError) => {
-      if (syncError.message == "Failed to fetch") { // server is unreachable
-        postMessage({
-          type: 'user.notify',
-          text: `We’re offline, sailor ⛵: ${syncError.toString()}<br>
-                Give it a try later`,
-          class: 'info'
-        })
-      } else { // thrown by syncController@postFile|@postModels
-        postMessage({
-          type: 'user.notify',
-          text: `Sync failed because<br>
-                ${syncError.toString()}`,
-          class: 'failure'
-        })
-      }
+      .catch((syncError) => {
+        if (syncError.message == "Failed to fetch") { // server is unreachable
+          postMessage({
+            type: 'user.notify',
+            text: `We’re offline, sailor ⛵: ${syncError.toString()}<br>
+                  Give it a try later`,
+            class: 'info'
+          })
+        } else { // thrown by syncController@postFile|@postModels
+          postMessage({
+            type: 'user.notify',
+            text: `Sync failed because<br>
+                  ${syncError.toString()}`,
+            class: 'failure'
+          })
+        }
+      })
+    )
+  }
+  else {
+    event.waitUntil(syncHandlers[handler]())
+  }
 
-    })
-  )
 });
 
 if ('sync' in self.registration) {
