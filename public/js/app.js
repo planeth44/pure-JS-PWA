@@ -49,8 +49,19 @@ navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
 navigator.serviceWorker.addEventListener('message', (event) => {
   const message = event.data
 
+  if (!message.type && message.event) {
+    setMessageType(message)
+  }
+
   if (message.type === 'user.notify') {
+
     notifyUser(message)
+
+  } else if (message.type === 'home.update.modelContainer') {
+
+    document.dispatchEvent(new CustomEvent('message', {
+      detail: message
+    }))
   }
 })
 
@@ -97,7 +108,7 @@ function registerSyncEvent(tag, backupSwMsg) {
       }
     } else {
 
-      // iOS case
+      // iOS| Firefox case
       wb.messageSW({
         type: backupSwMsg
       });
@@ -106,5 +117,19 @@ function registerSyncEvent(tag, backupSwMsg) {
 
 }
 
+function setMessageType(message) {
+
+  if (message.event == 'sync.completed') {
+
+    if (location.pathname == '/') {
+
+      message.type = 'update.home.modelContainer'
+
+    } else {
+
+      message.type = 'user.notify'
+    }
+  }
+}
 
 export {APP, wb, registerSyncEvent}

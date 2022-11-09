@@ -24,14 +24,15 @@ modelsContainer.addEventListener('click', (event) => {
   eventHandlers[handler](event);
 })
 
-navigator.serviceWorker.addEventListener('message', (event) => {
-  const message = event.data
+document.addEventListener('message', (event) => {
+  const message = event.detail
 
-  if (message.type === 'model.container.update') {
+  if (message.type === 'home.update.modelContainer') {
+
     modelsContainer.innerHTML = `
-    <p class="user-notification ${message.class}">
+      <p class="user-notification ${message.class}">
       ${message.text}
-    </p>`
+      </p>`
   }
 })
 

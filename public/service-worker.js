@@ -132,26 +132,7 @@ function postMessage(message)
 {
     return self.clients.matchAll().then(function (clients) {
         clients.forEach(function (client) {
-            if(client.url.endsWith('/')){
-              message.type = 'model.container.update'
-            }else{
-              message.type = 'user.notify'
-            }
             client.postMessage(message)
         });
     });
 }
-
-// new routing.registerRoute(
-//   ({url, request }) => {
-//     return (url.pathname === '/result');
-//   },
-//   resultHandler
-// )
-
-// new routing.registerRoute(
-//   ({url, request }) => {
-//     return (url.pathname === '/status');
-//   },
-//   queueStatusHandler
-// )
