@@ -11,3 +11,7 @@ const API_URL = {
   FILE: '/api/file',
   CHECK: '/check'
 }
+
+const ROUTES = {
+  FAILED: '/failed'
+}

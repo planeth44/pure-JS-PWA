@@ -88,9 +88,9 @@ async function postModels(models) {
   }).then((response) => {
     let contentType = response.headers.get('content-type')
 
-    if (response.ok 
-      && response.status == 201 
-      && contentType.includes('application/json')) {
+    if (response.ok &&
+      response.status == 201 &&
+      contentType.includes('application/json')) {
 
       return response.json()
     } else if (!response.ok && contentType.includes('text/html')) {
@@ -102,38 +102,33 @@ async function postModels(models) {
       with information about malformed data and offer to edit and resubmit the Thing
        */
       return response.text().then(async (html) => {
-        postMessage({
-          type: 'user.notify',
-          text: `Trying to upload texts<br>
+        throw new fetchError(`Trying to upload models<br>
                 But, there was an error:<br>
-                ${html}`,
-          class: 'failure'                          
-        })
+                ${html}`)
         // not updating w/ failed as we don’t know which part/model failed
         // should be decided w/ back-end response
       })
     } else {
 
-      postMessage({
-        type: 'user.notify',
-        text: `Trying to upload models<br>
+      throw new fetchError(`Trying to upload models<br>
                 But, there was an error:<br>
                 Response was : ${response.statusText}<br>
-                content-type was ${contentType}`,
-        class: 'failure'                          
-      })
+                content-type was ${contentType}`)
 
-      return
     }
   })
-  .catch((networkError) => { // case of background-sync not available
-      console.error(networkError)
-      postMessage({
-        type: 'user.notify',
-        text: 'We’re offline, sailor ⛵' + networkError.toString(),
-        class: 'info'                          
-      })
+  /*
+  Case of background-sync not available
+  networkError will be caught in sw@messageListener
+  .catch((networkError) => { 
+    console.error(networkError)
+    postMessage({
+      type: 'user.notify',
+      text: 'We’re offline, sailor ⛵' + networkError.toString(),
+      class: 'info'
+    })
   })
+   */
 }
 
 async function postFile(file) {
@@ -155,42 +150,37 @@ async function postFile(file) {
         contentType.includes('application/json')) {
 
         return response.json()
+
       } else if (!response.ok && contentType.includes('text/html')) {
 
         return response.text().then(async (html) => {
-          postMessage({
-            type: 'user.notify',
-            text: `Trying to upload files ${file.name}<br>
-                    But, there was an error:<br>
-                    ${html}`,
-            class: 'failure'
-          })
 
           await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
 
-          throw new fetchError()
+          throw new fetchError(`Trying to upload files ${file.name}<br>
+                    But, there was an error:<br>
+                    <a href="${ROUTES.FAILED}">See failed page</a>`)
         })
       } else {
 
-        postMessage({
-          type: 'user.notify',
-          text: `Trying to upload file<br>
+        throw new fetchError(`Trying to upload file<br>
                     But, there was an error:<br>
                     Response was : ${response.statusText}<br>
-                    content-type was ${contentType}`,
-          class: 'failure'
-        })
-        return
+                    content-type was ${contentType}`)
       }
     })
-    .catch((networkError) => { // case of background-sync not available
-      console.error(networkError)
-      postMessage({
-        type: 'user.notify',
-        text: 'We’re offline, sailor ⛵' + networkError.toString(),
-        class: 'info'
-      })
+  /*
+  Case of background-sync not available
+  networkError will be caught in sw@messageListener
+  .catch((networkError) => { 
+    console.error(networkError)
+    postMessage({
+      type: 'user.notify',
+      text: 'We’re offline, sailor ⛵' + networkError.toString(),
+      class: 'info'
     })
+  })
+   */
 }
 
 

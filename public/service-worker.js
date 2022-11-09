@@ -79,17 +79,16 @@ self.addEventListener('message', async (event) => {
       if (syncError.message == "Failed to fetch") { // server is unreachable
         postMessage({
           type: 'user.notify',
-          text: `Cannot reach the server<br>
+          text: `We’re offline, sailor ⛵: ${syncError.toString()}<br>
                 Give it a try later`,
           class: 'info'
         })
-      } else {
+      } else { // thrown by syncController@postFile|@postModels
         postMessage({
           type: 'user.notify',
           text: `Sync failed because<br>
-                ${syncError.toString()}<br>
-                Give it a try later`,
-          class: 'info'
+                ${syncError.toString()}`,
+          class: 'failure'
         })
       }
 
@@ -106,11 +105,11 @@ if ('sync' in self.registration) {
       event.waitUntil(
         syncHandlers.transmitText()
         .then(() => {
-            postMessage({
-              event: 'sync.completed',
-              text: `Sync completed`,
-              class: 'success'
-            })
+          postMessage({
+            event: 'sync.completed',
+            text: `Sync completed`,
+            class: 'success'
+          })
         })
         .catch((syncError) => {
           // @TODO consider using Web Notification as the app may be in background
@@ -129,16 +128,14 @@ if ('sync' in self.registration) {
                 Give it a try later`,
               class: 'info'
             })
-          } else {
+          } else { // thrown by syncController@postFile|@postModels
             postMessage({
               type: 'user.notify',
               text: `Sync failed because<br>
-                ${syncError.toString()}<br>
-                Give it a try later`,
-              class: 'info'
+                ${syncError.toString()}`,
+              class: 'failure'
             })
           }
-
         })
       )
     }
