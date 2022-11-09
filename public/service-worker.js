@@ -66,14 +66,35 @@ self.addEventListener('message', async (event) => {
     return;
   }
 
-  try {
-    event.waitUntil(syncHandlers[handler]())
-  } catch (error) {
-    postMessage({
-      type: 'user.notify',
-      text: error.toString()
+  event.waitUntil(
+    syncHandlers[handler]()
+    .then(() => {
+      postMessage({
+        event: 'sync.completed',
+        text: `Sync completed`,
+        class: 'success'
+      })
     })
-  }
+    .catch((syncError) => {
+      if (syncError.message == "Failed to fetch") { // server is unreachable
+        postMessage({
+          type: 'user.notify',
+          text: `Cannot reach the server<br>
+                Give it a try later`,
+          class: 'info'
+        })
+      } else {
+        postMessage({
+          type: 'user.notify',
+          text: `Sync failed because<br>
+                ${syncError.toString()}<br>
+                Give it a try later`,
+          class: 'info'
+        })
+      }
+
+    })
+  )
 });
 
 if ('sync' in self.registration) {
@@ -86,7 +107,7 @@ if ('sync' in self.registration) {
         syncHandlers.transmitText()
         .then(() => {
             postMessage({
-              type: 'model.container.update',
+              event: 'sync.completed',
               text: `Sync completed`,
               class: 'success'
             })
@@ -103,17 +124,17 @@ if ('sync' in self.registration) {
 
           } else if (syncError.message == "Failed to fetch") { // server is unreachable
             postMessage({
-              type: 'model.container.update',
-              text: `${syncError.toString()}<br>
-                Sync failed<br>
+              type: 'user.notify',
+              text: `Cannot reach the server<br>
                 Give it a try later`,
               class: 'info'
             })
           } else {
             postMessage({
-              type: 'model.container.update',
-              text: `${syncError.toString()}<br>
-                We’ll try a sync later`,
+              type: 'user.notify',
+              text: `Sync failed because<br>
+                ${syncError.toString()}<br>
+                Give it a try later`,
               class: 'info'
             })
           }
@@ -122,10 +143,6 @@ if ('sync' in self.registration) {
       )
     }
   })
-} else {
-
-  syncHandlers.transmitText()
-
 }
 
 function postMessage(message)
