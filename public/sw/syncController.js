@@ -126,9 +126,7 @@ async function postModels(models) {
       return
     }
   })
-  /*
-  OBSOLETE as we’re using background-sync in case of offline
-  .catch((networkError) => {
+  .catch((networkError) => { // case of background-sync not available
       console.error(networkError)
       postMessage({
         type: 'user.notify',
@@ -136,7 +134,6 @@ async function postModels(models) {
         class: 'info'                          
       })
   })
-   */
 }
 
 async function postFile(file) {
@@ -186,10 +183,7 @@ async function postFile(file) {
         return
       }
     })
-
-    /*
-    OBSOLETE as we’re using background-sync in case of offline
-    .catch((networkError) => {
+    .catch((networkError) => { // case of background-sync not available
       console.error(networkError)
       postMessage({
         type: 'user.notify',
@@ -197,7 +191,6 @@ async function postFile(file) {
         class: 'info'
       })
     })
-     */
 }
 
 
