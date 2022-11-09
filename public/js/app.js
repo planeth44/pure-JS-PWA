@@ -71,6 +71,24 @@ function registerSyncEvent(tag, backupSwMsg) {
 
         await registration.sync.register(`${tag}:${uts}`)
 
+        /*
+          Using navigator.onLine in this case
+          Background-sync event will not fire if offline
+          Let the user know what’s happening.
+
+          If using isOnline helper (checking if server is reachable)
+          background-sync event will be dispatched & will fail
+          and no retry will be attempted
+         */
+        if (!navigator.onLine && tag.includes('sync-data')) {
+          notifyUser({
+            text: `
+            We’re offline, sailor ⛵<br>
+            Sync will be taken care of <br>
+            when we get back online`,
+            class: 'info'
+          })
+        }
       } catch (syncError) {
 
         wb.messageSW({
@@ -86,24 +104,6 @@ function registerSyncEvent(tag, backupSwMsg) {
     }
   })
 
-  /*
-    Using navigator.onLine in this case
-    Background-sync event will not fire if offline
-    Let the user know what’s happening.
-
-    If using isOnline helper (checking if server is reachable)
-    background-sync event will be dispatched & will fail
-    and no retry will be attempted
-   */
-  if (!navigator.onLine && tag.includes('sync-data')){
-    notifyUser({
-      text: `
-        We’re offline, sailor ⛵<br>
-        Sync will be taken care of <br>
-        when we get back online`,
-      class: 'info'
-    })
-  }
 }
 
 
