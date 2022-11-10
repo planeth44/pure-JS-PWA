@@ -26,6 +26,12 @@ select:invalid {
   border-color: #e5578e;
   background-color: #efc3d4;
 }
+.form-errors-list{
+  padding-left: 0.3em;
+  font-size: .90em;
+  font-style: italic;
+  margin-top: 0;
+}
 
 /* This is the style of our error messages */
 .error {
