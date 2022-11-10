@@ -27,7 +27,7 @@ modelsContainer.addEventListener('click', (event) => {
 document.addEventListener('message', (event) => {
   const message = event.detail
 
-  if (message.type === 'home.update.modelContainer') {
+  if (message.type === 'home.update' && message.event == 'sync.ended') {
 
     modelsContainer.innerHTML = `
       <p class="user-notification ${message.class}">

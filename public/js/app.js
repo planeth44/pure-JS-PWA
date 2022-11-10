@@ -49,15 +49,13 @@ navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
 navigator.serviceWorker.addEventListener('message', (event) => {
   const message = event.data
 
-  if (!message.type && message.event) {
-    setMessageType(message)
-  }
+  setMessageType(message)
 
   if (message.type === 'user.notify') {
 
     notifyUser(message)
 
-  } else if (message.type === 'home.update.modelContainer') {
+  } else if (message.type === 'home.update') {
 
     document.dispatchEvent(new CustomEvent('message', {
       detail: message
@@ -119,16 +117,16 @@ function registerSyncEvent(tag, backupSwMsg) {
 
 function setMessageType(message) {
 
-  if (message.event == 'sync.completed') {
+  if (message.type) return
 
-    if (location.pathname == '/') {
+  // no type set, message could be shown as notification or replace some content in home page 
+  if (location.pathname == '/') { 
 
-      message.type = 'update.home.modelContainer'
+    message.type = 'home.update'
 
-    } else {
+  } else {
 
-      message.type = 'user.notify'
-    }
+    message.type = 'user.notify'
   }
 }
 
