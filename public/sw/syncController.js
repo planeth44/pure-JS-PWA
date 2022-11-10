@@ -12,18 +12,31 @@ const syncHandlers = {
     if (models.length < 1) {
       return syncHandlers.transmitFile()
     }
- 
-    const result = await postModels(models)
-    
-    if (undefined === result) return // bad response is reaching this block
-    
-    const update = await Promise.allSettled(
-          result.map(async uuid => {
-            return await updateObjectStatus('theModel', uuid, SYNC_STATUS.DONE)
-          })
-        )
-      
-    if (undefined === update) return // bad response is reaching this block
+
+    let json
+    try {
+      json = await postModels(models)
+    } catch (postError) {
+      if (postError.message.includes("Failed to fetch")) {
+        postMessage({
+          type: 'user.notify',
+          text: `We’re offline, sailor ⛵<br>
+                We cannot reach the server<br>
+                Give it a try later`,
+          class: 'info'
+        })
+
+        return 'offline' // we’re offline stop here
+      }
+    }
+
+    if (json){
+      const update = await Promise.allSettled(
+            json.map(async uuid => {
+              return await updateObjectStatus('theModel', uuid, SYNC_STATUS.DONE)
+            })
+          )
+    }
 
     postMessage({
       type: 'user.notify',
@@ -101,20 +114,34 @@ async function postModels(models) {
       response.status could be 400 or 409 because of bad data
       We could test for response status and store the returned HTML 
       with information about malformed data and offer to edit and resubmit the Thing
-       */
+      */
       return response.text().then(async (html) => {
-        throw new fetchError(`Trying to upload models<br>
-                But, there was an error:<br>
-                ${html}`)
-        // not updating w/ failed as we don’t know which part/model failed
-        // should be decided w/ back-end response
+        postMessage({
+          type: 'user.notify',
+          text: `Trying to upload models<br>
+            But, there was an error:<br>
+            ${html}`,
+          class: 'failure'
+        })
+        /*Not throwing
+         and not updating w/ failed as we don’t know which part/model failed
+          should be decided w/ back-end response
+
+          throw new fetchError(html)
+         */
       })
     } else {
 
-      throw new fetchError(`Trying to upload models<br>
-                But, there was an error:<br>
-                Response was : ${response.statusText}<br>
-                content-type was ${contentType}`)
+      postMessage({
+        type: 'user.notify',
+        text: `Trying to upload models<br> But, there was an error:<br>
+          Response was : ${response.statusText}<br>
+          content-type was ${contentType}`,
+        class: 'failure'
+      })
+      // throw new fetchError(`
+      //   Response was : ${response.statusText}<br>
+      //   content-type was ${contentType}`)
 
     }
   })
