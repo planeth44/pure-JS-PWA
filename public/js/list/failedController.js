@@ -50,27 +50,6 @@ Promise.allSettled([
   listContainer.insertAdjacentHTML('beforeEnd', cards.join(''))
 })
 
-
-// getAllFailedThings('theModel').then((list) => {
-//     console.log(list)
-//   const cards = []
-//   list.forEach((instance) => {
-//     // const m = {}
-//     // m.uuid = instance.uuid
-//     // m.title = instance.title
-//     // m.date = instance.meta.date.toLocaleString()
-//     // m.syncStatus = instance.syncStatus
-//     const card = thingCardTmpl(instance)
-//     cards.push(card)
-//   })
-//   return cards
-// }).then((cards) => {
-//   getAllFailedThings('document').then((list) => {
-
-//   })
-// })
-
-
 async function getAllFailedFromStore(store, syncIdx) {
   const db = await dbPromise
   const list = await db.getAllFromIndex(store, syncIdx, SYNC_STATUS.FAILED)
