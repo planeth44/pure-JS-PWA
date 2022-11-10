@@ -97,23 +97,30 @@
   - [X] test server respond with 400
 
 * README
-- non negociable : performance. Minimum amont of LoC (140KB nonziped/noncompressed).
-- Snappy page 
+- non negociable : performance. Minimum amont of LoC .
+- Snappy page
+- light weight app (140KB nonziped/noncompressed) 
+- PWA
 - Closest as possible to web API
 - make use of every native API : service worker, module, 
 - Go for the least amount of code and the least amout of abstraction
-- Locality of behavior (one controller for the page)
-- Multi page instead of single page
+- Multi page rather than single page
   - no router, use SW precache and route
   - Browser are super fact at parsing HTML
   - No state management
   - One controller per page (see locality of behavior)
   - DB operations in controller
+- Locality of behavior (one controller for the page)
+- CSS 
+  => picnic
+- Things
+  - Things are created via forms
+  - store all Things in iDB
 - Use HTML form controls
   -> you get build in behavior / UI
   -> you get build in event
   -> you get build in validation
-- FormControl are mapped to model properties
+- form controls are mapped to model properties
   - wrote a little helper function to get or set a property from control[name] as path
   - this make it possible to have a deeply nested object Thing
   - there is another 
@@ -124,7 +131,7 @@
 - Auto save is a given UI
   - Make use of change event
   - need to transform formData to storable Things
-  - update the model property from the formControl 
+  - update the model property from the form control
   - with some additional control
   - you can overide the default updating with data-change attribute
     -> this let you do some computation on the new value
@@ -133,20 +140,18 @@
 - Form error validation
   - novalidate
   - form can get long
-  - or we could add formcontrol along the way
+  - or we could add form controls along the way
   - Validation is called w/ submit event
   - show list of errors and messages on fields
   - then call to sync
-- Biggest work : syncing w/ offine
-  - store all Things in iDB
-  - Things are created via forms
+- Biggest chunk : syncing w/ offine
   - Making use of background-sync but need fallback
-  - iOS/ Firefox does not support background-sync
+    -> iOS/ Firefox does not support background-sync
   - Cases for failed sync and retry
-  - background-sync will not support all the cases
+  -> background-sync will not support all the cases
     in fact does only one thing: retry if offline(airplane mode).
     Does not always idetify an offline situation
-  - Either the app or the user must have a way to know what the state of the sync
+  - Either the app or the user must have a way to know what is the state of the sync
   - right now: user is responsible
   - but should not rely either on background-sync or user 
     - or SW starting (or should we ?)
@@ -166,3 +171,14 @@
           - make a UI to merge the 2 versions, field by field ?
         - Simpler solution : works if sync happens in front of the user 
           client tell that a conflict exists & replace the Thing w/ the server version. But we lose the update from client.
+- Repo has a very rustic back-end server to just respond to api calls(sync)
+- Dependencies
+  - Workbox. Service worker API is very low level
+  Just makes sense to use this library
+  precache an route essential to MPA whitout a round trip to the server
+  Only include needed components
+  Not using their backgroundSync component (the use case is too limited)
+  - iDB from Jake Archibald
+  very small and worth ten time the footprint
+  indexedDB is old and asynchronous. This library promisify it and make it easier to work with
+  - that's all
