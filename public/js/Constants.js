@@ -1,5 +1,6 @@
 /* jshint esversion: 8 */
 const SYNC_STATUS = {
+  INVALID_DATA: 'invalid_data',
   PENDING: 'pending',
   UPDATE: 'update',
   DONE: 'done',
