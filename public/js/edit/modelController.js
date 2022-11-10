@@ -80,6 +80,10 @@ async function init(){
     updateControlsFromModel()
 }
 
+/*
+    OBJECTS functions
+ */
+
 function updateControlsFromModel() {
 
     /*
@@ -180,6 +184,10 @@ function updateObjectFromControl(event) {
     console.log(theModel)
 }
 
+/*
+    SUBMIT FORM
+ */
+
 async function done(event) {
 
     event.preventDefault()
@@ -228,10 +236,15 @@ async function done(event) {
 function removeModel(event) {
 
     /*
-        By default the form will reset
+        The default behavior is to reset the form
         As we’re using a confirm dialog, we can’t event.preventDefault
-        because a call to formEl.reset() in the case of confirm
-        will not work
+        because a call to formEl.reset() in the case of confirm will not work
+        How this works: 
+        1- click on 'remove' button[type=reset]
+        2- the form will reset
+        3- a confirm dialog will show
+        4- if click 'proceed', model is deleted from iDB
+        5- if click 'no', form is fullfilled by the model
      */
 
     confirmResetForm.showModal()
@@ -267,15 +280,6 @@ function removeModel(event) {
 
 }
 
-function camelCaseFormat(type) {
-    if (type.includes('-')) { // datetime-local | select-one | select-multiple
-        type = type.split('-') 
-        type[1] = `${type[1].charAt(0).toUpperCase()}${type[1].slice(1)}`
-        type = type.join('')
-    }
-
-    return type
-}
 function validateFields() {
 
     let isValid = true
@@ -307,6 +311,10 @@ function validateFields() {
     return isValid
 }
 
+/*
+    UTILITIES
+ */
+
 function findErrorSpan(element) {
     let errorSpan = element.nextElementSibling
 
@@ -332,6 +340,20 @@ function resetErrorSpan(element) {
         errorSpan.classList.remove('active')
     }
 }
+
+function camelCaseFormat(type) {
+    if (type.includes('-')) { // datetime-local | select-one | select-multiple
+        type = type.split('-') 
+        type[1] = `${type[1].charAt(0).toUpperCase()}${type[1].slice(1)}`
+        type = type.join('')
+    }
+
+    return type
+}
+
+/*
+    DB OPERATIONS
+ */
 
 async function updateStore() {
     /*

@@ -139,12 +139,11 @@ async function postModels(models) {
           content-type was ${contentType}`,
         class: 'failure'
       })
-      // throw new fetchError(`
-      //   Response was : ${response.statusText}<br>
-      //   content-type was ${contentType}`)
-
     }
   })
+    /*
+      Exception for "Failed to fetch" will be caught in @doSyncFile
+     */
 }
 
 async function doSyncFile(file) {
@@ -225,6 +224,9 @@ async function postFile(file) {
             content-type was ${contentType}`)
       }
     })
+    /*
+      Exception for "Failed to fetch" will be caught in @doSyncFile
+     */
 }
 
 
