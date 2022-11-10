@@ -184,9 +184,20 @@ async function done(event) {
 
     event.preventDefault()
 
-    await updateStore()
+    const isValid = validateFields()
 
-    validateFields()
+    /* @TO CONSIDER
+    We mark the data as invalid to prevent sync w/ incorrect data
+    Though, you could consider to sync anyway
+    and let the app server side decide what to do (sensible default value where needed)
+     */
+    if (!isValid) {
+        theModel.syncStatus = SYNC_STATUS.INVALID_DATA
+    } else {
+        theModel.syncStatus = SYNC_STATUS.PENDING
+    }
+
+    await updateStore()
 
     if (!isValid) {
         formErrors.innerHTML = ''
@@ -264,8 +275,9 @@ function camelCaseFormat(type) {
 
     return type
 }
-
 function validateFields() {
+
+    let isValid = true
 
     formControlsErrors.clear()
 
@@ -284,11 +296,14 @@ function validateFields() {
 
             formControlsErrors.set(labelText.innerText, element.validationMessage)
 
+
         } else if (errorSpan) {
             errorSpan.textContent = ''
             errorSpan.classList.remove('active')
         }
     })
+
+    return isValid
 }
 
 function findErrorSpan(element) {
