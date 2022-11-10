@@ -170,18 +170,28 @@ async function postFile(file) {
 
         return response.text().then(async (html) => {
 
-          await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, html)
-
-          throw new fetchError(`Trying to upload files ${file.name}<br>
+          postMessage({
+              type: 'user.notify',
+              text: `Trying to upload files ${file.name}<br>
                     But, there was an error:<br>
-                    <a href="${ROUTES.FAILED}">See failed page</a>`)
+                    <a href="${ROUTES.FAILED}">See failed page</a>`,
+              class: 'failure'
+            })
+          throw new fetchError(html)
         })
       } else {
 
-        throw new fetchError(`Trying to upload file<br>
+          postMessage({
+              type: 'user.notify',
+              text: `Trying to upload file<br>
                     But, there was an error:<br>
                     Response was : ${response.statusText}<br>
-                    content-type was ${contentType}`)
+                    content-type was ${contentType}`,
+              class: 'failure'
+            })
+        throw new fetchError(`
+            Response was : ${response.statusText}<br>
+            content-type was ${contentType}`)
       }
     })
   /*
