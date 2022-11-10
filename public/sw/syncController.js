@@ -31,21 +31,27 @@ const syncHandlers = {
       class: 'info'
     })
 
-    await syncHandlers.transmitFile()
-    // return 
+    const sync = await syncHandlers.transmitFile()
+    return sync
   },
 
   transmitFile: async function() {
 
     const file = await getPendingFile()
+    let sync
 
     if (undefined == file) { // no more file to transmit
-      await syncHandlers.transmitFailedFile()
+
+      sync = await syncHandlers.transmitFailedFile()
+
+      return sync // stoping here
     }
 
     sync = await doSyncFile(file)
 
-    const update = await handleFileUploaded(json)
+    if (sync == 'offline'){
+      return sync
+    }
 
     await syncHandlers.transmitFile()
     // return 
@@ -61,7 +67,7 @@ const syncHandlers = {
         class: 'info'
       })
       // self.syncInProgress = false
-      return
+      return 'complete'
     }
 
     let sync = await doSyncFile(file)  // offline|failed|file.uuid
@@ -69,9 +75,7 @@ const syncHandlers = {
       sync = 'to complete'
     }
 
-    const update = await handleFileUploaded(json)
-
-    return
+    return sync
   }
 }
 
@@ -211,9 +215,9 @@ async function postFile(file) {
 
 async function handleFileUploaded(json) {
 
-  await updateObjectStatus('document', json.uuid, SYNC_STATUS.DONE)
+  const update = await updateObjectStatus('document', json.uuid, SYNC_STATUS.DONE)
 
-  return
+  return update
 }
 
 /*
