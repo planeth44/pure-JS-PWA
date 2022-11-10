@@ -72,7 +72,7 @@ class Kernel extends BaseKernel
                     ]
                 ]
             );
-        $routes->add('list', '/failed')
+        $routes->add('failed', '/failed')
             ->controller(TemplateController::class)
             ->defaults(
                 [
