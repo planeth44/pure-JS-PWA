@@ -1,7 +1,23 @@
 README
-# Why
 This an attempt in the same spirit as [Morris Vanilla To Do](https://github.com/morris/vanilla-todo) to demonstrate how you can develop a PWA with only HTML, CSS and pure Javascript.
 I have aggregated all the knowledge and edge cases I’ve experienced through many PWA development and in production
+
+<!-- TOC start -->
+- [The constraints](#the-constraints)
+- [Technical choices](#technical-choices)
+- [What the app does](#what-the-app-does)
+  * [Things](#things)
+  * [Files ](#files)
+- [HTML forms](#html-forms)
+- [Auto save](#auto-save)
+    + [alternate method](#alternate-method)
+- [Form error validation](#form-error-validation)
+- [Syncing and offline](#syncing-and-offline)
+  * [Update](#update)
+    + [possible scenario](#possible-scenario)
+- [Back-end](#back-end)
+- [Dependencies](#dependencies)
+<!-- TOC end -->
 
 ## The constraints
 
