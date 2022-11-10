@@ -83,7 +83,7 @@ This PWA create a “Thing” (think: a report, some data entries). You can atta
 #### alternate method
   - alternatively with a simpler mapping, [there is an example from Jake Archibald](https://jakearchibald.com/2021/encoding-data-for-post-requests/#bonus-round-converting-formdata-to-json)
 
-## Form error validation
+## Form validation
   - The built-in UI for validation is not always desirable.
     - form can get long
     - or we could add form controls along the way
