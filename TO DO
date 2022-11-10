@@ -1,43 +1,80 @@
 --- 2022-10-16 ---
 
+~ readme
+{{README}}
+
 ~ BEHAVIOUR
-- [ ] Generate list page after done in edit
 - [ ] add an option to clear user-notification after timeout
 - [ ] add manifest for installability
+- [ ] consider using Web Notification when background-sync fail the 3 tries 
+  ->  as the app may be in background
+  -> service-worker:96
+- [ ] add a lastRefreshTs mechanism to throttle call to sync
+ :LATER:EXPLORE:
+- [ ] Generate list page after done in edit
+  -> Sync happens in @done
+  -> Sync status would change immediately
+  -> Case to consider in case of long list of things
 
 ~ UI
-- [ ] Better UI for /show
-- [ ] implement /document/failed view + controller
+- [ ] Navbar at bottom [home | Things | +] / menu [failed page | create thing]
+- [-] Failed page
+  - [ ] preview image ??
+
+~ DESIGN
+:EXPLORE:
+- [-] Syncing / update of theModel [1/5]
+  - [X] add a version in theModel
+  - [ ] call to sync should send uuid + version 
+  - [ ] response to sync should send diff on LastModifiedTimestamp+version
+  - [ ] call update on response
+  - [ ] modelController should set syncStatus=update when necessary
+  - [ ] Stub on server ??
+:EXPLORE:
+- [ ] implementing images caching after upload/sync to distant server
+  - see syncController@cachePhoto
+  - URL could be in the form of images/<parentUuid>/<uuid>
+:EXPLORE:CONSIDER:
+- [ ] making a Model class with method getFromPath, setFRomPath, toFormData 
 
 ~ REFACTOR
+:LATER:CONSIDER:
 - [ ] refactor syncController. Extract call to fetch to its own method
    Catch a 401 [[https://github.com/github/fetch/issues/201#issuecomment-308213104]]
    [[https://web.dev/fetch-api-error-handling/]]
-   [[https://medium.com/trabe/fetch-api-errors-and-the-principle-of-least-surprise-66bbba3e4cc2]]
-
-~ DESIGN
-- [ ] add a lastRefreshTs mechanism to throttle call to sync
-- [ ] explore syncing / update of theModel [/]
-  - [ ] add a version in theModel
-  - [ ] call to sync should send uuid + version 
-  - [ ] response to sync should send diff on uuid+version
-  - [ ] call update on response
-  - [ ] modelController should set syncStatus=update whe necessary
-- [ ] explore implementing images caching after upload/sync to distant server
-  - see syncController@cachePhoto
-  - URL could be in the form of images/<parentUuid>/<uuid>
-- [ ] explore making a Model class with method getFromPath, setFRomPath, toFormData 
-
-~ README
-- [ ] non negociable : performance. Minimum amont of LoC. Snappy page
-- [ ] Closest as possible to web API
-- [ ] make use of every native API : service worker, module, 
-- [ ] Go for the least amount of code and the least amout of abstraction
-- [ ] Locality of behavior (one controller for the page)
+   [[https://scribe.rip/trabe/fetch-api-errors-and-the-principle-of-least-surprise-66bbba3e4cc2]]
 
 
 
 ~ DONE
+- [-] Failed page
+  - [X] link to parent 
+- [X] Organize functions in modelController
+-> object actions
+-> form / errors management
+- [X] Home page / sync state 
+-> Should recalculate if some object failed to sync
+-> Should show failed objects
+- [X] Do not display error HTML on failed sync/ store in iDB 
+- [X] implement /document/failed view + controller
+- [X] /edit Show message on invalid fields
+- [X] Style error list in edit page
+- [X] Document case of preventing or not sync if invalid local data
+- [X] Do not sync data if invalid
+-> sync state should be 'invalid-data'
+- [X] SyncController : 
+-> Do not throw on error
+-> Cache message or publish user notif
+-> AND CONTINUE TO NEXT
+- [X] Notify or update
+-> App.js should dispatch to home
+-> Homecontroller decides what to do
+- [X] Check for create Thing -> What's the URL See above
+- [X] User message
+-> Go through all & decide where it belongs notify or update
+- [X] postMessage -> Case for update or notify in app.js not SW
+- [X] Decomment catch on fetch 
+  -> Provide for background-sync not available
 - [X] Home page -> add method to check for pending instances
 - [X] Add an action to sync without being in edit page + trigger a 'done'
 - [X] refactor syncStatus values as const in ???
@@ -59,3 +96,19 @@
   - [X] test server off
   - [X] test server respond with 500
   - [X] test server respond with 400
+
+* README
+- non negociable : performance. Minimum amont of LoC. Snappy page
+- Closest as possible to web API
+- make use of every native API : service worker, module, 
+- Go for the least amount of code and the least amout of abstraction
+- Locality of behavior (one controller for the page)
+- Multi page instead of single page
+  - Browser are super fact at parsing HTML
+  - No state management
+  - One controller per page (see locality of behavior)
+- Use HTML form controls
+-> you get build in behavior / UI
+-> you get build in event
+-> you get build in validation
+
