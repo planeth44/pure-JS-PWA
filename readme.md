@@ -133,12 +133,17 @@ The repo has a very rustic back-end server to just respond to api calls(sync)
 
 ## Dependencies
   - Workbox. Service worker API is very low level
-  It just makes sense to use this library
-  Precache an route are essential to MPA, it saves you from a round trip to the server
-  Only include needed components
-  Not using their backgroundSync component (the use case is too limited)
+  It just makes sense to use this library.
+
+  Precache an route are essential to MPA, it saves you from a round trip to the server.
+
+  Only include needed components.
+
+  Not using their backgroundSync component (the use case is too limited).
   - iDB from Jake Archibald
+
   very small and worth ten time the footprint
+  
   indexedDB is old and asynchronous. This library promisify it and make it easier to work with
   - picnic.css
   - that's all
