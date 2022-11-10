@@ -11,7 +11,7 @@ I have aggregated all the knowledge and edge cases I’ve experienced through ma
 - [HTML forms](#html-forms)
 - [Auto save](#auto-save)
     + [alternate method](#alternate-method)
-- [Form error validation](#form-error-validation)
+- [Form validation](#form-error-validation)
 - [Syncing and offline](#syncing-and-offline)
   * [Update](#update)
     + [possible scenario](#possible-scenario)
