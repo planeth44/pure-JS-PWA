@@ -25,18 +25,16 @@ const theModel = {
         updatedAt: null,
         syncStatus: SYNC_STATUS.PENDING , //@TODO should be 'empty'
         updatedTs: Math.floor(now.getTime() / 1000),
-        uuid: APP.uuid
+        uuid: APP.uuid,
+        version: 0 
     },
     formEl = document.forms.editTheThingForm,
     confirmResetForm = document.getElementById('confirmReset'),
-    formErrors = document.querySelector('[data-form-errors]'),
-    // caching a bare model to use when reset is triggered
-    baredModel = structuredClone(theModel)
+    formErrors = document.querySelector('[data-form-errors]')
 ;
 let formControls = [],
 formControlsErrors = new Map(),
 instanceUuid =  null,
-isValid = true,
 create = true
 ;
 if(!location.pathname.endsWith('edit')){
@@ -78,7 +76,6 @@ async function init(){
                 uuid: APP.uuid
             }
         })
-
     }
     updateControlsFromModel()
 }
@@ -127,11 +124,14 @@ async function updateObject(event) {
         updateObjectFromControl(event)
     }
 
+    if(!create && theModel.syncStatus == SYNC_STATUS.DONE){ // we’re updating a Thing which is already synced
+        theModel.syncStatus = SYNC_STATUS.UPDATE
+    }
+
     await updateStore()
 }
 
 function updateObjectFromControl(event) {
-    event.preventDefault()
 
     /*
     @CONSEQUENCE
@@ -228,6 +228,7 @@ async function done(event) {
 function removeModel(event) {
 
     /*
+        By default the form will reset
         As we’re using a confirm dialog, we can’t event.preventDefault
         because a call to formEl.reset() in the case of confirm
         will not work
