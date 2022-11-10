@@ -1,4 +1,4 @@
-README
+
 This an attempt in the same spirit as [Morris Vanilla To Do](https://github.com/morris/vanilla-todo) to demonstrate how you can develop a PWA with only HTML, CSS and pure Javascript.
 I have aggregated all the knowledge and edge cases I’ve experienced through many PWA development and in production
 
