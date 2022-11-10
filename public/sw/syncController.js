@@ -43,9 +43,7 @@ const syncHandlers = {
       await syncHandlers.transmitFailedFile()
     }
 
-    const json = await postFile(file)
-    
-    if (undefined === json) return // bad response is reaching this block
+    sync = await doSyncFile(file)
 
     const update = await handleFileUploaded(json)
 
@@ -66,10 +64,9 @@ const syncHandlers = {
       return
     }
 
-    const json = await postFile(file)
-    
-    if (undefined === json){// bad response is reaching this block
-      return
+    let sync = await doSyncFile(file)  // offline|failed|file.uuid
+    if (!['offline', 'failed'].includes(sync)){
+      sync = 'to complete'
     }
 
     const update = await handleFileUploaded(json)
@@ -117,18 +114,36 @@ async function postModels(models) {
 
     }
   })
-  /*
-  Case of background-sync not available
-  networkError will be caught in sw@messageListener
-  .catch((networkError) => { 
-    console.error(networkError)
-    postMessage({
-      type: 'user.notify',
-      text: 'We’re offline, sailor ⛵' + networkError.toString(),
-      class: 'info'
-    })
-  })
-   */
+}
+
+async function doSyncFile(file) {
+  let json
+
+  try {
+    json = await postFile(file)
+  } catch (postError) {
+
+    if (postError.message.includes("Failed to fetch")) {
+      postMessage({
+        type: 'user.notify',
+        text: `We’re offline, sailor ⛵<br>
+                We cannot reach the server<br>
+                Give it a try later`,
+        class: 'info'
+      })
+
+      return 'offline'
+    } else {
+
+      await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, postError)
+      return 'failed'
+    }
+  }
+
+  if (json) {
+    const update = await handleFileUploaded(json)
+    return update //file.uuid
+  }
 }
 
 async function postFile(file) {
