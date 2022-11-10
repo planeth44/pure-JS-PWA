@@ -12,9 +12,13 @@ function thingCardTmpl(m, store) {
         <header>
           ${(m.name) ? `${m.name}` : `${m.title}`}<br>
           <span class="label -muted">from ${store}</span>
+          ${(m.parentUuid) ? `
+            <a href="${ROUTES.SHOW}/${m.parentUuid}" class="button -link">Show parent Thing</a>` : ''}
         </header>
         <section>
-          ${m.htmlError}
+          <pre>
+            ${m.htmlError.stack}
+          </pre>
         </section>
         <footer class="list-footer">
           ${(!m.blob) ? 
