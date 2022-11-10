@@ -109,10 +109,12 @@ if ('sync' in self.registration) {
 
       event.waitUntil(
         syncHandlers.transmitText()
-        .then(() => {
+        .then((sync) => {
+          console.log(sync)
           postMessage({
-            event: 'sync.completed',
-            text: `Sync completed`,
+            event: 'sync.ended',
+            text: `${sync == 'complete' ?'Sync completed':'Sync is not completed' }`,
+            sync: sync,
             class: 'success'
           })
         })
@@ -137,7 +139,8 @@ if ('sync' in self.registration) {
             postMessage({
               type: 'user.notify',
               text: `Sync failed because<br>
-                ${syncError.toString()}`,
+                ${syncError.toString()}<br>
+                ${syncError.stack}`,
               class: 'failure'
             })
           }
