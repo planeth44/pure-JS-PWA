@@ -5,7 +5,7 @@ import {dbPromise} from '../db.js'
 const listContainer = document.querySelector('[data-list-container]')
 
 /*
-* Templates
+* TEMPLATES
  */
 function thingCardTmpl(m, store) {
   return `<li class="card">
@@ -29,6 +29,10 @@ function thingCardTmpl(m, store) {
       </li> `
 }
 
+/*
+  CONTENT
+ */
+
 Promise.allSettled([
   getAllFailedFromStore('theModel', 'syncIdx'),
   getAllFailedFromStore('document', 'syncIdx')
@@ -49,6 +53,10 @@ Promise.allSettled([
 
   listContainer.insertAdjacentHTML('beforeEnd', cards.join(''))
 })
+
+/*
+    DB OPERATIONS
+ */
 
 async function getAllFailedFromStore(store, syncIdx) {
   const db = await dbPromise

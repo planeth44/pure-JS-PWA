@@ -38,6 +38,9 @@ getAllThings().then((list) => {
   listContainer.insertAdjacentHTML('afterbegin', cards.join(''))
 })
 
+/*
+    DB OPERATIONS
+ */
 
 async function getAllThings() {
     const db = await dbPromise

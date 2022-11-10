@@ -93,7 +93,7 @@ function updateControlsFromModel() {
     @CONSEQUENCE : not using formdata.keys()
      - Multiple select shows up multiple times
      - checkBox will not show if not checked
-     */
+    */
 
     // makes sense to use name attribute since it’s mapping to theModel 
     formControls = formEl.querySelectorAll('[name]')
@@ -146,18 +146,18 @@ function updateObjectFromControl(event) {
     or a succession of string when calling formData.get(key)
     when cycling through formdata.entries()
 
+    @ALTERNATIVE
     See https://jakearchibald.com/2021/encoding-data-for-post-requests/#bonus-round-converting-formdata-to-json
-
-    const data = Object.fromEntries(
-      // Get a de-duped set of keys
-      [...new Set(formData.keys())].map((key) =>
-        key.endsWith('[]')
-          ? // Remove [] from the end and get an array of values
-            [key.slice(0, -2), formData.getAll(key)]
-          : // Use the key as-is and get a single value
-            [key, formData.get(key)],
-      ),
-    );
+        const data = Object.fromEntries(
+          // Get a de-duped set of keys
+          [...new Set(formData.keys())].map((key) =>
+            key.endsWith('[]')
+              ? // Remove [] from the end and get an array of values
+                [key.slice(0, -2), formData.getAll(key)]
+              : // Use the key as-is and get a single value
+                [key, formData.get(key)],
+          ),
+        );
     */
     const formdata = new FormData(formEl)
     const path = event.target.name
@@ -166,7 +166,7 @@ function updateObjectFromControl(event) {
     const expected = getByPath(theModel, path)
 
     if (Array.isArray(expected)) {
-        value = formdata.getAll(path) // will always retuen an array
+        value = formdata.getAll(path) // will always return an array
 
     } else if (expected instanceof Date) {
 
@@ -185,7 +185,7 @@ function updateObjectFromControl(event) {
 }
 
 /*
-    SUBMIT FORM
+    SUBMIT / RESET / VALIDATION
  */
 
 async function done(event) {

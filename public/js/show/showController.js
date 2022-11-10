@@ -6,8 +6,9 @@ const thingContainer = document.querySelector('[data-thing-container]')
 const instanceUuid = location.pathname.split('/').pop()
 
 /*
-* Templates
- */
+* TEMPLATES
+*/
+
 async function thingCardTmpl(t, docs) {
   return `
     <header>
@@ -29,6 +30,7 @@ async function thingCardTmpl(t, docs) {
       <a href="/edit/${t.uuid}" class="button">Edit</a>
     </footer> `
 }
+
 function consequenceTmpl(t) {
   return `
   <div>
@@ -37,6 +39,9 @@ function consequenceTmpl(t) {
   </div> `
 }
 
+/*
+  CONTENT
+ */
 getTheModel(instanceUuid).then(async(instance) => {
 
   const docs = await addDocuments(instance.uuid)
@@ -63,6 +68,30 @@ async function addDocuments(uuid) {
   })
 }
 
+/*
+    UTILITIES
+ */
+
+function makeImgUrl(doc)
+{
+    const blob = new Blob([doc.blob], {type: doc.mime})
+  // console.log(blob)
+    const urlCreator = window.URL || window.webkitURL;
+    return urlCreator.createObjectURL(blob);
+}
+
+/*
+    DB OPERATIONS
+ */
+
+async function getTheModel(key) {
+
+    const db = await dbPromise
+    const instance = await db.get('theModel', key)
+
+    return instance
+}
+
 async function getDocsFromModel(uuid){
 
     const db = await dbPromise;
@@ -79,20 +108,4 @@ async function getDocsFromModel(uuid){
     await tx.done
 
     return docs
-}
-
-function makeImgUrl(doc)
-{
-    const blob = new Blob([doc.blob], {type: doc.mime})
-  // console.log(blob)
-    const urlCreator = window.URL || window.webkitURL;
-    return urlCreator.createObjectURL(blob);
-}
-
-async function getTheModel(key) {
-
-    const db = await dbPromise
-    const instance = await db.get('theModel', key)
-
-    return instance
 }

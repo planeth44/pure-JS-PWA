@@ -238,7 +238,8 @@ async function handleFileUploaded(json) {
 }
 
 /*
-@TO DO make a meaningful error
+    Custom ERROR
+    @TO DO make a meaningful error
  */
 class fetchError extends Error {}
 

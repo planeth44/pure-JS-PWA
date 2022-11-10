@@ -48,7 +48,7 @@ document.addEventListener('message', async (event) => {
 content()
 
 /*
- * Functions
+ * CONTENT
  */
 
 async function content() {
@@ -87,7 +87,9 @@ async function content() {
   })
 }
 
-
+/*
+    DB OPERATIONS
+ */
 
 async function getAllPendingFromStore(store, syncIdx) {
   const db = await dbPromise

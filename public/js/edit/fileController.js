@@ -31,6 +31,10 @@ const fileModel = {
         }
     };
 
+/*
+ * Event listeners
+ */
+
 navigator.serviceWorker.addEventListener('message', processFile); // incoming share target
 
 document.addEventListener('DOMContentLoaded', displayAttachedFiles);
@@ -51,6 +55,10 @@ fileInput.addEventListener('change', processFile, true)
 filesWrapper.addEventListener('remove.files.display', (event) => {
     event.currentTarget.innerHTML = ''
 })
+
+/*
+   FILE functions
+ */
 
 async function displayAttachedFiles() {
 
@@ -79,7 +87,6 @@ async function displayAttachedFiles() {
 
     })).then(() => addRemoveFileBtns())
 }
-
 
 async function processFile(event) {
     event.preventDefault()
@@ -152,20 +159,6 @@ async function displayFile(file) {
     }
 }
 
-function showImage(file, fileUuid, div) {
-    const image = new Image()
-    image.dataset.uuid = fileUuid
-    div.appendChild(image)
-
-    return readtheFile('readAsDataURL', file).then(result => {
-        image.src = result
-        filesWrapper.insertAdjacentElement('beforeend', div)
-
-        return fileUuid
-    })
-}
-
-
 async function storeCurrentFile(theFile, fileUuid) {
 
     const currentFile = Object.assign({}, fileModel, {
@@ -185,6 +178,23 @@ async function storeCurrentFile(theFile, fileUuid) {
     })
 }
 
+/*
+    UTILITIES
+ */
+
+function showImage(file, fileUuid, div) {
+    const image = new Image()
+    image.dataset.uuid = fileUuid
+    div.appendChild(image)
+
+    return readtheFile('readAsDataURL', file).then(result => {
+        image.src = result
+        filesWrapper.insertAdjacentElement('beforeend', div)
+
+        return fileUuid
+    })
+}
+
 function readtheFile(method, object) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader()
@@ -198,7 +208,15 @@ function readtheFile(method, object) {
     })
 }
 
+/*
+    Custom ERROR
+ */
+
 class NotImageError extends Error {}
+
+/*
+    DB OPERATIONS
+ */
 
 async function putToDocumentStore(currentFile) {
     const db = await dbPromise
