@@ -69,13 +69,15 @@ self.addEventListener('message', async (event) => {
   if (handler == 'transmitText'){
     event.waitUntil(
       syncHandlers[handler]()
-      .then(() => {
-        postMessage({
-          event: 'sync.completed',
-          text: `Sync completed`,
-          class: 'success'
+        .then((sync) => {
+          console.log(sync)
+          postMessage({
+            event: 'sync.ended',
+            text: `${sync == 'complete' ?'Sync completed':'Sync is not completed' }`,
+            sync: sync,
+            class: 'success'
+          })
         })
-      })
       .catch((syncError) => {
         if (syncError.message == "Failed to fetch") { // server is unreachable
           postMessage({
@@ -88,7 +90,8 @@ self.addEventListener('message', async (event) => {
           postMessage({
             type: 'user.notify',
             text: `Sync failed because<br>
-                  ${syncError.toString()}`,
+                ${syncError.toString()}<br>
+                ${syncError.stack}`,
             class: 'failure'
           })
         }
