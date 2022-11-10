@@ -225,18 +225,6 @@ async function postFile(file) {
             content-type was ${contentType}`)
       }
     })
-  /*
-  Case of background-sync not available
-  networkError will be caught in sw@messageListener
-  .catch((networkError) => { 
-    console.error(networkError)
-    postMessage({
-      type: 'user.notify',
-      text: 'We’re offline, sailor ⛵' + networkError.toString(),
-      class: 'info'
-    })
-  })
-   */
 }
 
 
