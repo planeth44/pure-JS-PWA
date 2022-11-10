@@ -116,15 +116,7 @@ async function updateObject(event) {
         return // change event has bubbled upthere. Do nothing, handled in fileController.js
     }
 
-    let errorSpan = event.target.nextElementSibling
-
-    if(errorSpan && !errorSpan.classList.contains('error')){
-        errorSpan = event.target.parentElement.parentElement.querySelector('legend+.error')
-    }
-    if(errorSpan){
-        errorSpan.textContent = ''
-        errorSpan.classList.remove('active')
-    }
+    resetErrorSpan(event.target)
 
     let handler = event.target.getAttribute('data-change');
 
@@ -314,6 +306,15 @@ function findLabelText(element) {
         labelText = element.parentElement.parentElement.querySelector('legend.label-text')
     }
     return labelText
+}
+
+function resetErrorSpan(element) {
+    const errorSpan = findErrorSpan(element)
+
+    if(errorSpan){
+        errorSpan.textContent = ''
+        errorSpan.classList.remove('active')
+    }
 }
 
 async function updateStore() {
