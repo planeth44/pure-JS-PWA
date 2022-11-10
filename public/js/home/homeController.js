@@ -24,7 +24,7 @@ modelsContainer.addEventListener('click', (event) => {
   eventHandlers[handler](event);
 })
 
-document.addEventListener('message', (event) => {
+document.addEventListener('message', async (event) => {
   const message = event.detail
 
   if (message.type === 'home.update' && message.event == 'sync.ended') {
@@ -33,44 +33,60 @@ document.addEventListener('message', (event) => {
       <p class="user-notification ${message.class}">
       ${message.text}
       </p>`
+
+  }
+
+  if (message.sync == 'to complete'){
+    content().then((shouldSync) => {
+      if(!shouldSync){
+        document.querySelector('.user-notification').innerText = 'Sync completed'
+      }
+    })
   }
 })
+
+content()
 
 /*
  * Functions
  */
 
-Promise.allSettled([
-  getAllPendingFromStore('theModel', 'syncIdx'),
-  getAllPendingFromStore('document', 'syncIdx'),
-  getAllFailedFromStore('theModel', 'syncIdx'),
-  getAllFailedFromStore('document', 'syncIdx')
-]).then((values) => {
+async function content() {
+  return Promise.allSettled([
+    getAllPendingFromStore('theModel', 'syncIdx'),
+    getAllPendingFromStore('document', 'syncIdx'),
+    getAllFailedFromStore('theModel', 'syncIdx'),
+    getAllFailedFromStore('document', 'syncIdx')
+  ]).then((values) => {
 
-  let shouldSync = false
-  let hasFailed = false
+    let shouldSync = false
+    let hasFailed = false
 
-  values.forEach((value) => {
-    if (value.status == 'fulfilled') {
+    values.forEach((value) => {
+      if (value.status == 'fulfilled') {
 
-      if(value.value.includes('failed')){
-        hasFailed = true
+        if(value.value.includes('failed')){
+          hasFailed = true
+        }
+
+        modelsContainer.insertAdjacentHTML('afterbegin', `<p>${value.value}</p>`)
+        shouldSync = true
       }
 
-      modelsContainer.insertAdjacentHTML('afterbegin', `<p>${value.value}</p>`)
-      shouldSync = true
+    })
+    if (shouldSync) {
+      modelsContainer.insertAdjacentHTML('beforeend', `
+        <button data-click="sync">Sync</button>`)
+    }
+    if (hasFailed){
+      modelsContainer.insertAdjacentHTML('beforeend', `
+        <a class="button -link" href="${ROUTES.FAILED}">See failed</a>`)
     }
 
+    return shouldSync
   })
-  if (shouldSync) {
-    modelsContainer.insertAdjacentHTML('beforeend', `
-      <button data-click="sync">Sync</button>`)
-  }
-  if (hasFailed){
-    modelsContainer.insertAdjacentHTML('beforeend', `
-      <a class="button -link" href="${ROUTES.FAILED}">See failed</a>`)
-  }
-})
+}
+
 
 
 async function getAllPendingFromStore(store, syncIdx) {
