@@ -41,7 +41,9 @@ I have aggregated all the knowledge and edge cases I’ve experienced through ma
 
 ## What the app does
 One use that PWAs are good for is line of business mobile app. Think field worker needing to feel a report.
-The conditions of use are often offline.
+The conditions of use are often offline.  
+You could imagine the "form factor" as a tiny back-office for one.  
+This meas that the app does mainly CRUD operations plus a significative one : Syncing to a central serer.
 
 ### Things
 
@@ -69,25 +71,37 @@ This PWA create a “Thing” (think: a report, some data entries). You can atta
   - I wrote a little helper function to get or set a property from control`[name]` as property path
   - this make it possible to have a deeply nested object Thing
 
-## Auto save
-- Auto save is expected in a mobile app,it’s a given
-  - with form control you get a lot of built-in event.
-  I went for the `change` event. It is fired after the value has changed https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
-  - all the data from the form controls are available in formData. But you need to transform formData to a storable object Things. the FormData is not storable as is in indexedDB. 
+## Data binding
+- Auto save is expected in a mobile app,it’s a given  
+This means that you need some sort of data-binding one way or two way depending on your design.  
+
+For some previos PWA in production I experimented with as standalone library : data-tier.  
+It was "kind of" great in that the concept and the docs resonated with what I had in mind.  
+But in use it turned out to be too much for the kind of app I make. The library weight [] and it's quite slow on the initializion phase.  
+I think that the problem is it caters to too many use case thtat don’t apply to what I do.
+
+Thinking about that, I realized that form control give you a lot of built-in events. That would be a good start to implement a rustic data-binding.  
+I went for the `change` event. It is fired after the value has changed https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event
+  - all the values in the form controls are available in formData. But the FormData object is not storable as is in indexedDB, you need to transform it to a storable object.  
   - after a `change` event you want to update the model property from the form control.
-  You can do it with some additional control
-  - you can overide the default updating with `data-change` attribute on the form control element
+  - You can do it with some additional control  
+  it’s possible to overide the default updating with `data-change` attribute on the form control element
     - this let you do some computation on the new value
     - or even set other object property (example in changeHandler)
+
+As the Thing could need an update, I wanted to have a way to update the form controls from a Thing object when the page is loaded.  
+This is done by looping through all the controls.  
+I wrote a formControlUpdater with one method per form control type.  
+This provide the other side of a two way data-binding. Very rustic but only what I need and not more.
 
 #### alternate method
   - alternatively with a simpler mapping, [there is an example from Jake Archibald](https://jakearchibald.com/2021/encoding-data-for-post-requests/#bonus-round-converting-formdata-to-json)
 
 ## Form validation
   - The built-in UI for validation is not always desirable.
-    - form can get long
-    - or we could add form controls along the way
-  - To get a custom validation UI, add the attribute `novalidate` to your form
+    - the form can get long and on a mobile it’s not easy to scroll back to a missing field
+    - another case is adding othe form controls along the way
+  - To make a custom validation UI, add the attribute `novalidate` to your form
   - Validation is called when the `submit` event is fired
   - A list of errors is shown at the top of the page and validation messages are added below the fields
   - When all data is validated, we call a sync to the server
@@ -132,18 +146,13 @@ The code in this repo is the result of all the experiments I ran, and has been b
 The repo has a very rustic back-end server to just respond to api calls(sync)
 
 ## Dependencies
-  - Workbox. Service worker API is very low level
-  It just makes sense to use this library.
-
-  Precache an route are essential to MPA, it saves you from a round trip to the server.
-
-  Only include needed components.
-
-  Not using their backgroundSync component (the use case is too limited).
-  - iDB from Jake Archibald
-
-  very small and worth ten time the footprint
-  
+  - Workbox. Service worker API is very low level  
+  It just makes sense to use this library.  
+  Precache an route are essential to MPA, it saves you from a round trip to the server.  
+  Only include needed components.  
+  Not using their backgroundSync component (the use case is too limited).  
+  - iDB from Jake Archibald  
+  very small and worth ten time the footprint  
   indexedDB is old and asynchronous. This library promisify it and make it easier to work with
   - picnic.css
   - that's all
