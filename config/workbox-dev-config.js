@@ -5,6 +5,8 @@ module.exports = {
   ],
    "globIgnores": [
     "js/vendor/workbox*/workbox-recipes.*",
+    "js/vendor/workbox*/workbox-strategies.*",
+    "js/vendor/workbox*/workbox-streams.*",
     "js/vendor/workbox*/workbox-window.dev.*",
     "js/vendor/workbox*/workbox-background-sync.*",
     "js/vendor/workbox*/workbox-broadcast-update.*",

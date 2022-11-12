@@ -19,10 +19,8 @@ workbox.setConfig({
 })
 
 const {
-  strategies,
   routing,
-  precaching,
-  backgroundSync
+  precaching
 } = workbox;
 
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST)
