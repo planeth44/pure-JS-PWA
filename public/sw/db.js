@@ -65,3 +65,10 @@ async function putToStore(store, record, key=null)
     if (key) args.push(key)
     return await db.put(...args);
 }
+
+async function getKey(key) {
+  return (await dbPromise).get('keyval', key);
+}
+async function setKey(key, val) {
+  return (await dbPromise).put('keyval', val, key);
+}

@@ -2,7 +2,7 @@
 import {openDB } from '../../js/vendor/idb/index.js';
 
 let _db;
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 console.log('APP.DB_VERSION : ', DB_VERSION)
 
 // _db will cache an open IndexedDB connection.
@@ -36,6 +36,9 @@ export const dbPromise = (async () => {
                 documentStore.createIndex('syncIdx', 'syncStatus')
                 documentStore.createIndex('parentUuidIdx', 'parentUuid')
             }
+            if (!v1Db.objectStoreNames.contains('keyval')) {
+                v1Db.createObjectStore('keyval')
+            }
 
         },
         blocked(event) {
@@ -50,3 +53,19 @@ export const dbPromise = (async () => {
     _db = db;
     return db;
 })();
+
+export async function getKey(key) {
+  return (await dbPromise).get('keyval', key);
+}
+export async function setKey(key, val) {
+  return (await dbPromise).put('keyval', val, key);
+}
+export async function delKey(key) {
+  return (await dbPromise).delete('keyval', key);
+}
+export async function clear() {
+  return (await dbPromise).clear('keyval');
+}
+export async function keys() {
+  return (await dbPromise).getAllKeys('keyval');
+}

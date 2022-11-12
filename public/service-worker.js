@@ -67,7 +67,7 @@ self.addEventListener('message', async (event) => {
   if (handler == 'transmitText'){
     event.waitUntil(
       syncHandlers[handler]()
-        .then((sync) => {
+        .then(async (sync) => {
           console.log(sync)
           postMessage({
             event: 'sync.ended',
@@ -75,6 +75,7 @@ self.addEventListener('message', async (event) => {
             sync: sync,
             class: 'success'
           })
+          await setKey('needSync', 0)
         })
       .catch((syncError) => {
         if (syncError.message == "Failed to fetch") { // server is unreachable
@@ -94,12 +95,14 @@ self.addEventListener('message', async (event) => {
           })
         }
       })
+      .finally(async () => {
+        await setKey('lastSyncTimestamp', now())
+      })
     )
   }
   else {
     event.waitUntil(syncHandlers[handler]())
   }
-
 });
 
 if ('sync' in self.registration) {
@@ -110,7 +113,7 @@ if ('sync' in self.registration) {
 
       event.waitUntil(
         syncHandlers.transmitText()
-        .then((sync) => {
+        .then(async (sync) => {
           console.log(sync)
           postMessage({
             event: 'sync.ended',
@@ -118,8 +121,9 @@ if ('sync' in self.registration) {
             sync: sync,
             class: 'success'
           })
+          await setKey('needSync', 0)
         })
-        .catch((syncError) => {
+       .catch((syncError) => {
           // @TODO consider using Web Notification as the app may be in background
           if (event.lastChance) {
             postMessage({
@@ -146,11 +150,17 @@ if ('sync' in self.registration) {
             })
           }
         })
-      )
-    }
-  })
+        .finally(async () => {
+          await setKey('lastSyncTimestamp', now())
+        })
+    )
+  }
+})
 }
 
+function now(){
+  return Math.floor(new Date().getTime() / 1000)
+}
 function postMessage(message)
 {
     return self.clients.matchAll().then(function (clients) {

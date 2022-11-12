@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 import {Workbox} from './vendor/workbox-v6.5.1/workbox-window.prod.mjs';
 import notifyUser from '../js/libs/user-notification.js'
-import isOnline from '../js/libs/isOnline.js'
+import {getKey} from '../db.js'
 
 if (!('randomUUID' in crypto)) {
   // https://stackoverflow.com/a/2117523/2800218
@@ -28,8 +28,9 @@ var APP = {
 
 var wb;
 
-// <!-- register your service Worker -->
-
+/*
+  Registering service worker
+ */
 if ('serviceWorker' in navigator) {
 
   wb = new Workbox('/sw.js', {
@@ -38,14 +39,15 @@ if ('serviceWorker' in navigator) {
   wb.register();
 }
 
+/*
+ * Event listeners
+ */
+
 navigator.serviceWorker.addEventListener("controllerchange", (evt) => {
   console.log("controller changed");
   // this.controller = navigator.serviceWorker.controller;
 })
 
-/*
-  User notification
-*/
 navigator.serviceWorker.addEventListener('message', (event) => {
   const message = event.data
 
@@ -68,6 +70,10 @@ document.addEventListener('message', (event) => {
     notifyUser(event.detail)
   }
 })
+
+/*
+ Functions
+ */
 
 function registerSyncEvent(tag, backupSwMsg) {
   navigator.serviceWorker.getRegistration().then(async registration => {
@@ -113,6 +119,16 @@ function registerSyncEvent(tag, backupSwMsg) {
     }
   })
 
+}
+
+async function shouldSync(){
+
+  const lastSyncTimestamp = await getKey('lastSyncTimestamp')
+  const needSync = await getKey('needSync')
+
+  if (now() - lastSyncTimestamp > 5 * 60 && needSync) {
+    registerSyncEvent('sync-data', 'transmitText')
+  }   
 }
 
 function setMessageType(message) {

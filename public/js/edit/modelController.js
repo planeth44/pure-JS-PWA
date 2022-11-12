@@ -3,7 +3,7 @@ import localISODateTime from '../libs/localISODateTime.js'
 import updateControl from './formControlUpdater.js'
 import {getByPath, setByPath} from '../libs/objectByPath.js'
 import changeHandlers from './changeHandlers.js'
-import {dbPromise} from '../db.js'
+import {dbPromise, setKey} from '../db.js'
 import {APP, wb, registerSyncEvent} from '../app.js'
 
 const now = new Date()
@@ -236,6 +236,8 @@ async function done(event) {
 
         return // not transmitting
     }
+
+    await setKey('needSync', 1)
 
     registerSyncEvent('sync-data', 'transmitText')
 
