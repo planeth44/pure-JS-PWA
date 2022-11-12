@@ -57,8 +57,9 @@ formEl.addEventListener('reset', removeModel)
  * Functions
  */
 
-async function init(){
-    if (!create){
+async function init() {
+
+    if (!create) {
         const instance = await getFromStore('theModel', instanceUuid)
         Object.assign(theModel, instance)
         Object.assign(APP, {
@@ -66,18 +67,35 @@ async function init(){
                 uuid: instance.uuid
             }
         })
+
     } else {
         // case of adding document at the same time as creating the Thing 
 
         instanceUuid = APP.uuid
-        
+
         Object.assign(APP, {
             theModel: {
                 uuid: APP.uuid
             }
         })
     }
+
+    formControls = formEl.querySelectorAll('[name]')
+
     updateControlsFromModel()
+
+    if (!create && theModel.syncStatus == SYNC_STATUS.INVALID_DATA) {
+        const isValid = validateFields()
+
+        if (!isValid) {
+            formErrors.innerHTML = ''
+            formErrors.insertAdjacentHTML(
+                'afterBegin', `
+                Some data is missing or is incorrect
+                ${Array.from(formControlsErrors.entries()).map(entry => `<li>${entry[0]}: ${entry[1]}`).join('')} `
+            )
+        }
+    }
 }
 
 /*
@@ -96,7 +114,6 @@ function updateControlsFromModel() {
     */
 
     // makes sense to use name attribute since it’s mapping to theModel 
-    formControls = formEl.querySelectorAll('[name]')
     formControls.forEach(element => {
 
         const type = camelCaseFormat(element.type)
