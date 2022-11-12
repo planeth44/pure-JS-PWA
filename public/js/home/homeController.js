@@ -33,7 +33,6 @@ document.addEventListener('message', async (event) => {
       <p class="user-notification ${message.class}">
       ${message.text}
       </p>`
-
   }
 
   if (message.sync == 'to complete'){

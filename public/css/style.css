@@ -2,6 +2,7 @@ main{
   padding-top: 3em;
   margin-left: 1em;
   margin-right: 1em;
+  padding-bottom: 3em;
 }
 nav{
   top: auto;
@@ -14,6 +15,10 @@ nav{
 nav a, nav .svg-icon, nav a.pseudo.button {
   color: cornflowerblue;
   fill: cornflowerblue;
+}
+nav a[href="/list"]{
+  font-size: 1.35em;
+  font-variant: all-small-caps;
 }
 nav .burger ~ .menu{
   background-color: cornflowerblue;
