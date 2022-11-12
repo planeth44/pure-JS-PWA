@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 import {Workbox} from './vendor/workbox-v6.5.1/workbox-window.prod.mjs';
 import notifyUser from '../js/libs/user-notification.js'
-import {getKey} from '../db.js'
+import {getKey} from './db.js'
 
 if (!('randomUUID' in crypto)) {
   // https://stackoverflow.com/a/2117523/2800218
