@@ -2,6 +2,7 @@
 /* jshint undef: false */
 importScripts('js/vendor/workbox-v6.5.1/workbox-sw.js');
 importScripts('sw/syncController.js')
+importScripts('sw/renderController.js')
 
 if (workbox) {
   console.log(`Yay! Workbox is loaded 🎉`);
@@ -19,6 +20,7 @@ workbox.setConfig({
 })
 
 const {
+  strategies,
   routing,
   precaching
 } = workbox;
@@ -43,7 +45,11 @@ new routing.registerRoute(new routing.NavigationRoute(
     allowlist: [new RegExp('/show/[a-z0-9-]+')]
   }
 ))
-
+new routing.registerRoute(({url }) => url.pathname == '/list',
+  new strategies.CacheOnly({
+    cacheName: 'lists',
+  })
+);
 
 self.addEventListener('message', async (event) => {
 
@@ -104,6 +110,7 @@ self.addEventListener('message', async (event) => {
       })
       .finally(async () => {
         await setKey('lastSyncTimestamp', now())
+        await renderHandlers.thingsList()
       })
     )
   }
@@ -159,6 +166,7 @@ if ('sync' in self.registration) {
         })
         .finally(async () => {
           await setKey('lastSyncTimestamp', now())
+          await renderHandlers.thingsList()
         })
     )
   }

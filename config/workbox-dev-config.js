@@ -22,12 +22,14 @@ module.exports = {
       '../templates/pages/index.html.twig',
       '../templates/base.html.twig',
     ],
+    '/header': [
+      '../templates/partials/header.html.twig',
+    ],
+    '/footer': [
+      '../templates/partials/footer.html.twig',
+    ],
     '/edit': [
       '../templates/pages/edit.html.twig',
-      '../templates/base.html.twig',
-    ],
-    '/list': [
-      '../templates/pages/list.html.twig',
       '../templates/base.html.twig',
     ],
     '/failed': [

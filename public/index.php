@@ -46,6 +46,26 @@ class Kernel extends BaseKernel
                 'private' => true,
                 ]
             );
+        $routes->add('header', '/header')
+            ->controller(TemplateController::class)
+            ->defaults(
+                [
+                'template'  => 'partials/header.html.twig',
+                'maxAge'    => 86400,
+                'sharedAge' => 86400,
+                'private' => true,
+                ]
+            );
+        $routes->add('footer', '/footer')
+            ->controller(TemplateController::class)
+            ->defaults(
+                [
+                'template'  => 'partials/footer.html.twig',
+                'maxAge'    => 86400,
+                'sharedAge' => 86400,
+                'private' => true,
+                ]
+            );
         $routes->add('edit', '/edit')
             ->controller(TemplateController::class)
             ->defaults(
