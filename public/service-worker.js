@@ -48,25 +48,32 @@ new routing.registerRoute(new routing.NavigationRoute(
 self.addEventListener('message', async (event) => {
 
   console.log(event.data)
-  const handler = event.data.type
+  const method = event.data.type
 
-  if (handler === 'GET_VERSION') {
+  if (method === 'GET_VERSION') {
     event.ports[0].postMessage(SW_VERSION);
     return
   }
-  if (handler === 'IS_SYNC_IN_PROGRESS') {
+  if (method === 'IS_SYNC_IN_PROGRESS') {
     event.ports[0].postMessage(self.syncInProgress)
     return
   }
 
-  if (!handler || !syncHandlers[handler]) {
-    console.error(`no ${handler} or no syncHandlers[${handler}]`)
+
+  if (!method) {
+    console.error(`no ${method}`)
+    return;
+  } else {
+    const handlerMethod = syncHandlers[method] || renderHandlers[handler]
+  }
+  if (handlerMethod === undefined){
+    console.log(`nosyncHandlers[${method}] and no renderHandlers[${method}]`)
     return;
   }
 
-  if (handler == 'transmitText'){
+  if (method == 'transmitText'){
     event.waitUntil(
-      syncHandlers[handler]()
+      syncHandlers[method]()
         .then(async (sync) => {
           console.log(sync)
           postMessage({
@@ -101,7 +108,7 @@ self.addEventListener('message', async (event) => {
     )
   }
   else {
-    event.waitUntil(syncHandlers[handler]())
+    event.waitUntil(handlerMethod())
   }
 });
 
