@@ -23,6 +23,7 @@ document.addEventListener('click', (event) => {
 })
 
 document.addEventListener('DOMContentLoaded', init);
+
 /*
  * Functions
  */
