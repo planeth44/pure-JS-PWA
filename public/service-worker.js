@@ -64,6 +64,9 @@ self.addEventListener('message', async (event) => {
     event.ports[0].postMessage(self.syncInProgress)
     return
   }
+  if (method === 'RENDER_LIST') {
+await renderHandlers.thingsList()
+  }
 
 
   if (!method) {
