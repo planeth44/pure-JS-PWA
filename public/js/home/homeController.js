@@ -36,8 +36,8 @@ document.addEventListener('message', async (event) => {
   }
 
   if (message.sync == 'to complete'){
-    content().then((shouldSync) => {
-      if(!shouldSync){
+    content().then((needdSync) => {
+      if(!needdSync){
         document.querySelector('.user-notification').innerText = 'Sync completed'
       }
     })
@@ -58,7 +58,7 @@ async function content() {
     getAllFailedFromStore('document', 'syncIdx')
   ]).then((values) => {
 
-    let shouldSync = false
+    let needdSync = false
     let hasFailed = false
 
     values.forEach((value) => {
@@ -69,11 +69,11 @@ async function content() {
         }
 
         modelsContainer.insertAdjacentHTML('afterbegin', `<p>${value.value}</p>`)
-        shouldSync = true
+        needdSync = true
       }
 
     })
-    if (shouldSync) {
+    if (needdSync) {
       modelsContainer.insertAdjacentHTML('beforeend', `
         <button data-click="sync">Sync</button>`)
     }
@@ -82,7 +82,7 @@ async function content() {
         <a class="button -link" href="${ROUTES.FAILED}">See failed</a>`)
     }
 
-    return shouldSync
+    return needdSync
   })
 }
 
