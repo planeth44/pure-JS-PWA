@@ -154,6 +154,8 @@ user notification
   padding-left: .5m;
   /*border: 1px solid grey;*/
   border-radius: .5em;
+  transform: translateX(0);
+  transition: all 0.6s ease-out;
 }
 .user-notification.info,
 .label.-status.pending,
@@ -172,6 +174,9 @@ user notification
   position: relative;
   margin: 0;
   padding: 0.3em;
+}
+.user-notification.removing{
+  transform: translateX(calc(100vw + 100px));
 }
 .user-notification .close{
   position: absolute;

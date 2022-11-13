@@ -5,9 +5,9 @@ const UiElement = {}
 /*
  * Templates 
  */
-function userNotifTmpl(message) {
+function userNotifTmpl(message, notifierId) {
   return `
-    <div class="user-notification ${message.class}">
+    <div class="user-notification ${message.class}" id="${notifierId}">
       <p class="content">${message.text}</p>
       <button class="close" title="close notification" data-close-notification>×</button>
     </div>`
@@ -33,13 +33,29 @@ function init() {
 
 export default function notifyUser(message) {
 
-  const notifier = userNotifTmpl(message)
+  const notifierId = now()
+  const delay = message.delay || 8000
+  const notifier = userNotifTmpl(message, notifierId)
 
   UiElement.mainNode.insertAdjacentHTML('afterbegin', notifier)
+
+  setTimeout(() => {
+    const thisEl = document.getElementById(notifierId)
+    if (thisEl){
+      thisEl.classList.add('removing')
+      thisEl.ontransitionend = function(){
+        thisEl.remove()
+      }
+    }
+  }, delay)
 
   window.scrollTo(0, 0)
 }
 
 function dismiss(elt) {
   elt.parentElement.remove()
+}
+
+function now(){
+  return Math.floor(new Date().getTime() / 1000)
 }
