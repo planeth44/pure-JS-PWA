@@ -32,7 +32,7 @@ nav .show:checked ~ .burger > svg{
 @media all and (max-width: 60em) {
   nav .burger ~ .menu,
   nav .show:checked ~ .burger {
-    top: -500px;
+    top: calc(-100vh + 3em);
     bottom: 0;
   }
 }
