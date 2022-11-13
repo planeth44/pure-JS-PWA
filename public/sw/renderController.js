@@ -8,7 +8,7 @@ function thingCardTmpl(m) {
   return `<li class="card">
         <header>${m.title}</header>
         <section>
-          Added the : <span>${m.date}</span>
+          Added the : <span>${m.localDate}</span>
         </section>
         <section class="list-card_status">
           <span class="label -status ${m.syncStatus}">${m.syncStatus}</span>
@@ -20,19 +20,34 @@ function thingCardTmpl(m) {
       </li> `
 }
 
+function listTmpl(cards) {
+  return`
+    <h3>List the things</h3>
+    <ol class="list-container" data-list-container>
+      ${cards}
+    </ol>`
+}
+
 const renderHandlers = {
   thingsList: function() {
     return Promise.all([
         precaching.matchPrecache('/header').then((response) => {
           return response.text()
         }),
-        new Promise((resolve) => setTimeout(() => resolve(buildThingsList()), 0)),
+        getAllThings().then((list) => {
+          const cards = list.reduce((cards, instance) => {
+            instance.localDate = instance.meta.date.toLocaleString()
+            return `${cards} ${thingCardTmpl(instance)}`
+          }, '')
+
+          return listTmpl(cards)
+        }),
         precaching.matchPrecache('/footer').then((response) => {
           return response.text()
         })
       ])
       .then((responses) => {
-        const response =  new Response(responses.join(''), {
+        const response = new Response(responses.join(''), {
           headers: {
             'Content-Type': 'text/html'
           }
@@ -43,31 +58,6 @@ const renderHandlers = {
       })
   }
 }
-
-async function buildThingsList() {
-
-  return getAllThings().then((list) => {
-    console.log(list)
-
-    const cards = []
-
-    list.forEach((instance) => {
-      const m = {}
-      m.uuid = instance.uuid
-      m.title = instance.title
-      m.date = instance.meta.date.toLocaleString()
-      m.syncStatus = instance.syncStatus
-      const card = thingCardTmpl(m)
-      cards.push(card)
-    })
-    return`
-      <h3>List the things</h3>
-      <ol class="list-container" data-list-container>
-        ${cards.join("\n")}
-      </ol>`
-    })
-}
-
 
 /*
     DB OPERATIONS
