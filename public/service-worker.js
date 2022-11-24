@@ -10,12 +10,12 @@ if (workbox) {
   console.log(`Boo! Workbox didn't load 😬`);
 }
 
-const SW_VERSION = '0.0.1';
+const SW_VERSION = '0.1.0'; //2022-11-24 first release
 let syncInProgress = false
 
 workbox.setConfig({
   modulePathPrefix: 'js/vendor/workbox-v6.5.1/',
-  debug: true, // set to false for prod build 
+  debug: false, // set to false for prod build 
   cleanupOutdatedCaches: true
 })
 
