@@ -150,8 +150,10 @@ class Kernel extends BaseKernel
         return new Response();
     }
 
+    // public function newModel(Request $request): Response
     public function newModel(Request $request): JsonResponse
     {
+        // return new Response('<p>some gibberish</p>', 400);
         
         return new JsonResponse(array_column(
                 json_decode($request->getContent(), true), 
@@ -181,17 +183,6 @@ class Kernel extends BaseKernel
         // var_dump($request->request->all());
         // die;
         return new Response('created', 201);
-        // return new JsonResponse([
-        //     'errors' => [
-        //         'textOnlyWithValue' => 'value is not good, refill please',
-        //         'multipleCheckBoxesCheckedAndNotChecked[value1]' => 'value is not good, refill please',
-        //         'radioCheckedAndNotChecked' => 'value is not good, refill please',
-        //         'slectSimple' => 'value is not good, refill please',
-        //     ]
-        // ], 400);
-        // return new Response('
-        // <html><head> <meta charset="UTF-8"> <title> Data Status </title> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link rel="stylesheet" type="text/css" href="./css/style.css"> </head> <body> <header> This is an error header </header> <main> you should see the form with errors added </main> <nav> <ul> <li><a href="/">Home</a></li> <li><a href="create">Create Object</a></li> <li><a href="status">Data status</a></li> </ul> </nav> </body></html> ', 
-        // 400);
     }
 
     public function randomNumber(int $limit): JsonResponse
