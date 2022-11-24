@@ -21,6 +21,9 @@ inject-w:
 build:
 	@workbox injectManifest config/workbox-dev-config.js
 
+readme.textile:
+	@pandoc -f gfm -t textile -o readme.textile readme.md
+
 #quality must remain quiet, as far as it's used in a pre-commit hook validation
 
 quality: sniff dry-fix

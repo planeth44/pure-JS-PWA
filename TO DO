@@ -1,15 +1,36 @@
 --- 2022-10-16 ---
 - [ ] add manifest for installability
-- [ ] consider using Web Notification when background-sync fail the 3 tries 
-  ->  as the app may be in background
-  -> service-worker:96
+--- 20022-11-14 ---
+- [ ] add a pwa-demo.alethgueguen.com to demo the app
 
 ~ UI
 - [ ] debug style for error span
 - [-] Failed page
   - [ ] preview image ??
 
+~ BEHAVIOR
+:LATER:CONSIDER:
+- [ ] Web Notification when background-sync fail the 3 tries 
+  ->  as the app may be in background
+  -> service-worker:96
+:CONSIDER:
+- [ ] transmitFiles as Promise.all(fetch POST)
+- [ ] check if file has been uploaded before trying again
+  - [ ] Compare file date w/ lastSyncTimestamp
+  - [ ] request HEAD for file & check response 200 +content-length
+    `curl --HEAD https://f003.backblazeb2.com/file/navjournal/snark/7aeaaf55-9d3f-45da-b1d9-669e32c57b3b.jp`
+- [ ] Move transmitFile to page and implement XMLHttpREquest to show progress
 ~ DESIGN
+- [ ] extract navbar to partial
+:CONSIDER:
+- [ ] Only edit page
+  => Content is either in edit mode or in show mode
+  => How do we toggle btw the 2 modes
+  => switch input ? longtap ? 
+  => Trello 
+  -> tap on field
+  -> field turn into input
+  -> tap on [done checkmark] at the top when finished / or [X] to cancel
 :NEXT:
 - [-] Syncing / update of theModel [1/5]
   - [X] add a version in theModel
@@ -38,6 +59,7 @@
 
 
 ~ DONE
+- [X] Publish readme as post on aletgueguen.com
 - [X] add an option to clear user-notification after timeout
 - [X] Generate list page after done in edit
   -> Sync happens in @done

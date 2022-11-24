@@ -40,7 +40,7 @@ I have aggregated all the knowledge and edge cases I’ve experienced through ma
   - DB operations in controller
 
 ## What the app does
-One use that PWAs are good for is line of business mobile app. Think field worker needing to feel a report.
+One use that PWAs are good for is line of business mobile app. Think field worker needing to fill a report.
 The conditions of use are often offline.  
 You could imagine the "form factor" as a tiny back-office for one.  
 This meas that the app does mainly CRUD operations plus a significative one : Syncing to a central serer.
@@ -120,6 +120,7 @@ The code in this repo is the result of all the experiments I ran, and has been b
   - either the app or the user must have a way to know what is the state of the sync
   - as of now, the user is responsible for checking the sync state of the Things
   - but we should not rely either on background-sync or user or the service worker starting
+  - I’m testing a mitigation mechanism by storing and checking the sync state for the data.
   
   - files are sent with PUT method in binary form. A `fetch` `body` can be of many flavor. https://developer.mozilla.org/en-US/docs/Web/API/fetch#body including `ArrayBuffer`
     - this is to get around an iOS quirk again. Safari does not support formData.append file in service worker
