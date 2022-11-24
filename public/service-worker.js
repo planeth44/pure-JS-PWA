@@ -48,6 +48,9 @@ new routing.registerRoute(new routing.NavigationRoute(
 new routing.registerRoute(({url }) => url.pathname == '/list',
   new strategies.CacheOnly({
     cacheName: 'lists',
+    plugins: [{
+      handlerDidError: () => renderHandlers.noThings()
+    }]
   })
 );
 
@@ -65,7 +68,7 @@ self.addEventListener('message', async (event) => {
     return
   }
   if (method === 'RENDER_LIST') {
-await renderHandlers.thingsList()
+    await renderHandlers.thingsList()
   }
 
 

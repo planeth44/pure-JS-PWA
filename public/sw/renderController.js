@@ -56,7 +56,28 @@ const renderHandlers = {
           cache.put('/list', response)
         })
       })
-  }
+  },
+  noThings: function() {
+      return Promise.all([
+        precaching.matchPrecache('/header').then((response) => {
+          return response.text()
+        }),
+        new Promise((resolve) => {
+          setTimeout(() => resolve(
+            listTmpl('<li>No Thing added yet 🙄️</li>')), 0)
+        }),
+        precaching.matchPrecache('/footer').then((response) => {
+          return response.text()
+        })
+      ])
+      .then((responses) => {
+        return new Response(responses.join(''), {
+          headers: {
+            'Content-Type': 'text/html'
+          }
+        });
+      })
+    }
 }
 
 /*
