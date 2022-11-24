@@ -116,9 +116,8 @@ quality: sniff dry-fix
 # Specific tasks:
 
 
-check:
+check: vendor/autoload.php
 	@test -d $(RELEASES) || mkdir -p $(RELEASES)
-	vendor/autoload.php
 
 permissions:
 	@chmod -R 775 $(CURRENT)
