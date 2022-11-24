@@ -66,9 +66,8 @@ endif
 vendor/autoload.php:
 	@composer install --no-dev --optimize-autoloader
 	#   sail.navjournal.eu
-	#   export PHP_VERSION=7.4.28
-	#   export PHPRC=~/admin/config/php/php-701533.ini
-	#   export PHPRC=~/admin/config/php/php-695856.ini // test
+	#   export PHP_VERSION=8.1.0
+	#   export PHPRC=~/admin/config/php/php-746038.ini
 
 help:
 	@echo
