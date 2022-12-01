@@ -16,9 +16,10 @@ nav a, nav .svg-icon, nav a.pseudo.button {
   color: cornflowerblue;
   fill: cornflowerblue;
 }
-nav a[href="/list"]{
-  font-size: 1.35em;
-  font-variant: all-small-caps;
+nav a.pseudo.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 nav .burger ~ .menu{
   background-color: cornflowerblue;
