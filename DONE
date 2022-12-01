@@ -1,0 +1,66 @@
+--- 2022-11-25 ---
+
+- [X] add a pwa-demo.alethgueguen.com to demo the app
+- [X] extract navbar to partial
+- [X] Publish readme as post on aletgueguen.com
+- [X] add an option to clear user-notification after timeout
+- [X] Generate list page after done in edit
+  -> Sync happens in @done
+  -> Sync status would change immediately
+  -> Case to consider in case of long list of things
+- [X] app should have a mechanism to try a sync whenever the need is
+  - [X] store a lastSyncTimestamp mechanism to throttle call to sync
+  - [X] store a needSync bool
+  - [X] call a sync whenever both lastRefreshTs && needSync agree
+  - [X] should be a method in app.js
+- [X] Navbar at bottom [home | Things | +] / menu [failed page | create thing]
+- [X] modelController edit mode if invalid_data, call validateFields
+- [-] Failed page
+  - [X] link to parent 
+- [X] Organize functions in modelController
+-> object actions
+-> form / errors management
+- [X] Home page / sync state 
+-> Should recalculate if some object failed to sync
+-> Should show failed objects
+- [X] Do not display error HTML on failed sync/ store in iDB 
+- [X] implement /document/failed view + controller
+- [X] /edit Show message on invalid fields
+- [X] Style error list in edit page
+- [X] Document case of preventing or not sync if invalid local data
+- [X] Do not sync data if invalid
+-> sync state should be 'invalid-data'
+- [X] SyncController : 
+-> Do not throw on error
+-> Cache message or publish user notif
+-> AND CONTINUE TO NEXT
+- [X] Notify or update
+-> App.js should dispatch to home
+-> Homecontroller decides what to do
+- [X] Check for create Thing -> What's the URL See above
+- [X] User message
+-> Go through all & decide where it belongs notify or update
+- [X] postMessage -> Case for update or notify in app.js not SW
+- [X] Decomment catch on fetch 
+  -> Provide for background-sync not available
+- [X] Home page -> add method to check for pending instances
+- [X] Add an action to sync without being in edit page + trigger a 'done'
+- [X] refactor syncStatus values as const in ???
+- [X] Implement background-sync
+- [X] ModelController. Done button should trigger validation. And stop to ask to change if need
+- [X] Display files & photos in /edit/<uuid>
+- [X] ModelController. [4/4]
+  - [X] Cancel button should remove the instance in iDB 
+  - [X] If yes remove associated docs
+  - [X] For now reset clear all the fields but the model is not cleared. 
+  - [X]   Should ask the user if want to clear the model
+- [X] Sync w/ distant server 
+- [X] fileController should have the fileModel at the top
+- [X] style user.notification / should be less present
+- [X] remove all flpwa- classes
+- [X] extract fc to camelCase updateFormControls@method
+- [X] add a /ops route w/ JS only to test & do stuff
+- [X] test offline mode when trying to sync [3/3]
+  - [X] test server off
+  - [X] test server respond with 500
+  - [X] test server respond with 400
