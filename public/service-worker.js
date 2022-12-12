@@ -69,6 +69,7 @@ self.addEventListener('message', async (event) => {
   }
   if (method === 'RENDER_LIST') {
     await renderHandlers.thingsList()
+    return
   }
 
 

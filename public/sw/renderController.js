@@ -8,7 +8,7 @@ function thingCardTmpl(m) {
   return `<li class="card">
         <header>${m.title}</header>
         <section>
-          Added the : <span>${m.localDate}</span>
+          Added the : <span>${m.meta.date.toLocaleString()}</span>
         </section>
         <section class="list-card_status">
           <span class="label -status ${m.syncStatus}">${m.syncStatus}</span>
@@ -20,11 +20,11 @@ function thingCardTmpl(m) {
       </li> `
 }
 
-function listTmpl(cards) {
+function listTmpl(list) {
   return`
     <h3>List the things</h3>
     <ol class="list-container" data-list-container>
-      ${cards}
+      ${list.map((instance) => `${thingCardTmpl(instance)}`)}
     </ol>`
 }
 
@@ -35,12 +35,10 @@ const renderHandlers = {
           return response.text()
         }),
         getAllThings().then((list) => {
-          const cards = list.reduce((cards, instance) => {
-            instance.localDate = instance.meta.date.toLocaleString()
-            return `${cards} ${thingCardTmpl(instance)}`
-          }, '')
-
-          return listTmpl(cards)
+          if (list.length == 0) {
+            list[0] = 'No Thing added yet 🙄️'
+          }
+          return listTmpl(list)
         }),
         precaching.matchPrecache('/footer').then((response) => {
           return response.text()
@@ -52,32 +50,17 @@ const renderHandlers = {
             'Content-Type': 'text/html'
           }
         });
-        caches.open('lists').then((cache) => {
-          cache.put('/list', response)
+        return caches.open('lists').then((cache) => {
+          return cache.put('/list', response)
         })
       })
   },
   noThings: function() {
-      return Promise.all([
-        precaching.matchPrecache('/header').then((response) => {
-          return response.text()
-        }),
-        new Promise((resolve) => {
-          setTimeout(() => resolve(
-            listTmpl('<li>No Thing added yet 🙄️</li>')), 0)
-        }),
-        precaching.matchPrecache('/footer').then((response) => {
-          return response.text()
-        })
-      ])
-      .then((responses) => {
-        return new Response(responses.join(''), {
-          headers: {
-            'Content-Type': 'text/html'
-          }
-        });
-      })
-    }
+    return renderHandlers.thingsList().then(() => {
+      return caches.open('lists')
+      .then((cache) => cache.match('/list'))
+    })
+  }
 }
 
 /*
