@@ -75,6 +75,7 @@ async function content() {
         }
 
         if(value.value.includes('failed')){
+          needSync = true
           hasFailed = true
         }
 
