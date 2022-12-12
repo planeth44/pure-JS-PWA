@@ -18,6 +18,7 @@ class Kernel extends BaseKernel
 
     public function registerBundles(): array
     {
+        // dd($this->getEnvironment());
         return [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -165,7 +166,7 @@ class Kernel extends BaseKernel
     // public function newFile(Request $request): Response
     {
         /*
-        return new Response('<p>some gibberish</p>', 400);
+        return new Response('<p>some html error content</p>', 400);
         return new JsonResponse([], 400);
         return new JsonResponse([], 500);
         */
@@ -197,6 +198,10 @@ class Kernel extends BaseKernel
 }
 
 $kernel = new Kernel('dev', true);
+/*
+    use code below in prod
+    $kernel = new Kernel('prod', false);
+ */
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
