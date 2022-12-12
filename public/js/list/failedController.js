@@ -17,7 +17,7 @@ function thingCardTmpl(m, store) {
         </header>
         <section>
           <pre>
-            ${m.htmlError.stack}
+            ${m.htmlError}
           </pre>
         </section>
         <footer class="list-footer">

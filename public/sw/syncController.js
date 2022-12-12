@@ -6,18 +6,33 @@ importScripts('../js/Constants.js')
 const syncHandlers = {
 
   transmitText: async function() {
- 
+
     const models = await getAllPendingModels()
+
+    let json
 
     if (models.length < 1) {
       return syncHandlers.transmitFile()
     }
 
-    let json
     try {
+
       json = await postModels(models)
-    } catch (postError) {
-      if (postError.message.includes("Failed to fetch")) {
+
+    } catch (syncError) {
+
+      if (syncError instanceof ServerHTMLError ||
+        syncError instanceof ServerError) {
+
+        postMessage({
+          type: 'user.notify',
+          text: syncError.message,
+          class: 'failure'
+        })
+
+        return 'failed'
+      } else { // networkError
+
         postMessage({
           type: 'user.notify',
           text: `We’re offline, sailor ⛵<br>
@@ -30,14 +45,11 @@ const syncHandlers = {
       }
     }
 
-    if (json){
+    if (json) {
       const update = await Promise.allSettled(
-            json.map(async uuid => {
-              return await updateObjectStatus('theModel', uuid, SYNC_STATUS.DONE)
-            })
-          )
+        json.map(async (uuid) => await updateObjectStatus('theModel', uuid, SYNC_STATUS.DONE))
+      )
     }
-
     postMessage({
       type: 'user.notify',
       text: 'Texts upload done',
@@ -45,6 +57,7 @@ const syncHandlers = {
     })
 
     const sync = await syncHandlers.transmitFile()
+
     return sync
   },
 
@@ -116,34 +129,23 @@ async function postModels(models) {
       with information about malformed data and offer to edit and resubmit the Thing
       */
       return response.text().then(async (html) => {
-        postMessage({
-          type: 'user.notify',
-          text: `Trying to upload models<br>
-            But, there was an error:<br>
-            ${html}`,
-          class: 'failure'
-        })
-        /*Not throwing
-         and not updating w/ failed as we don’t know which part/model failed
-          should be decided w/ back-end response
 
-          throw new fetchError(html)
+        throw new ServerHTMLError('', {
+          objectUploaded: 'models',
+          html: html
+        })
+        /* not updating w/ failed as we don’t know which part/model failed
+          should be decided w/ back-end response
          */
       })
     } else {
-
-      postMessage({
-        type: 'user.notify',
-        text: `Trying to upload models<br> But, there was an error:<br>
-          Response was : ${response.statusText}<br>
-          content-type was ${contentType}`,
-        class: 'failure'
+      throw new ServerError('', {
+        contentType: contentType,
+        statusText: response.statusText,
+        objectUploaded: 'models'
       })
     }
   })
-    /*
-      Exception for "Failed to fetch" will be caught in @doSyncFile
-     */
 }
 
 async function doSyncFile(file) {
@@ -151,9 +153,37 @@ async function doSyncFile(file) {
 
   try {
     json = await postFile(file)
-  } catch (postError) {
+  } catch (syncError) {
 
-    if (postError.message.includes("Failed to fetch")) {
+     if (syncError instanceof PutFileHTMLError) {
+
+      await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, syncError.cause.html)
+
+      postMessage({
+          type: 'user.notify',
+          text: syncError.message,
+          class: 'failure'
+        })
+
+      return 'failed'
+    } else if (syncError instanceof ServerError) {
+
+      await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, syncError.message)
+
+      postMessage({
+          type: 'user.notify',
+          text: syncError.message,
+          class: 'failure'
+        })
+
+      return 'failed'
+    } else { //networkError 
+        /*
+        syncError.message.includes("Failed to fetch")
+        can’t check for message content as it’s different in each browser
+        https://github.com/github/fetch/issues/201#issuecomment-308213104
+        // */
+
       postMessage({
         type: 'user.notify',
         text: `We’re offline, sailor ⛵<br>
@@ -163,15 +193,12 @@ async function doSyncFile(file) {
       })
 
       return 'offline'
-    } else {
+    } 
 
-      await updateObjectStatus('document', file.uuid, SYNC_STATUS.FAILED, postError)
-      return 'failed'
-    }
   }
 
   if (json) {
-    const update = await handleFileUploaded(json)
+    const update = await updateObjectStatus('document', json.uuid, SYNC_STATUS.DONE)
     return update //file.uuid
   }
 }
@@ -198,53 +225,69 @@ async function postFile(file) {
 
       } else if (!response.ok && contentType.includes('text/html')) {
 
-        return response.text().then(async (html) => {
+        return response.text().then((html) => {
 
-          postMessage({
-              type: 'user.notify',
-              text: `Trying to upload files ${file.name}<br>
-                    But, there was an error:<br>
-                    <a href="${ROUTES.FAILED}">See failed page</a>`,
-              class: 'failure'
-            })
-          throw new fetchError(html)
+        throw new PutFileHTMLError('', {
+          fileName: file.name,
+          html: html
         })
+      })
       } else {
 
-          postMessage({
-              type: 'user.notify',
-              text: `Trying to upload file<br>
-                    But, there was an error:<br>
-                    Response was : ${response.statusText}<br>
-                    content-type was ${contentType}`,
-              class: 'failure'
-            })
-        throw new fetchError(`
-            Response was : ${response.statusText}<br>
-            content-type was ${contentType}`)
+        throw new ServerError('', {
+            contentType: contentType,
+            statusText: response.statusText,
+            objectUploaded: 'file'
+          })
       }
     })
     /*
-      Exception for "Failed to fetch" will be caught in @doSyncFile
+      Exception for "Failed to fetch" will be intercepted in @doSyncFile
      */
-}
-
-
-async function handleFileUploaded(json) {
-
-  const update = await updateObjectStatus('document', json.uuid, SYNC_STATUS.DONE)
-
-  return update
 }
 
 /*
     Custom ERROR
-    @TO DO make a meaningful error
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#custom_error_types
  */
-class fetchError extends Error {}
+// class ServerError extends Error {}
+
+class PutFileHTMLError extends Error {
+  /*
+    options.fileName  
+    options.html the response error 
+   */
+  constructor(message, options) {
+    // Need to pass `options` as the second parameter to install the "cause" property.
+    super(message, {cause: options});
+    this.message = `Trying to upload files ${options.fileName}<br>
+                    But, there was an error:<br>
+                    <a href="${ROUTES.FAILED}">See failed page</a>`
+  }
+}
+class ServerHTMLError extends Error {
+  constructor(message, options) {
+
+    super(message, options);
+    this.message = `Trying to upload ${options.objectUploaded}<br>
+                    But, there was an error:<br>
+                    ${options.html}`
+  }
+}
+
+class ServerError extends Error {
+  constructor(message, options) {
+
+    super(message, options);
+    this.message = `Trying to upload ${options.objectUploaded}<br>
+                    But, there was an error:<br>
+                    Response was : ${options.statusText}<br>
+                    content-type was ${options.contentType}`
+  }
+}
 
 
-/*
+/* @TO DO resize & cache photos https://stackoverflow.com/a/53986239
 async function cachePhoto(res) {
 
   const db = await dbPromise
