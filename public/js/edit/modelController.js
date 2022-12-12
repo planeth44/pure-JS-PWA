@@ -96,6 +96,11 @@ async function init() {
             )
         }
     }
+
+    /*
+    Remove cache, some value may be stalled
+     */
+    caches.open('lists').then(cache => cache.delete('/list'))
 }
 
 /*
