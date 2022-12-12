@@ -53,36 +53,52 @@ content()
 async function content() {
   return Promise.allSettled([
     getAllPendingFromStore('theModel', 'syncIdx'),
+    getAllInvalidFromStore('theModel', 'syncIdx'),
     getAllPendingFromStore('document', 'syncIdx'),
     getAllFailedFromStore('theModel', 'syncIdx'),
     getAllFailedFromStore('document', 'syncIdx')
   ]).then((values) => {
 
-    let needdSync = false
+    let needSync = false
+    let hasInvalid = false
     let hasFailed = false
 
     values.forEach((value) => {
       if (value.status == 'fulfilled') {
+
+        if(value.value.includes('pending')){
+          needSync = true
+        }
+
+        if(value.value.includes('invalid')){
+          hasInvalid = true
+        }
 
         if(value.value.includes('failed')){
           hasFailed = true
         }
 
         modelsContainer.insertAdjacentHTML('afterbegin', `<p>${value.value}</p>`)
-        needdSync = true
       }
 
     })
-    if (needdSync) {
+    if (needSync) {
       modelsContainer.insertAdjacentHTML('beforeend', `
         <button data-click="sync">Sync</button>`)
+    }
+    /*
+    @TODO implement list filtering for thing w/ invalid_data status
+     */
+    if (hasInvalid) {
+      modelsContainer.insertAdjacentHTML('beforeend', `
+        <a class="button -link" href="${ROUTES.LIST}">See list</a>`)
     }
     if (hasFailed){
       modelsContainer.insertAdjacentHTML('beforeend', `
         <a class="button -link" href="${ROUTES.FAILED}">See failed</a>`)
     }
 
-    return needdSync
+    return needSync
   })
 }
 
@@ -100,6 +116,17 @@ async function getAllPendingFromStore(store, syncIdx) {
   }
 
   return `${count} object pending from ${store}`
+}
+
+async function getAllInvalidFromStore(store, syncIdx) {
+  const db = await dbPromise
+  const count = await db.countFromIndex(store, syncIdx, SYNC_STATUS.INVALID_DATA)
+
+  if (count == 0) {
+    throw new Error(count)
+  }
+
+  return `${count} object invalid from ${store}`
 }
 
 async function getAllFailedFromStore(store, syncIdx) {
