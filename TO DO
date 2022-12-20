@@ -12,6 +12,7 @@
 ~ BEHAVIOR
 - [ ] transmitFiles as Promise.all(fetch POST) {{SYNC w/ Background-fetch}} {1}
 - [ ] Only edit page
+  => no invalidate state on create
   => Content is either in edit mode or in show mode
   => How do we toggle btw the 2 modes
   => switch input ? longtap ? 
@@ -47,6 +48,7 @@
 
 ~ REFACTOR
 :LATER:CONSIDER:
+- [ ] refactor fetch [[https://code.larlet.fr/javascript-fetch/#verifier-la-nature-de-la-reponse-derreur-dune-api]] and further
 - [ ] refactor syncController. Extract call to fetch to its own method
    Catch a 401 [[https://github.com/github/fetch/issues/201#issuecomment-308213104]]
    [[https://web.dev/fetch-api-error-handling/]]
